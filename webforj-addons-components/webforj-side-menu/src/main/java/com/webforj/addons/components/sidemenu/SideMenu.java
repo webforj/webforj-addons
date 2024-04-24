@@ -1,0 +1,274 @@
+package com.webforj.addons.components.sidemenu;
+
+import com.google.gson.annotations.SerializedName;
+import com.webforj.component.element.ElementComposite;
+import com.webforj.component.element.PropertyDescriptor;
+import com.webforj.component.element.annotation.NodeName;
+import com.webforj.concern.*;
+
+import java.util.*;
+
+/**
+ * A Side Menu component designed for webforj. The {@code SideMenu}
+ * facilitates navigation through hierarchical structures of pages or sections within
+ * an application. It offers customization options, allowing developers to adjust the
+ * menu's appearance, behavior, and content to suit specific application requirements.
+ * <p>
+ * Key features include support for favoriting items, reordering sections, and
+ * displaying selected sections. Developers can also customize icons and enable
+ * search functionality to enhance user navigation experiences.
+ *</p>
+ * <p>
+ * The {@code SideMenu} is particularly useful in applications where efficient
+ * navigation between different pages or sections is essential. It provides a
+ * flexible and intuitive means of organizing and accessing application
+ * features, contributing to a seamless user experience.
+ * </p>
+ *
+ * @since 1.00
+ * @author ElyasSalar
+ */
+@NodeName("dwc-side-menu")
+public class SideMenu extends ElementComposite {
+
+  /**
+   * Enum representing {@code sections} in a side menu component. These are the
+   * possible valid values user can set to the {@code sections} which will
+   * define visibility and the order of the {@code sections}.
+   *
+   * <pre>{@code
+   * SideMenu sideMenu = new SideMenu();
+   *
+   * // this will show favorites first and then the items
+   * sideMenu.setSections(SideMenu.Section.FAVORITES, SideMenu.Section.ITEMS);
+   *
+   * // this will only render the items
+   * sideMenu.setSections(SideMenu.Section.ITEMS);
+   * }</pre>
+   */
+  public enum Section {
+    /**
+     * This section contains items available in the side menu.
+     */
+    @SerializedName("items")
+    ITEMS,
+
+    /**
+     * This section contains favorite items that users have marked.
+     */
+    @SerializedName("favorites")
+    FAVORITES;
+  }
+
+  /**
+   * Property for the icon displayed when an item is marked as a favorite.
+   */
+  private final PropertyDescriptor<String> favoriteFilledIconProp =
+    PropertyDescriptor.property("favoriteFilledIcon", "tabler:star-filled");
+
+  /**
+   * Property for the icon displayed when an item is not marked as a favorite.
+   */
+  private final PropertyDescriptor<String> favoriteIconProp =
+    PropertyDescriptor.property("favoriteIcon", "tabler:star");
+
+  /**
+   * Property for the icon displayed for links that open in a new tab.
+   */
+  private final PropertyDescriptor<String> newTabIconProp =
+    PropertyDescriptor.property("newTabIcon", "chevron-right");
+
+  /**
+   * Property for the placeholder text in the search input.
+   */
+  private final PropertyDescriptor<String> placeholderProp =
+    PropertyDescriptor.property("placeholder", "search");
+
+  /**
+   * Property for the initial search term in the search input.
+   */
+  private final PropertyDescriptor<String> searchTermProp =
+    PropertyDescriptor.property("searchTerm", "");
+
+  /**
+   * Property for defining the sections displayed in the side menu.
+   */
+  private final PropertyDescriptor<String> sectionsProp =
+    PropertyDescriptor.property("sections", "items, favorites");
+
+  /**
+   * Property for the initially selected item in the side menu.
+   */
+  private final PropertyDescriptor<String> selectedProp =
+    PropertyDescriptor.property("selected", "");
+
+  /**
+   * Property for the list of items to be displayed in the side menu.
+   */
+  private final PropertyDescriptor<List<Item>> itemsProp =
+    PropertyDescriptor.property("items", new ArrayList<>());
+
+  // events goes here
+
+  /**
+   * Gets the icon displayed when an item is marked as a favorite.
+   * @return The icon displayed when an item is marked as a favorite.
+   */
+  public String getFavoriteFilledIcon() {
+    return super.get(favoriteFilledIconProp);
+  }
+
+  /**
+   * Sets the icon displayed when an item is marked as a favorite.
+   * @param favoriteFilledIcon The icon displayed when an item is marked as a favorite.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setFavoriteFilledIcon(String favoriteFilledIcon) {
+    super.set(favoriteFilledIconProp, favoriteFilledIcon);
+    return this;
+  }
+
+  /**
+   * Gets the icon displayed when an item is not marked as a favorite.
+   * @return The icon displayed when an item is not marked as a favorite.
+   */
+  public String getFavoriteIcon() {
+    return super.get(favoriteIconProp);
+  }
+
+  /**
+   * Sets the icon displayed when an item is not marked as a favorite.
+   * @param favoriteIcon The icon displayed when an item is not marked as a favorite.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setFavoriteIcon(String favoriteIcon) {
+    super.set(favoriteIconProp, favoriteIcon);
+    return this;
+  }
+
+  /**
+   * Gets the icon displayed for links that open in a new tab.
+   * @return The icon displayed for links that open in a new tab.
+   */
+  public String getNewTabIcon() {
+    return super.get(newTabIconProp);
+  }
+
+  /**
+   * Sets the icon displayed for links that open in a new tab.
+   * @param newTabIcon The icon displayed for links that open in a new tab.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setNewTabIcon(String newTabIcon) {
+    super.set(newTabIconProp, newTabIcon);
+    return this;
+  }
+
+  /**
+   * Gets the placeholder text in the search input.
+   * @return The placeholder text in the search input.
+   */
+  public String getPlaceholder() {
+    return super.get(placeholderProp);
+  }
+
+  /**
+   * Sets the placeholder text in the search input.
+   * @param placeholder The placeholder text in the search input.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setPlaceholder(String placeholder) {
+    super.set(placeholderProp, placeholder);
+    return this;
+  }
+
+  /**
+   * Gets the initial search term in the search input.
+   * @return The initial search term in the search input.
+   */
+  public String getSearchTerm() {
+    return super.get(searchTermProp);
+  }
+
+  /**
+   * Sets the initial search term in the search input.
+   * @param searchTerm The initial search term in the search input.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setSearchTerm(String searchTerm) {
+    super.set(searchTermProp, searchTerm);
+    return this;
+  }
+
+  /**
+   * Gets the sections displayed in the side menu.
+   * @return The sections displayed in the side menu.
+   */
+  public String getSections() {
+    return super.get(sectionsProp);
+  }
+
+  /**
+   * Sets the sections to define visibility and order in the side menu component.
+   * Users can pass enum values to set the sections. The sections are concatenated
+   * and separated by a comma.
+   *
+   * @param sections The sections displayed in the side menu.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setSections(Section... sections) {
+    Set<Section> uniqueSections = new HashSet<>(Arrays.asList(sections));
+
+    if (uniqueSections.size() > Section.values().length) {
+      throw new IllegalArgumentException("Number of sections exceeds the number of enum values.");
+    }
+
+    StringBuilder concatenatedSections = new StringBuilder();
+    for (Section section : uniqueSections) {
+      if (!concatenatedSections.isEmpty()) {
+        concatenatedSections.append(", ");
+      }
+      concatenatedSections.append(section.name());
+    }
+
+    super.set(sectionsProp, concatenatedSections.toString());
+    return this;
+  }
+
+  /**
+   * Gets the selected item in the side menu.
+   * @return The selected item in the side menu.
+   */
+  public String getSelected() {
+    return super.get(selectedProp);
+  }
+
+  /**
+   * Sets the selected item in the side menu.
+   * @param selected The selected item in the side menu.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setSelected(String selected) {
+    super.set(selectedProp, selected);
+    return this;
+  }
+
+  /**
+   * Gets the list of items to be displayed in the side menu.
+   * @return The list of items to be displayed in the side menu.
+   */
+  public List<Item> getItems() {
+    return super.get(itemsProp);
+  }
+
+  /**
+   * Sets the list of items to be displayed in the side menu.
+   * @param items The list of items to be displayed in the side menu.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setItems(List<Item> items) {
+    super.set(itemsProp, items);
+    return this;
+  }
+
+}
