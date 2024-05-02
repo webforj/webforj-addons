@@ -1,9 +1,13 @@
 package com.webforj.addons.components.sidemenu;
 
 import com.google.gson.annotations.SerializedName;
+import com.webforj.addons.components.sidemenu.events.ChangedEvent;
+import com.webforj.addons.components.sidemenu.events.SearchedEvent;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
 import com.webforj.component.element.annotation.NodeName;
+import com.webforj.dispatcher.EventListener;
+import com.webforj.dispatcher.ListenerRegistration;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -88,10 +92,17 @@ public class SideMenu extends ElementComposite {
     PropertyDescriptor.property("placeholder", "search");
 
   /**
-   * Property for the initial search term in the search input.
+   * Property for the search term in the search input.
    */
   private final PropertyDescriptor<String> searchTermProp =
     PropertyDescriptor.property("searchTerm", "");
+
+  /**
+   * Translation object for the static texts to enable passing translations
+   * keys for multilingual functionality
+   */
+  private final PropertyDescriptor<SideMenuI18n> i18nProp =
+    PropertyDescriptor.property("i18n", null);
 
   /**
    * Property for defining the sections displayed in the side menu.
@@ -111,7 +122,27 @@ public class SideMenu extends ElementComposite {
   private final PropertyDescriptor<List<Item>> itemsProp =
     PropertyDescriptor.property("items", new ArrayList<>());
 
-  // events goes here
+  /**
+   * Adds a listener for the changed event, which is triggered when item selection changed.
+   *
+   * @param listener The event listener to add.
+   * @return A registration object that can be used to unregister the listener if needed.
+   */
+  public ListenerRegistration<ChangedEvent> addChangedListener(
+    EventListener<ChangedEvent> listener) {
+    return this.addEventListener(ChangedEvent.class, listener);
+  }
+
+  /**
+   * Adds a listener for the searched event, which is triggered when a search made for an item.
+   *
+   * @param listener The event listener to add.
+   * @return A registration object that can be used to unregister the listener if needed.
+   */
+  public ListenerRegistration<SearchedEvent> addSearchedListener(
+    EventListener<SearchedEvent> listener) {
+    return this.addEventListener(SearchedEvent.class, listener);
+  }
 
   /**
    * Gets the icon displayed when an item is marked as a favorite.
@@ -187,19 +218,37 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the initial search term in the search input.
-   * @return The initial search term in the search input.
+   * @return The search term in the search input.
    */
   public String getSearchTerm() {
     return super.get(searchTermProp);
   }
 
   /**
-   * Sets the initial search term in the search input.
+   * Sets the search term in the search input.
    * @param searchTerm The initial search term in the search input.
    * @return The updated instance of the side menu.
    */
   public SideMenu setSearchTerm(String searchTerm) {
     super.set(searchTermProp, searchTerm);
+    return this;
+  }
+
+  /**
+   * Gets the translation object for static texts.
+   * @return The translation object of the current static texts.
+   */
+  public SideMenuI18n getI18n() {
+    return super.get(i18nProp);
+  }
+
+  /**
+   * Sets the translation object for static texts.
+   * @param i18n The new translation object for the static texts.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setI18n(SideMenuI18n i18n) {
+    super.set(i18nProp, i18n);
     return this;
   }
 
@@ -273,5 +322,4 @@ public class SideMenu extends ElementComposite {
     super.set(itemsProp, items);
     return this;
   }
-
 }
