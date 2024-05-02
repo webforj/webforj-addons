@@ -19,14 +19,14 @@ public class SideMenuI18n {
   private String favorites = "Favorites";
 
   /**
-   * The text displayed when no items are found in the items section after
-   * a search in {@link SideMenu}.
+   * The text displayed when no items are found in the items section after a search in
+   * {@link SideMenu}.
    */
   private String noItemFound = "No items found";
 
   /**
-   * The text displayed when no favorite items are found in the favorites
-   * section after a search in {@link SideMenu}.
+   * The text displayed when no favorite items are found in the favorites section after a search in
+   * {@link SideMenu}.
    */
   private String noFavoriteItemFound = "No favorite items found";
 

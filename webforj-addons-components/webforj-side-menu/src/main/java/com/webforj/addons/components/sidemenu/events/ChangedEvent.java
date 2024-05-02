@@ -15,10 +15,8 @@ import java.util.Map;
  * @author @ElyasSalar
  */
 @EventName("dwc-changed")
-@EventOptions(data = {
-  @EventOptions.EventData(key = "selected", exp = "event.detail.selected"),
-  @EventOptions.EventData(key = "deselected", exp = "event.detail.deselected"),
-})
+@EventOptions(data = {@EventOptions.EventData(key = "selected", exp = "event.detail.selected"),
+    @EventOptions.EventData(key = "deselected", exp = "event.detail.deselected"),})
 public class ChangedEvent extends ComponentEvent<SideMenu> {
 
   /**

@@ -15,9 +15,7 @@ import java.util.Map;
  * @author @ElyasSalar
  */
 @EventName("dwc-searched")
-@EventOptions(data = {
-  @EventOptions.EventData(key = "detail", exp = "event.detail"),
-})
+@EventOptions(data = {@EventOptions.EventData(key = "detail", exp = "event.detail"),})
 public class SearchedEvent extends ComponentEvent<SideMenu> {
 
   /**

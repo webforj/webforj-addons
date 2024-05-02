@@ -26,13 +26,14 @@
 
   <modules>
     <module>webforj-side-menu</module>
+    <module>webforj-suggestion-edit</module>
   </modules>
 
   <dependencies>
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-foundation</artifactId>
-      <version>24.00-SNAPSHOT</version>
+      <version>24.01</version>
     </dependency>
   </dependencies>
 </project>

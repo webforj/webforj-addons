@@ -16,20 +16,19 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * A Side Menu component designed for webforj. The {@code SideMenu}
- * facilitates navigation through hierarchical structures of pages or sections within
- * an application. It offers customization options, allowing developers to adjust the
- * menu's appearance, behavior, and content to suit specific application requirements.
+ * A Side Menu component designed for webforj. The {@code SideMenu} facilitates navigation through
+ * hierarchical structures of pages or sections within an application. It offers customization
+ * options, allowing developers to adjust the menu's appearance, behavior, and content to suit
+ * specific application requirements.
  * <p>
- * Key features include support for favoriting items, reordering sections, and
- * displaying selected sections. Developers can also customize icons and enable
- * search functionality to enhance user navigation experiences.
- *</p>
+ * Key features include support for favoriting items, reordering sections, and displaying selected
+ * sections. Developers can also customize icons and enable search functionality to enhance user
+ * navigation experiences.
+ * </p>
  * <p>
- * The {@code SideMenu} is particularly useful in applications where efficient
- * navigation between different pages or sections is essential. It provides a
- * flexible and intuitive means of organizing and accessing application
- * features, contributing to a seamless user experience.
+ * The {@code SideMenu} is particularly useful in applications where efficient navigation between
+ * different pages or sections is essential. It provides a flexible and intuitive means of
+ * organizing and accessing application features, contributing to a seamless user experience.
  * </p>
  *
  * @since 1.00
@@ -39,19 +38,9 @@ import java.util.HashSet;
 public class SideMenu extends ElementComposite {
 
   /**
-   * Enum representing {@code sections} in a side menu component. These are the
-   * possible valid values user can set to the {@code sections} which will
-   * define visibility and the order of the {@code sections}.
-   *
-   * <pre>{@code
-   * SideMenu sideMenu = new SideMenu();
-   *
-   * // this will show favorites first and then the items
-   * sideMenu.setSections(SideMenu.Section.FAVORITES, SideMenu.Section.ITEMS);
-   *
-   * // this will only render the items
-   * sideMenu.setSections(SideMenu.Section.ITEMS);
-   * }</pre>
+   * Enum representing {@code sections} in a side menu component. These are the possible valid
+   * values user can set to the {@code sections} which will define visibility and the order of the
+   * {@code sections}.
    */
   public enum Section {
     /**
@@ -71,56 +60,56 @@ public class SideMenu extends ElementComposite {
    * Property for the icon displayed when an item is marked as a favorite.
    */
   private final PropertyDescriptor<String> favoriteFilledIconProp =
-    PropertyDescriptor.property("favoriteFilledIcon", "tabler:star-filled");
+      PropertyDescriptor.property("favoriteFilledIcon", "tabler:star-filled");
 
   /**
    * Property for the icon displayed when an item is not marked as a favorite.
    */
   private final PropertyDescriptor<String> favoriteIconProp =
-    PropertyDescriptor.property("favoriteIcon", "tabler:star");
+      PropertyDescriptor.property("favoriteIcon", "tabler:star");
 
   /**
    * Property for the icon displayed for links that open in a new tab.
    */
   private final PropertyDescriptor<String> newTabIconProp =
-    PropertyDescriptor.property("newTabIcon", "chevron-right");
+      PropertyDescriptor.property("newTabIcon", "chevron-right");
 
   /**
    * Property for the placeholder text in the search input.
    */
   private final PropertyDescriptor<String> placeholderProp =
-    PropertyDescriptor.property("placeholder", "search");
+      PropertyDescriptor.property("placeholder", "search");
 
   /**
    * Property for the search term in the search input.
    */
   private final PropertyDescriptor<String> searchTermProp =
-    PropertyDescriptor.property("searchTerm", "");
+      PropertyDescriptor.property("searchTerm", "");
 
   /**
-   * Translation object for the static texts to enable passing translations
-   * keys for multilingual functionality
+   * Translation object for the static texts to enable passing translations keys for multilingual
+   * functionality
    */
   private final PropertyDescriptor<SideMenuI18n> i18nProp =
-    PropertyDescriptor.property("i18n", null);
+      PropertyDescriptor.property("i18n", null);
 
   /**
    * Property for defining the sections displayed in the side menu.
    */
   private final PropertyDescriptor<String> sectionsProp =
-    PropertyDescriptor.property("sections", "items, favorites");
+      PropertyDescriptor.property("sections", "items, favorites");
 
   /**
    * Property for the initially selected item in the side menu.
    */
   private final PropertyDescriptor<String> selectedProp =
-    PropertyDescriptor.property("selected", "");
+      PropertyDescriptor.property("selected", "");
 
   /**
    * Property for the list of items to be displayed in the side menu.
    */
   private final PropertyDescriptor<List<Item>> itemsProp =
-    PropertyDescriptor.property("items", new ArrayList<>());
+      PropertyDescriptor.property("items", new ArrayList<>());
 
   /**
    * Adds a listener for the changed event, which is triggered when item selection changed.
@@ -129,7 +118,7 @@ public class SideMenu extends ElementComposite {
    * @return A registration object that can be used to unregister the listener if needed.
    */
   public ListenerRegistration<ChangedEvent> addChangedListener(
-    EventListener<ChangedEvent> listener) {
+      EventListener<ChangedEvent> listener) {
     return this.addEventListener(ChangedEvent.class, listener);
   }
 
@@ -140,12 +129,13 @@ public class SideMenu extends ElementComposite {
    * @return A registration object that can be used to unregister the listener if needed.
    */
   public ListenerRegistration<SearchedEvent> addSearchedListener(
-    EventListener<SearchedEvent> listener) {
+      EventListener<SearchedEvent> listener) {
     return this.addEventListener(SearchedEvent.class, listener);
   }
 
   /**
    * Gets the icon displayed when an item is marked as a favorite.
+   *
    * @return The icon displayed when an item is marked as a favorite.
    */
   public String getFavoriteFilledIcon() {
@@ -154,6 +144,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the icon displayed when an item is marked as a favorite.
+   *
    * @param favoriteFilledIcon The icon displayed when an item is marked as a favorite.
    * @return The updated instance of the side menu.
    */
@@ -164,6 +155,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the icon displayed when an item is not marked as a favorite.
+   *
    * @return The icon displayed when an item is not marked as a favorite.
    */
   public String getFavoriteIcon() {
@@ -172,6 +164,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the icon displayed when an item is not marked as a favorite.
+   *
    * @param favoriteIcon The icon displayed when an item is not marked as a favorite.
    * @return The updated instance of the side menu.
    */
@@ -182,6 +175,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the icon displayed for links that open in a new tab.
+   *
    * @return The icon displayed for links that open in a new tab.
    */
   public String getNewTabIcon() {
@@ -190,6 +184,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the icon displayed for links that open in a new tab.
+   *
    * @param newTabIcon The icon displayed for links that open in a new tab.
    * @return The updated instance of the side menu.
    */
@@ -200,6 +195,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the placeholder text in the search input.
+   *
    * @return The placeholder text in the search input.
    */
   public String getPlaceholder() {
@@ -208,6 +204,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the placeholder text in the search input.
+   *
    * @param placeholder The placeholder text in the search input.
    * @return The updated instance of the side menu.
    */
@@ -218,6 +215,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the initial search term in the search input.
+   *
    * @return The search term in the search input.
    */
   public String getSearchTerm() {
@@ -226,6 +224,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the search term in the search input.
+   *
    * @param searchTerm The initial search term in the search input.
    * @return The updated instance of the side menu.
    */
@@ -236,6 +235,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the translation object for static texts.
+   *
    * @return The translation object of the current static texts.
    */
   public SideMenuI18n getI18n() {
@@ -244,6 +244,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the translation object for static texts.
+   *
    * @param i18n The new translation object for the static texts.
    * @return The updated instance of the side menu.
    */
@@ -254,6 +255,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the sections displayed in the side menu.
+   *
    * @return The sections displayed in the side menu.
    */
   public String getSections() {
@@ -261,9 +263,8 @@ public class SideMenu extends ElementComposite {
   }
 
   /**
-   * Sets the sections to define visibility and order in the side menu component.
-   * Users can pass enum values to set the sections. The sections are concatenated
-   * and separated by a comma.
+   * Sets the sections to define visibility and order in the side menu component. Users can pass
+   * enum values to set the sections. The sections are concatenated and separated by a comma.
    *
    * @param sections The sections displayed in the side menu.
    * @return The updated instance of the side menu.
@@ -289,6 +290,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the selected item in the side menu.
+   *
    * @return The selected item in the side menu.
    */
   public String getSelected() {
@@ -297,6 +299,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the selected item in the side menu.
+   *
    * @param selected The selected item in the side menu.
    * @return The updated instance of the side menu.
    */
@@ -307,6 +310,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Gets the list of items to be displayed in the side menu.
+   *
    * @return The list of items to be displayed in the side menu.
    */
   public List<Item> getItems() {
@@ -315,6 +319,7 @@ public class SideMenu extends ElementComposite {
 
   /**
    * Sets the list of items to be displayed in the side menu.
+   *
    * @param items The list of items to be displayed in the side menu.
    * @return The updated instance of the side menu.
    */
