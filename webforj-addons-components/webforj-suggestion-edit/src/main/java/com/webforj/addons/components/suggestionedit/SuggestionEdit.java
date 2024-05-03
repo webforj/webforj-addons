@@ -300,7 +300,7 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the "autofocus" property, indicating whether the input field
+   * Retrieves the current value of the {@code autofocus} property, indicating whether the input field
    * should automatically receive focus when the component is rendered.
    *
    * @return {@code true} if autofocus is enabled, {@code false} otherwise.

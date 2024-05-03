@@ -27,6 +27,7 @@
   <modules>
     <module>webforj-side-menu</module>
     <module>webforj-suggestion-edit</module>
+      <module>webforj-multi-select-combo</module>
   </modules>
 
   <dependencies>
