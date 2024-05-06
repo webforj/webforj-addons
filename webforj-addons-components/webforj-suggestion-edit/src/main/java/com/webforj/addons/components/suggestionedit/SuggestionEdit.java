@@ -300,8 +300,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code autofocus} property, indicating whether the input field
-   * should automatically receive focus when the component is rendered.
+   * Retrieves the current value of the {@code autofocus} property, indicating whether the input
+   * field should automatically receive focus when the component is rendered.
    *
    * @return {@code true} if autofocus is enabled, {@code false} otherwise.
    */
@@ -321,8 +321,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code blurOnSelection} property, indicating whether the input
-   * field should automatically lose focus when a suggestion is selected.
+   * Retrieves the current value of the {@code blurOnSelection} property, indicating whether the
+   * input field should automatically lose focus when a suggestion is selected.
    *
    * @return {@code true} if blurring on selection is enabled, {@code false} otherwise.
    */
@@ -344,8 +344,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code clearWithEscape} property, indicating whether the input
-   * field should be cleared when the Escape key is pressed.
+   * Retrieves the current value of the {@code clearWithEscape} property, indicating whether the
+   * input field should be cleared when the Escape key is pressed.
    *
    * @return {@code true} if clearing with Escape is enabled, {@code false} otherwise.
    */
@@ -366,8 +366,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code clearable} property, indicating whether the input field
-   * should show cross icon for clearing the input value (i.e., have a clear icon button).
+   * Retrieves the current value of the {@code clearable} property, indicating whether the input
+   * field should show cross icon for clearing the input value (i.e., have a clear icon button).
    *
    * @return {@code true} if the input field is shows a cross icon, {@code false} otherwise.
    */
@@ -389,8 +389,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code openOnFocus} property, indicating whether the suggestion
-   * list should automatically open when the input field gains focus. Assuming there are
+   * Retrieves the current value of the {@code openOnFocus} property, indicating whether the
+   * suggestion list should automatically open when the input field gains focus. Assuming there are
    * {@code suggestions} set
    *
    * @return {@code true} if opening on focus is enabled, {@code false} otherwise.
@@ -411,8 +411,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code disabled} property, indicating whether the input field is
-   * disabled.
+   * Retrieves the current value of the {@code disabled} property, indicating whether the input
+   * field is disabled.
    *
    * @return {@code true} if the input field is disabled, {@code false} otherwise.
    */
@@ -432,8 +432,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code distance} property, which represents distance in pixel from
-   * the input to the suggestions list.
+   * Retrieves the current value of the {@code distance} property, which represents distance in
+   * pixel from the input to the suggestions list.
    *
    * @return The distance value.
    */
@@ -453,8 +453,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value {@link Expanse} of the {@code expanse} property, indicating the control's
-   * expanse.
+   * Retrieves the current value {@link Expanse} of the {@code expanse} property, indicating the
+   * control's expanse.
    *
    * @return The expanse value.
    */
@@ -474,8 +474,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value {@link HighlightBehaviours} of the {@code highlightBehaviours} property,
-   * indicating the possible behaviors for highlighting input value.
+   * Retrieves the current value {@link HighlightBehaviours} of the {@code highlightBehaviours}
+   * property, indicating the possible behaviors for highlighting input value.
    *
    * @return The list of highlight behaviors.
    */
@@ -495,8 +495,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code label} property, which represents the label of the input
-   * field.
+   * Retrieves the current value of the {@code label} property, which represents the label of the
+   * input field.
    *
    * @return The label of the input field.
    */
@@ -516,8 +516,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code maxRowCount} property, which represents the maximum number
-   * of suggestions to display.
+   * Retrieves the current value of the {@code maxRowCount} property, which represents the maximum
+   * number of suggestions to display.
    *
    * @return The maximum number of suggestions to display.
    */
@@ -579,8 +579,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code name} property, which represents the name of the input
-   * field.
+   * Retrieves the current value of the {@code name} property, which represents the name of the
+   * input field.
    *
    * @return The name of the input field.
    */
@@ -600,8 +600,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code openHeight} property, which represents the max-height of
-   * the suggestions list when it is open.
+   * Retrieves the current value of the {@code openHeight} property, which represents the max-height
+   * of the suggestions list when it is open.
    *
    * @return The height of the suggestions list when it is open.
    */
@@ -621,8 +621,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code openWidth} property, which represents the max-width of the
-   * suggestions list when it is open.
+   * Retrieves the current value of the {@code openWidth} property, which represents the max-width
+   * of the suggestions list when it is open.
    *
    * @return The width of the suggestions list when it is open.
    */
@@ -642,8 +642,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code pattern} property, which represents the regular expression
-   * pattern that the input field's value must match.
+   * Retrieves the current value of the {@code pattern} property, which represents the regular
+   * expression pattern that the input field's value must match.
    *
    * @return The regular expression pattern.
    */
@@ -663,8 +663,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code placeholder} property, which represents the placeholder
-   * text displayed in the input field when it is empty.
+   * Retrieves the current value of the {@code placeholder} property, which represents the
+   * placeholder text displayed in the input field when it is empty.
    *
    * @return The placeholder text.
    */
@@ -684,8 +684,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code placement} property, indicating the placement of where the
-   * suggestions list should appear relative to the input field.
+   * Retrieves the current value of the {@code placement} property, indicating the placement of
+   * where the suggestions list should appear relative to the input field.
    *
    * @return The placement of the suggestions list.
    */
@@ -706,8 +706,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code readonly} property, indicating whether the input field is
-   * in read-only mode.
+   * Retrieves the current value of the {@code readonly} property, indicating whether the input
+   * field is in read-only mode.
    *
    * @return {@code true} if the input field is in read-only mode, {@code false} otherwise.
    */
@@ -727,8 +727,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code required} property, indicating whether the input field is
-   * required.
+   * Retrieves the current value of the {@code required} property, indicating whether the input
+   * field is required.
    *
    * @return {@code true} if the input field is required, {@code false} otherwise.
    */
@@ -748,8 +748,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code size} property, which represents the size of the input
-   * field.
+   * Retrieves the current value of the {@code size} property, which represents the size of the
+   * input field.
    *
    * @return The size of the input field.
    */
@@ -769,8 +769,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code skidding} property, which represents the skidding offset of
-   * the suggestions list from the input field.
+   * Retrieves the current value of the {@code skidding} property, which represents the skidding
+   * offset of the suggestions list from the input field.
    *
    * @return The skidding offset of the suggestions list.
    */
@@ -811,8 +811,8 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code tabTraversable} property, which represents the tab index of
-   * the input field for keyboard navigation.
+   * Retrieves the current value of the {@code tabTraversable} property, which represents the tab
+   * index of the input field for keyboard navigation.
    *
    * @return The tab index of the input field.
    */

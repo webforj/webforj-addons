@@ -1,8 +1,8 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
 /**
- * Represents a schema for a number property in a properties panel. Extends the BaseSchema
- * class and adds additional attributes specific to number properties.
+ * Represents a schema for a number property in a properties panel. Extends the BaseSchema class and
+ * adds additional attributes specific to number properties.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -28,6 +28,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
 
   /**
    * Allows for chaining {@code NumberSchema} to the {@link BaseSchema} methods.
+   *
    * @return The current instance of this class
    */
   @Override
@@ -37,6 +38,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
 
   /**
    * Retrieves the default value for the number property.
+   *
    * @return The default value for the number property.
    */
   public Double getDefaultValue() {
@@ -45,6 +47,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
 
   /**
    * Sets the default value for the number property.
+   *
    * @param defaultValue The default value to set for the number property.
    */
   public NumberSchema setDefaultValue(Double defaultValue) {
@@ -54,6 +57,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
 
   /**
    * Retrieves the validation rules for the number property.
+   *
    * @return The validation rules for the number property.
    */
   public NumberValidation getValidate() {
@@ -62,6 +66,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
 
   /**
    * Sets the validation rules for the number property.
+   *
    * @param validate The validation rules to set for the number property.
    */
   public NumberSchema setValidate(NumberValidation validate) {

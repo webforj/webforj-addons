@@ -1,8 +1,8 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
 /**
- * Base class representing a schema for a property in a properties panel.
- * It defines common attributes shared by all property schemas.
+ * Base class representing a schema for a property in a properties panel. It defines common
+ * attributes shared by all property schemas.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -22,10 +22,10 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
   /**
    * The data type of the property, the possible values are:
    * <ol>
-   *   <li>string</li>
-   *   <li>boolean</li>
-   *   <li>number</li>
-   *   <li>enum</li>
+   * <li>string</li>
+   * <li>boolean</li>
+   * <li>number</li>
+   * <li>enum</li>
    * </ol>
    */
   private String type;
@@ -41,14 +41,14 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
   private boolean disabled;
 
   /**
-   * Enforces the extending schemas to override this and return their instance,
-   * this will allow chaining this {@code BaseScheme} methods to the instance,
-   * scheme class that extends this.
+   * Enforces the extending schemas to override this and return their instance, this will allow
+   * chaining this {@code BaseScheme} methods to the instance, scheme class that extends this.
    */
   protected abstract T getThis();
 
   /**
    * Retrieves the unique identifier or key for the property.
+   *
    * @return The name of the property.
    */
   public String getName() {
@@ -57,6 +57,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Sets the unique identifier or key for the property.
+   *
    * @param name The name to set for the property.
    */
   public T setName(String name) {
@@ -66,6 +67,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Retrieves the human-readable label or display name for the property.
+   *
    * @return The label of the property.
    */
   public String getLabel() {
@@ -74,6 +76,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Sets the human-readable label or display name for the property.
+   *
    * @param label The label to set for the property.
    */
   public T setLabel(String label) {
@@ -83,13 +86,14 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Retrieves the data type of the property.
+   *
    * @return The data type of the property, the possible values are:
-   * <ol>
-   *   <li>string</li>
-   *   <li>boolean</li>
-   *   <li>number</li>
-   *   <li>enum</li>
-   * </ol>
+   *         <ol>
+   *         <li>string</li>
+   *         <li>boolean</li>
+   *         <li>number</li>
+   *         <li>enum</li>
+   *         </ol>
    */
   public String getType() {
     return type;
@@ -97,6 +101,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Sets the data type of the property.
+   *
    * @param type The data type to set for the property.
    */
   protected T setType(String type) {
@@ -106,6 +111,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Checks if the property is read-only.
+   *
    * @return True if the property is read-only, otherwise false.
    */
   public boolean isReadonly() {
@@ -114,6 +120,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Sets whether the property is read-only.
+   *
    * @param readonly True if the property is read-only, otherwise false.
    */
   public T setReadonly(boolean readonly) {
@@ -123,6 +130,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Checks if the property is disabled.
+   *
    * @return True if the property is disabled, otherwise false.
    */
   public boolean isDisabled() {
@@ -131,6 +139,7 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
    * Sets whether the property is disabled.
+   *
    * @param disabled True if the property is disabled, otherwise false.
    */
   public T setDisabled(boolean disabled) {

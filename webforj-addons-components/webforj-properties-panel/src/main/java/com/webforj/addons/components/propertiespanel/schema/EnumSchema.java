@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a schema for an enum property in a properties panel. Extends the BaseSchema
- * class and adds additional attributes specific to enum properties.
+ * Represents a schema for an enum property in a properties panel. Extends the BaseSchema class and
+ * adds additional attributes specific to enum properties.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -31,6 +31,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
 
   /**
    * Allows for chaining {@code EnumSchema} to the {@link BaseSchema} methods.
+   *
    * @return The current instance of this class
    */
   @Override
@@ -40,6 +41,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
 
   /**
    * Retrieves the default value for the enum property.
+   *
    * @return The default value for the enum property.
    */
   public String getDefaultValue() {
@@ -48,6 +50,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
 
   /**
    * Sets the default value for the enum property.
+   *
    * @param defaultValue The default value to set for the enum property.
    */
   public void setDefaultValue(String defaultValue) {
@@ -56,6 +59,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
 
   /**
    * Retrieves the list of options available for the enum property.
+   *
    * @return The list of options available for the enum property.
    */
   public List<EnumOption> getOptions() {
@@ -64,6 +68,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
 
   /**
    * Sets the list of options available for the enum property.
+   *
    * @param options The list of options to set for the enum property.
    */
   public EnumSchema setOptions(List<EnumOption> options) {

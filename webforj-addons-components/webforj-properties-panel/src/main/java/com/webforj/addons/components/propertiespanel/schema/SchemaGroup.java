@@ -6,9 +6,10 @@ import com.webforj.addons.components.propertiespanel.PropertiesPanel;
 import java.util.List;
 
 /**
- * Represents a group of properties within a schema, designed for display in a {@link PropertiesPanel}.
- * {@code SchemaGroup} organizes related properties together, facilitating structured and organized presentation.
- * It supports collapsible and expandable behavior for efficient use of space.
+ * Represents a group of properties within a schema, designed for display in a
+ * {@link PropertiesPanel}. {@code SchemaGroup} organizes related properties together, facilitating
+ * structured and organized presentation. It supports collapsible and expandable behavior for
+ * efficient use of space.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -28,7 +29,7 @@ public class SchemaGroup {
   /**
    * Constructs a {@code SchemaGroup} with the specified label.
    *
-   * @param label      The label of the schema group.
+   * @param label The label of the schema group.
    */
   public SchemaGroup(String label) {
     this.label = label;
@@ -37,7 +38,7 @@ public class SchemaGroup {
   /**
    * Constructs a {@code SchemaGroup} with the specified label and properties.
    *
-   * @param label      The label of the schema group.
+   * @param label The label of the schema group.
    */
   public SchemaGroup(String label, List<BaseSchema<?>> properties) {
     this.label = label;
@@ -45,8 +46,8 @@ public class SchemaGroup {
   }
 
   /**
-   * Retrieves the label that serves as a descriptive name for the
-   * group of properties of the schema group.
+   * Retrieves the label that serves as a descriptive name for the group of properties of the schema
+   * group.
    *
    * @return The label of the schema group.
    */
@@ -55,8 +56,7 @@ public class SchemaGroup {
   }
 
   /**
-   * Sets the label provides a descriptive name for the group
-   * of properties of the schema group.
+   * Sets the label provides a descriptive name for the group of properties of the schema group.
    *
    * @param label The label of the schema group.
    */
@@ -66,8 +66,8 @@ public class SchemaGroup {
   }
 
   /**
-   * Retrieves the list of properties within a group are related and often
-   * share common characteristics or purposes belonging to this group.
+   * Retrieves the list of properties within a group are related and often share common
+   * characteristics or purposes belonging to this group.
    *
    * @return The list of properties within the group.
    */
@@ -76,8 +76,8 @@ public class SchemaGroup {
   }
 
   /**
-   * Sets the list of properties within a group are related and often
-   * share common characteristics or purposes belonging to this group.
+   * Sets the list of properties within a group are related and often share common characteristics
+   * or purposes belonging to this group.
    *
    * @param properties The list of properties to be assigned to the group.
    */

@@ -1,8 +1,8 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
 /**
- * Represents validation rules for a number property in a properties panel.
- * It includes minimum and maximum value constraints.
+ * Represents validation rules for a number property in a properties panel. It includes minimum and
+ * maximum value constraints.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -29,6 +29,7 @@ public class NumberValidation {
 
   /**
    * Retrieves the minimum value allowed for the number property.
+   *
    * @return The minimum value allowed.
    */
   public Double getMin() {
@@ -37,6 +38,7 @@ public class NumberValidation {
 
   /**
    * Sets the minimum value allowed for the number property.
+   *
    * @param min The minimum value to set.
    */
   public NumberValidation setMin(Double min) {
@@ -46,6 +48,7 @@ public class NumberValidation {
 
   /**
    * Retrieves the maximum value allowed for the number property.
+   *
    * @return The maximum value allowed.
    */
   public Double getMax() {
@@ -54,6 +57,7 @@ public class NumberValidation {
 
   /**
    * Sets the maximum value allowed for the number property.
+   *
    * @param max The maximum value to set.
    */
   public NumberValidation setMax(Double max) {

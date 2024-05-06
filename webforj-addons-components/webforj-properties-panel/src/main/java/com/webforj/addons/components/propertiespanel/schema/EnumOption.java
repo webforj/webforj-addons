@@ -20,15 +20,15 @@ public class EnumOption {
   private String label;
 
   /**
-   * The value represents the actual data associated with the option. It is used programmatically
-   * to perform operations or comparisons based on the selected option.
+   * The value represents the actual data associated with the option. It is used programmatically to
+   * perform operations or comparisons based on the selected option.
    */
   private String value;
 
   /**
    * Constructs a new {@code EnumOption} with the specified name, label, and value.
    *
-   * @param name  The name of the option.
+   * @param name The name of the option.
    * @param label The label of the option.
    * @param value The value of the option.
    */

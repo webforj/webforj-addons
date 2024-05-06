@@ -23,18 +23,17 @@ import java.util.List;
  * presenting a dropdown list of available choices, users can easily navigate through the options
  * and select multiple items according to their preferences or requirements.
  * <p>
- * The {@code MultiSelectCombo} component is ideal for scenarios where users need to select
- * multiple items from a predefined list. It enhances user interaction by providing a flexible
- * and intuitive interface for selecting and managing multiple options effectively.
+ * The {@code MultiSelectCombo} component is ideal for scenarios where users need to select multiple
+ * items from a predefined list. It enhances user interaction by providing a flexible and intuitive
+ * interface for selecting and managing multiple options effectively.
  * </p>
  *
  * @author ElyasSalar
  * @since 1.00
  */
 @NodeName("dwc-multi-select-combo")
-public class MultiSelectCombo extends ElementComposite
-    implements HasPlaceholder<MultiSelectCombo>, HasReadOnly<MultiSelectCombo>,
-    HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse> {
+public class MultiSelectCombo extends ElementComposite implements HasPlaceholder<MultiSelectCombo>,
+    HasReadOnly<MultiSelectCombo>, HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse> {
 
   /**
    * The placement of where the dropdown list should appear
@@ -108,157 +107,155 @@ public class MultiSelectCombo extends ElementComposite
    * Property for specifying the placement of the list.
    */
   private final PropertyDescriptor<Placement> placementProp =
-    PropertyDescriptor.property("placement", Placement.BOTTOM);
+      PropertyDescriptor.property("placement", Placement.BOTTOM);
 
   /**
    * Property for the expansiveness of the component.
    */
   private final PropertyDescriptor<Expanse> expanseProp =
-    PropertyDescriptor.property("expanse", Expanse.MEDIUM);
+      PropertyDescriptor.property("expanse", Expanse.MEDIUM);
 
   /**
    * Property for specifying the renderer for each item in the list.
    */
   private final PropertyDescriptor<String> rendererProp =
-    PropertyDescriptor.property("renderer", null);
+      PropertyDescriptor.property("renderer", null);
 
   /**
    * Property for the list of items displayed by the component.
    */
   private final PropertyDescriptor<List<Item>> itemsProp =
-    PropertyDescriptor.property("items", null);
+      PropertyDescriptor.property("items", null);
 
   /**
    * Property for the list of selected items in the component.
    */
   private final PropertyDescriptor<List<String>> selectedProp =
-    PropertyDescriptor.property("selected", null);
+      PropertyDescriptor.property("selected", null);
 
   /**
    * Property for automatically focusing on the component upon loading the page.
    */
   private final PropertyDescriptor<Boolean> autoFocusProp =
-    PropertyDescriptor.attribute("autofocus", false);
+      PropertyDescriptor.attribute("autofocus", false);
 
   /**
    * Property for indicating whether the component has focus.
    */
   private final PropertyDescriptor<Boolean> hasFocusProp =
-    PropertyDescriptor.property("hasFocus", false);
+      PropertyDescriptor.property("hasFocus", false);
 
   /**
    * Property for indicating whether the component is required.
    */
   private final PropertyDescriptor<Boolean> requiredProp =
-    PropertyDescriptor.attribute("required", false);
+      PropertyDescriptor.attribute("required", false);
 
   /**
    * Property for specifying the tab traversable behavior of the component.
    */
   private final PropertyDescriptor<Integer> tabTraversableProp =
-    PropertyDescriptor.property("tabTraversable", 0);
+      PropertyDescriptor.property("tabTraversable", 0);
 
   /**
    * Property for the value of the input associated with the component.
    */
   private final PropertyDescriptor<String> inputValueProp =
-    PropertyDescriptor.property("inputValue", "");
+      PropertyDescriptor.property("inputValue", "");
 
   /**
    * Property for defining highlight behaviors for the component.
    */
   private final PropertyDescriptor<List<HighlightBehaviours>> highlightBehaviorsProp =
-    PropertyDescriptor.property("highlightBehaviors", new ArrayList<>());
+      PropertyDescriptor.property("highlightBehaviors", new ArrayList<>());
 
   /**
    * Property for specifying the name attribute of the component.
    */
-  private final PropertyDescriptor<String> nameProp =
-    PropertyDescriptor.attribute("name", "");
+  private final PropertyDescriptor<String> nameProp = PropertyDescriptor.attribute("name", "");
 
   /**
    * Property for specifying the label attribute of the component.
    */
-  private final PropertyDescriptor<String> labelProp =
-    PropertyDescriptor.attribute("label", "");
+  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.attribute("label", "");
 
   /**
    * Property for specifying the placeholder text of the component.
    */
   private final PropertyDescriptor<String> placeholderProp =
-    PropertyDescriptor.attribute("placeholder", "");
+      PropertyDescriptor.attribute("placeholder", "");
 
   /**
    * Property for defining the size of the input associated with the component.
    */
   private final PropertyDescriptor<Float> inputSizeProp =
-    PropertyDescriptor.property("inputSize", null);
+      PropertyDescriptor.property("inputSize", null);
 
   /**
    * Property for allowing custom values in the component.
    */
   private final PropertyDescriptor<Boolean> allowCustomValueProp =
-    PropertyDescriptor.property("allowCustomValue", false);
+      PropertyDescriptor.property("allowCustomValue", false);
 
   /**
    * Property for specifying the maximum number of rows displayed by the component.
    */
   private final PropertyDescriptor<Integer> maxRowCountProp =
-    PropertyDescriptor.attribute("max-row-count", null);
+      PropertyDescriptor.attribute("max-row-count", null);
 
   /**
    * Property for controlling whether the dropdown opens on arrow key press.
    */
   private final PropertyDescriptor<Boolean> openOnArrowProp =
-    PropertyDescriptor.property("openOnArrow", true);
+      PropertyDescriptor.property("openOnArrow", true);
 
   /**
    * Property for disabling the component.
    */
   private final PropertyDescriptor<Boolean> disabledProp =
-    PropertyDescriptor.attribute("disabled", false);
+      PropertyDescriptor.attribute("disabled", false);
 
   /**
    * Property for setting the component to read-only mode.
    */
   private final PropertyDescriptor<Boolean> readonlyProp =
-    PropertyDescriptor.attribute("readonly", false);
+      PropertyDescriptor.attribute("readonly", false);
 
   /**
    * Property for specifying the distance between the component and its dropdown list.
    */
   private final PropertyDescriptor<Integer> distanceProp =
-    PropertyDescriptor.property("distance", null);
+      PropertyDescriptor.property("distance", null);
 
   /**
    * Property for specifying the maximum length of chips in the component.
    */
   private final PropertyDescriptor<Integer> maxChipsLengthProp =
-    PropertyDescriptor.property("maxChipsLength", 65);
+      PropertyDescriptor.property("maxChipsLength", 65);
 
   /**
    * Property for indicating whether the dropdown is opened.
    */
   private final PropertyDescriptor<Boolean> openedProp =
-    PropertyDescriptor.property("opened", false);
+      PropertyDescriptor.property("opened", false);
 
   /**
    * Property for specifying the width of the opened dropdown.
    */
   private final PropertyDescriptor<Integer> openWidthProp =
-    PropertyDescriptor.property("openWidth", null);
+      PropertyDescriptor.property("openWidth", null);
 
   /**
    * Property for specifying the height of the opened dropdown.
    */
   private final PropertyDescriptor<Integer> openHeightProp =
-    PropertyDescriptor.property("openHeight", null);
+      PropertyDescriptor.property("openHeight", null);
 
   /**
    * Property for specifying the skidding of the opened dropdown.
    */
   private final PropertyDescriptor<Integer> skiddingProp =
-    PropertyDescriptor.property("skidding", null);
+      PropertyDescriptor.property("skidding", null);
 
 
   /**
@@ -278,8 +275,7 @@ public class MultiSelectCombo extends ElementComposite
    * @param listener the listener
    * @return the control
    */
-  public ListenerRegistration<InputEvent> addInputListener(
-      EventListener<InputEvent> listener) {
+  public ListenerRegistration<InputEvent> addInputListener(EventListener<InputEvent> listener) {
     return super.addEventListener(InputEvent.class, listener);
   }
 
@@ -635,8 +631,8 @@ public class MultiSelectCombo extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code placeholder} property, which represents the placeholder
-   * text displayed in the input field when it is empty.
+   * Retrieves the current value of the {@code placeholder} property, which represents the
+   * placeholder text displayed in the input field when it is empty.
    *
    * @return The placeholder text.
    */
@@ -676,8 +672,8 @@ public class MultiSelectCombo extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code readonly} property, indicating whether the input field is
-   * in read-only mode.
+   * Retrieves the current value of the {@code readonly} property, indicating whether the input
+   * field is in read-only mode.
    *
    * @return {@code true} if the input field is in read-only mode, {@code false} otherwise.
    */

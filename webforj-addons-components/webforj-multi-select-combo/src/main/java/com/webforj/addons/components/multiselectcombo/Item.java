@@ -1,9 +1,9 @@
 package com.webforj.addons.components.multiselectcombo;
 
 /**
- * Represents an item within a {@link MultiSelectCombo} component. Each {@code Item} encapsulates
- * a value, a label, optional prefix and suffix text, and a flag indicating whether the item
- * is disabled.
+ * Represents an item within a {@link MultiSelectCombo} component. Each {@code Item} encapsulates a
+ * value, a label, optional prefix and suffix text, and a flag indicating whether the item is
+ * disabled.
  * <p>
  *
  * @author ElyasSalar
@@ -50,10 +50,10 @@ public class Item {
   /**
    * Constructs an {@code Item} with the specified value, label, prefix, suffix, and disabled state.
    *
-   * @param value    The value associated with the item.
-   * @param label    The label displayed for the item.
-   * @param prefix   The prefix text displayed before the label.
-   * @param suffix   The suffix text displayed after the label.
+   * @param value The value associated with the item.
+   * @param label The label displayed for the item.
+   * @param prefix The prefix text displayed before the label.
+   * @param suffix The suffix text displayed after the label.
    * @param disabled A flag indicating whether the item is disabled.
    */
   public Item(String value, String label, String prefix, String suffix, Boolean disabled) {

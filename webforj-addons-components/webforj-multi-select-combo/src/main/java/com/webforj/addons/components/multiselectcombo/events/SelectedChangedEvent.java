@@ -21,8 +21,7 @@ public class SelectedChangedEvent extends ComponentEvent<MultiSelectCombo> {
    * @param control the control
    * @param eventMap the event map
    */
-  public SelectedChangedEvent(MultiSelectCombo control,
-                              Map<String, Object> eventMap) {
+  public SelectedChangedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
     super(control, eventMap);
   }
 }

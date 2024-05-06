@@ -14,10 +14,8 @@ import java.util.Map;
  * @since 1.00
  */
 @EventName("dwc-changed")
-@EventOptions(data = {
-  @EventOptions.EventData(key = "name", exp = "event.detail.name"),
-  @EventOptions.EventData(key = "value", exp = "event.detail.value"),}
-)
+@EventOptions(data = {@EventOptions.EventData(key = "name", exp = "event.detail.name"),
+    @EventOptions.EventData(key = "value", exp = "event.detail.value"),})
 public class ChangedEvent extends ComponentEvent<PropertiesPanel> {
 
   /**

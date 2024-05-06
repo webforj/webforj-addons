@@ -20,8 +20,7 @@ public class OpenedChangedEvent extends ComponentEvent<MultiSelectCombo> {
    * @param control the control
    * @param eventMap the event map
    */
-  public OpenedChangedEvent(MultiSelectCombo control,
-                            Map<String, Object> eventMap) {
+  public OpenedChangedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
     super(control, eventMap);
   }
 }
