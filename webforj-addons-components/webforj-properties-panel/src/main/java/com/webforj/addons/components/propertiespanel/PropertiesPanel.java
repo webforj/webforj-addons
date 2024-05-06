@@ -7,6 +7,7 @@ import com.webforj.addons.components.propertiespanel.events.ChangedEvent;
 import com.webforj.addons.components.propertiespanel.schema.*;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
+import com.webforj.component.element.annotation.NodeName;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
 
@@ -30,6 +31,7 @@ import java.util.List;
  * @author ElyasSalar
  * @since 1.00
  */
+@NodeName("dwc-properties-panel")
 public class PropertiesPanel extends ElementComposite {
 
   /**
