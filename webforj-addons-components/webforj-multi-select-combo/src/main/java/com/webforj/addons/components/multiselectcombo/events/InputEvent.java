@@ -1,4 +1,4 @@
-package com.webforj.addons.components.multiselectcombo.event;
+package com.webforj.addons.components.multiselectcombo.events;
 
 import com.webforj.addons.components.multiselectcombo.MultiSelectCombo;
 import com.webforj.component.element.annotation.EventName;
@@ -7,12 +7,13 @@ import com.webforj.component.event.ComponentEvent;
 import java.util.Map;
 
 /**
- * Emitted when the open state of the dropdown changes.
+ * Emitted when the input changed.
  *
  * @author ElyasSalar
+ * @since 1.00
  */
-@EventName("dwc-opened-changed")
-public class OpenedChangedEvent extends ComponentEvent<MultiSelectCombo> {
+@EventName("dwc-input")
+public class InputEvent extends ComponentEvent<MultiSelectCombo> {
 
   /**
    * Creates a new event.
@@ -20,8 +21,7 @@ public class OpenedChangedEvent extends ComponentEvent<MultiSelectCombo> {
    * @param control the control
    * @param eventMap the event map
    */
-  public OpenedChangedEvent(MultiSelectCombo control,
-                            Map<String, Object> eventMap) {
+  public InputEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
     super(control, eventMap);
   }
 }

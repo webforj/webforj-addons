@@ -1,4 +1,4 @@
-package com.webforj.addons.components.multiselectcombo.event;
+package com.webforj.addons.components.multiselectcombo.events;
 
 import com.webforj.addons.components.multiselectcombo.MultiSelectCombo;
 import com.webforj.component.element.annotation.EventName;
@@ -7,13 +7,13 @@ import com.webforj.component.event.ComponentEvent;
 import java.util.Map;
 
 /**
- * Emitted when the input changed.
+ * Emitted when the selected options changed.
  *
  * @author ElyasSalar
  * @since 1.00
  */
-@EventName("dwc-input")
-public class InputEvent extends ComponentEvent<MultiSelectCombo> {
+@EventName("dwc-selected-changed")
+public class SelectedChangedEvent extends ComponentEvent<MultiSelectCombo> {
 
   /**
    * Creates a new event.
@@ -21,7 +21,8 @@ public class InputEvent extends ComponentEvent<MultiSelectCombo> {
    * @param control the control
    * @param eventMap the event map
    */
-  public InputEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
+  public SelectedChangedEvent(MultiSelectCombo control,
+                              Map<String, Object> eventMap) {
     super(control, eventMap);
   }
 }

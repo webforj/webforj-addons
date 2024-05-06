@@ -2,9 +2,9 @@ package com.webforj.addons.components.multiselectcombo;
 
 
 import com.google.gson.annotations.SerializedName;
-import com.webforj.addons.components.multiselectcombo.event.InputEvent;
-import com.webforj.addons.components.multiselectcombo.event.OpenedChangedEvent;
-import com.webforj.addons.components.multiselectcombo.event.SelectedChangedEvent;
+import com.webforj.addons.components.multiselectcombo.events.InputEvent;
+import com.webforj.addons.components.multiselectcombo.events.OpenedChangedEvent;
+import com.webforj.addons.components.multiselectcombo.events.SelectedChangedEvent;
 import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
