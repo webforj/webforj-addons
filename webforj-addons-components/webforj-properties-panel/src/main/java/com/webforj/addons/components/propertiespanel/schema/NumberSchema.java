@@ -1,5 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
+import com.google.gson.Gson;
+
 /**
  * Represents a schema for a number property in a properties panel. Extends the BaseSchema class and
  * adds additional attributes specific to number properties.
@@ -24,6 +26,27 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
    */
   public NumberSchema(String name, String label) {
     this.setType("number").setLabel(label).setName(name);
+  }
+
+  /**
+   * Deserializes a JSON string into a NumberSchema object using Gson.
+   *
+   * @param json The JSON string to deserialize.
+   * @return A NumberSchema object deserialized from the JSON string.
+   */
+  public static NumberSchema fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, NumberSchema.class);
+  }
+
+  /**
+   * Serializes the NumberSchema object into a JSON string using Gson.
+   *
+   * @return A JSON string representing the NumberSchema object.
+   */
+  public String toJson() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
   }
 
   /**

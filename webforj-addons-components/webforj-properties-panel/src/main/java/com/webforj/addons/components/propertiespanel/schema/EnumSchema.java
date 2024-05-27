@@ -1,5 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,27 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
    */
   public EnumSchema(String name, String label) {
     this.setType("enum").setName(name).setLabel(label);
+  }
+
+  /**
+   * Deserializes a JSON string into an {@code EnumSchema} object using Gson.
+   *
+   * @param json The JSON string to deserialize.
+   * @return An EnumSchema object deserialized from the JSON string.
+   */
+  public static EnumSchema fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, EnumSchema.class);
+  }
+
+  /**
+   * Serializes the {@code EnumSchema} object into a JSON string using Gson.
+   *
+   * @return A JSON string representing the EnumSchema object.
+   */
+  public String toJson() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
   }
 
   /**

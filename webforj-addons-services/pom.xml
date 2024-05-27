@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -11,11 +11,11 @@
   </parent>
   <packaging>pom</packaging>
 
-  <artifactId>webforj-addons-components</artifactId>
+  <artifactId>webforj-addons-services</artifactId>
   <name>${project.artifactId}</name>
   <description>
-    addons for webforJ enhances the user interface of the main webforJ framework with a diverse
-    range of supplementary UI components.
+    The services module for webforJ provides essential functionalities such as authentication,
+    authorization, and other core services that support the main webforJ framework.
   </description>
 
   <properties>
@@ -25,10 +25,7 @@
   </properties>
 
   <modules>
-    <module>webforj-side-menu</module>
-    <module>webforj-suggestion-edit</module>
-    <module>webforj-multi-select-combo</module>
-    <module>webforj-properties-panel</module>
+    <module>webforj-webauthn</module>
   </modules>
 
   <dependencies>

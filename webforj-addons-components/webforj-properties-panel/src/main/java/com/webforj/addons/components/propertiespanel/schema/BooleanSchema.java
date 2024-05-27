@@ -1,5 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
+import com.google.gson.Gson;
+
 /**
  * Represents a schema for a boolean property in a properties panel. Extends the BaseSchema class
  * and adds additional attributes specific to boolean properties.
@@ -19,6 +21,27 @@ public class BooleanSchema extends BaseSchema<BooleanSchema> {
    */
   public BooleanSchema(String name, String label) {
     this.setType("boolean").setLabel(label).setName(name);
+  }
+
+  /**
+   * Deserializes a JSON string into a {@code BooleanSchema} object using Gson.
+   *
+   * @param json The JSON string to deserialize.
+   * @return A BooleanSchema object deserialized from the JSON string.
+   */
+  public static BooleanSchema fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, BooleanSchema.class);
+  }
+
+  /**
+   * Serializes the {@code BooleanSchema} object into a JSON string using Gson.
+   *
+   * @return A JSON string representing the {@code BooleanSchema} object.
+   */
+  public String toJson() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
   }
 
   /**

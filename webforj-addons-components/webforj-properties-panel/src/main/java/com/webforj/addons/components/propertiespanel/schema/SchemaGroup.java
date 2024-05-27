@@ -1,6 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
 
+import com.google.gson.Gson;
 import com.webforj.addons.components.propertiespanel.PropertiesPanel;
 
 import java.util.List;
@@ -43,6 +44,27 @@ public class SchemaGroup {
   public SchemaGroup(String label, List<BaseSchema<?>> properties) {
     this.label = label;
     this.properties = properties;
+  }
+
+  /**
+   * Deserializes a JSON string into a {@code SchemaGroup} object using Gson.
+   *
+   * @param json The JSON string to deserialize.
+   * @return A SchemaGroup object deserialized from the JSON string.
+   */
+  public static SchemaGroup fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, SchemaGroup.class);
+  }
+
+  /**
+   * Serializes the {@code SchemaGroup} object into a JSON string using Gson.
+   *
+   * @return A JSON string representing the SchemaGroup object.
+   */
+  public String toJson() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
   }
 
   /**

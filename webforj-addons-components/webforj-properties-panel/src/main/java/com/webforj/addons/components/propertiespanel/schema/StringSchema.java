@@ -1,5 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
+import com.google.gson.Gson;
+
 /**
  * Represents a schema for a string property in a properties panel. Extends the BaseSchema class and
  * adds additional attributes specific to string properties.
@@ -21,6 +23,27 @@ public class StringSchema extends BaseSchema<StringSchema> {
     this.setType("string");
     this.setLabel(label);
     this.setName(name);
+  }
+
+  /**
+   * Deserializes a JSON string into a {@code StringSchema} object using Gson.
+   *
+   * @param json The JSON string to deserialize.
+   * @return A StringSchema object deserialized from the JSON string.
+   */
+  public static StringSchema fromJson(String json) {
+    Gson gson = new Gson();
+    return gson.fromJson(json, StringSchema.class);
+  }
+
+  /**
+   * Serializes the {@code StringSchema} object into a JSON string using Gson.
+   *
+   * @return A JSON string representing the StringSchema object.
+   */
+  public String toJson() {
+    Gson gson = new Gson();
+    return gson.toJson(this);
   }
 
   /**
