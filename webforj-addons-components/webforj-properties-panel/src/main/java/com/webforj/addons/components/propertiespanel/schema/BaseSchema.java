@@ -1,5 +1,7 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
+import com.google.gson.annotations.JsonAdapter;
+
 /**
  * Base class representing a schema for a property in a properties panel. It defines common
  * attributes shared by all property schemas.
@@ -7,6 +9,7 @@ package com.webforj.addons.components.propertiespanel.schema;
  * @author ElyasSalar
  * @since 1.00
  */
+@JsonAdapter(BaseSchemaAdapter.class)
 public abstract class BaseSchema<T extends BaseSchema<T>> {
 
   /**
