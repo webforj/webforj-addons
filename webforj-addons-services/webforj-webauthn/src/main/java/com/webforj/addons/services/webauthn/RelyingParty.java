@@ -2,7 +2,6 @@ package com.webforj.addons.services.webauthn;
 
 import com.webforj.Page;
 import com.webforj.PendingResult;
-import com.webforj.annotation.InlineJavaScript;
 import com.webforj.component.html.HtmlComponent;
 import com.webforj.component.html.elements.Div;
 import com.webforj.addons.services.webauthn.data.*;
@@ -20,8 +19,6 @@ import java.util.List;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/">Web Authentication (WebAuthn) Level 3</a>
  */
-// FIXME: any class should be able to import javascript and stylesheet files
-@InlineJavaScript(id = "dwc-webauthn",  value = "context://public/services/webauthn.js")
 public class RelyingParty {
 
   // FIXME: Should be used temporarily
@@ -54,6 +51,7 @@ public class RelyingParty {
    */
   public RelyingParty(RelyingPartyIdentity relyingPartyIdentity) {
     this.relyingPartyIdentity = relyingPartyIdentity;
+    Page.getCurrent().addInlineJavaScript("context://services/webauthn.js");
   }
 
   /**
