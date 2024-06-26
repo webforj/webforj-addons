@@ -4,9 +4,11 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
-public class BaseSchemaAdapter implements JsonDeserializer<BaseSchema<?>>, JsonSerializer<BaseSchema<?>> {
+public class BaseSchemaAdapter
+    implements JsonDeserializer<BaseSchema<?>>, JsonSerializer<BaseSchema<?>> {
   @Override
-  public BaseSchema<?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+  public BaseSchema<?> deserialize(JsonElement json, Type typeOfT,
+      JsonDeserializationContext context) throws JsonParseException {
     JsonObject jsonObject = json.getAsJsonObject();
     String type = jsonObject.get("type").getAsString();
     return switch (type) {
@@ -19,7 +21,8 @@ public class BaseSchemaAdapter implements JsonDeserializer<BaseSchema<?>>, JsonS
   }
 
   @Override
-  public JsonElement serialize(BaseSchema<?> src, Type typeOfSrc, JsonSerializationContext context) {
+  public JsonElement serialize(BaseSchema<?> src, Type typeOfSrc,
+      JsonSerializationContext context) {
     return switch (src.getType()) {
       case "string" -> context.serialize(src, StringSchema.class);
       case "number" -> context.serialize(src, NumberSchema.class);
