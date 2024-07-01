@@ -28,5 +28,5 @@ public enum AuthenticatorAttachment {
    * platform.
    */
   @SerializedName("platform")
-  PLATFORM;
+  PLATFORM
 }

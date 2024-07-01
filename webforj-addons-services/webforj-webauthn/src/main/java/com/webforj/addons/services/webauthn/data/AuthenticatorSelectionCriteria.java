@@ -57,7 +57,7 @@ public class AuthenticatorSelectionCriteria {
    * otherwise, it will be {@code false}.
    * </p>
    */
-  private boolean requireResidentKey;
+  private final boolean requireResidentKey;
 
   /**
    * Represents the requirement for user verification during WebAuthn operations.

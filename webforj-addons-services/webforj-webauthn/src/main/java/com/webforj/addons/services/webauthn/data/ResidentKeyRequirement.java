@@ -56,5 +56,5 @@ public enum ResidentKeyRequirement {
    *      Credential</a>
    */
   @SerializedName("required")
-  REQUIRED;
+  REQUIRED
 }
