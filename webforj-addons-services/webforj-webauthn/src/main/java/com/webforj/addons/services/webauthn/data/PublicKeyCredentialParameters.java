@@ -6,6 +6,9 @@ package com.webforj.addons.services.webauthn.data;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3#dictdef-publickeycredentialparameters">§5.3.
  *      Parameters for Credential Generation (dictionary PublicKeyCredentialParameters)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class PublicKeyCredentialParameters {
 

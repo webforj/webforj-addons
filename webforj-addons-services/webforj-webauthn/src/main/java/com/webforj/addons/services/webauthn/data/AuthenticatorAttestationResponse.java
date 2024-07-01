@@ -8,6 +8,9 @@ import java.util.List;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#iface-authenticatorattestationresponse"> 5.2.1.
  *      Information About Public Key Credential</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class AuthenticatorAttestationResponse {
   /**

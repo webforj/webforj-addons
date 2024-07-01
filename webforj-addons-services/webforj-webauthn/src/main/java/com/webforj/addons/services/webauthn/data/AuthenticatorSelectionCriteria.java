@@ -10,6 +10,9 @@ package com.webforj.addons.services.webauthn.data;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#dictdef-authenticatorselectioncriteria"> §5.4.4.
  *      Authenticator Selection Criteria (dictionary AuthenticatorSelectionCriteria)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class AuthenticatorSelectionCriteria {
 

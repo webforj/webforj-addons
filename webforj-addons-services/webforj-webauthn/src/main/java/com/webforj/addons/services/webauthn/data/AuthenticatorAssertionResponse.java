@@ -7,6 +7,9 @@ package com.webforj.addons.services.webauthn.data;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#dictdef-authenticatorassertionresponsejson"> §5.5
  *      JSON Type Representations</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class AuthenticatorAssertionResponse {
 

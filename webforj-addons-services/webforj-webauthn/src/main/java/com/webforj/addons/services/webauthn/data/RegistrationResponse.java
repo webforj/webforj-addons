@@ -12,6 +12,9 @@ import com.google.gson.JsonParseException;
  *
  * @see <a href=
  *      "https://www.w3.org/TR/webauthn-3/#dom-registrationresponsejson-authenticatorattachment">RegistrationResponse</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class RegistrationResponse {
 

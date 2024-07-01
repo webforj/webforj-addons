@@ -10,6 +10,9 @@ import java.util.Base64;
  * This class provides methods to create ByteArray instances from byte arrays and Base64Url strings.
  * It also supports concatenation of ByteArray instances and provides methods to retrieve the byte
  * contents in different encoding formats.
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public final class ByteArray {
   /**

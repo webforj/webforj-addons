@@ -10,6 +10,9 @@ import com.google.gson.annotations.SerializedName;
  *      Key Requirement Enumeration (enum ResidentKeyRequirement)</a>
  * @see <a href="https://www.w3.org/TR/webauthn-3/#client-side-discoverable-credential"> Client-side
  *      discoverable Credential</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum ResidentKeyRequirement {
 

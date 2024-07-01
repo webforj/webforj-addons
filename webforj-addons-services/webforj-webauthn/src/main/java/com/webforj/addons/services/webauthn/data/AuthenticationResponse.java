@@ -10,6 +10,9 @@ import com.google.gson.JsonParseException;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#ref-for-dictdef-authenticationresponsejson">§5.5.
  *      JSON Type Representations</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class AuthenticationResponse {
   /**

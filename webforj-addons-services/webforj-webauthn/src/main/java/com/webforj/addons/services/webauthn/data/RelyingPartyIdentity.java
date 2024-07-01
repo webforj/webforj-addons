@@ -12,6 +12,9 @@ package com.webforj.addons.services.webauthn.data;
  * @see <a href="https://www.w3.org/TR/webauthn-3/#dictdef-publickeycredentialrpentity"> §5.4.2.
  *      Relying Party Parameters for Credential Generation (dictionary
  *      PublicKeyCredentialRpEntity)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class RelyingPartyIdentity {
 

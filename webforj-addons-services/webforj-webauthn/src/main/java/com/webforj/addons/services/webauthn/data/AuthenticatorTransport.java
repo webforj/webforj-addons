@@ -14,6 +14,9 @@ import com.google.gson.annotations.SerializedName;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#enumdef-authenticatortransport"> §5.10.4.
  *      Authenticator Transport Enumeration (enum AuthenticatorTransport)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum AuthenticatorTransport {
   /**

@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
  * @see <a href="https://www.w3.org/TR/webauthn-3/#enumdef-userverificationrequirement"> §5.10.6.
  *      User Verification Requirement Enumeration (enum UserVerificationRequirement)</a>
  * @see <a href="https://www.w3.org/TR/webauthn-3/#user-verification">User Verification</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum UserVerificationRequirement {
 

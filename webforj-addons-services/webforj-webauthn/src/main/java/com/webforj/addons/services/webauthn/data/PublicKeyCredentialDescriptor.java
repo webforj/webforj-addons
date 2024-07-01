@@ -15,6 +15,9 @@ import java.util.EnumSet;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#dictdef-publickeycredentialdescriptor"> §5.10.3.
  *      Credential Descriptor (dictionary PublicKeyCredentialDescriptor)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class PublicKeyCredentialDescriptor {
 

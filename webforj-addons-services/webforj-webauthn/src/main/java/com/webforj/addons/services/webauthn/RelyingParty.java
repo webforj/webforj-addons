@@ -18,6 +18,9 @@ import java.util.List;
  * adheres to the Web Authentication specification defined by W3C.
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/">Web Authentication (WebAuthn) Level 3</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class RelyingParty {
 

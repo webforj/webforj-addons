@@ -11,6 +11,9 @@ import java.util.List;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#dictdef-publickeycredentialcreationoptions">§5.4.
  *      Options for Credential Creation (dictionary PublicKeyCredentialGetOptions)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class PublicKeyCredentialGetOptions {
 

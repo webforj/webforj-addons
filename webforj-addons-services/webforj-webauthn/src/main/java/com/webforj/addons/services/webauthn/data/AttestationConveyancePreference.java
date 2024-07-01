@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#enum-attestation-convey">Attestation Conveyance
  *      Preference</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum AttestationConveyancePreference {
   /**

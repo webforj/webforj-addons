@@ -6,6 +6,9 @@ package com.webforj.addons.services.webauthn.data;
  *
  * @see <a href=
  *      "https://www.w3.org/TR/webauthn-3/#dictdef-credentialpropertiesoutput">CredentialPropertiesOutput</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class CredentialPropertiesOutput {
 

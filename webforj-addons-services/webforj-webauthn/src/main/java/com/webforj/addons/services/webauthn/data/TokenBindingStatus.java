@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
  * attacks. The tokenBinding field, which may be optional, provides insights into the Token Binding
  * protocol's usage during communication with the Relying Party, with the absence of this field
  * indicating lack of support for token binding.
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum TokenBindingStatus {
   /**

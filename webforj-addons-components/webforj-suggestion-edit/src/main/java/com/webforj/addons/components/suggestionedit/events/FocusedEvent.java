@@ -11,6 +11,7 @@ import java.util.Map;
  * Event fired when suggestion input focused
  *
  * @author @ElyasSalar
+ * @since 1.00
  */
 @EventName("dwc-focused")
 public class FocusedEvent extends ComponentEvent<SuggestionEdit> {

@@ -9,6 +9,9 @@ package com.webforj.addons.services.webauthn.data;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3#typedefdef-cosealgorithmidentifier"> §5.10.5.
  *      Cryptographic Algorithm Identifier (typedef COSEAlgorithmIdentifier)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum COSEAlgorithmIdentifier {
   /**

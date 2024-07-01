@@ -13,6 +13,9 @@ import com.google.gson.Gson;
  * @see <a href=
  *      "https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorResponse/clientDataJSON">MDN
  *      Web Docs: AuthenticatorResponse.clientDataJSON</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public class ClientDataJSON {
 

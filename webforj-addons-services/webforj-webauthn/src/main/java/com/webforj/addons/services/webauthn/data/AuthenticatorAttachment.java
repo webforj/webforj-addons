@@ -10,6 +10,9 @@ import com.google.gson.annotations.SerializedName;
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#enumdef-authenticatorattachment"> §5.4.5.
  *      Authenticator Attachment Enumeration (enum AuthenticatorAttachment)</a>
+ *
+ * @author @ElyasSalar
+ * @since 1.00
  */
 public enum AuthenticatorAttachment {
 

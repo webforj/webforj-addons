@@ -11,6 +11,7 @@ import java.util.Map;
  * Event fired when suggestion input blurred
  *
  * @author @ElyasSalar
+ * @since 1.00
  */
 @EventName("dwc-blurred")
 public class BlurredEvent extends ComponentEvent<SuggestionEdit> {
