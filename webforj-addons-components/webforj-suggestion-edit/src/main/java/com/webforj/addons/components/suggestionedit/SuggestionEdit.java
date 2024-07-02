@@ -1,11 +1,7 @@
 package com.webforj.addons.components.suggestionedit;
 
 import com.google.gson.annotations.SerializedName;
-import com.webforj.addons.components.suggestionedit.events.BlurredEvent;
-import com.webforj.addons.components.suggestionedit.events.FocusedEvent;
-import com.webforj.addons.components.suggestionedit.events.ModifiedEvent;
-import com.webforj.annotation.Attribute;
-import com.webforj.annotation.JavaScript;
+import com.webforj.addons.components.suggestionedit.events.*;
 import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
@@ -37,8 +33,6 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-suggestion-edit")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
-    attributes = {@Attribute(name = "type", value = "module")})
 public class SuggestionEdit extends ElementComposite
     implements HasMaxLength<SuggestionEdit>, HasMinLength<SuggestionEdit>,
     HasEnablement<SuggestionEdit>, HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>,
@@ -256,7 +250,7 @@ public class SuggestionEdit extends ElementComposite
   /**
    * Property for the list of suggestions for the component.
    */
-  private final PropertyDescriptor<List<String>> suggestionsProp =
+  private final PropertyDescriptor<List<Suggestion>> suggestionsProp =
       PropertyDescriptor.property("suggestions", new ArrayList<>());
 
   /**
@@ -266,19 +260,42 @@ public class SuggestionEdit extends ElementComposite
       PropertyDescriptor.attribute("tab-traversable", 0);
 
   /**
+   * Property for indicating whether the dropdown should toggle on input click.
+   */
+  private final PropertyDescriptor<Boolean> toggleOnClickProp =
+      PropertyDescriptor.attribute("toggle-on-click", true);
+
+  /**
+   * Property for whether the dropdown should open on arrow key down on the input.
+   */
+  private final PropertyDescriptor<Boolean> openOnArrowProp =
+    PropertyDescriptor.attribute("open-on-arrow", true);
+
+  /**
    * Property for the value of the component.
    */
   private final PropertyDescriptor<String> valueProp = PropertyDescriptor.property("value", "");
 
   /**
-   * Adds a listener for the modified event, which is triggered when the input value is modified.
+   * Adds a listener for the input event, which is triggered when the input value is modified.
    *
    * @param listener The event listener to add.
    * @return A registration object that can be used to unregister the listener if needed.
    */
-  public ListenerRegistration<ModifiedEvent> addModifiedListener(
-      EventListener<ModifiedEvent> listener) {
-    return this.addEventListener(ModifiedEvent.class, listener);
+  public ListenerRegistration<InputEvent> addInputListener(EventListener<InputEvent> listener) {
+    return this.addEventListener(InputEvent.class, listener);
+  }
+
+  /**
+   * Adds a listener for the change event, which is triggered when the value is changed to a
+   * suggestion.
+   *
+   * @param listener The event listener to add.
+   * @return A registration object that can be used to unregister the listener if needed.
+   */
+  public ListenerRegistration<ChangedEvent> addChangedListener(
+      EventListener<ChangedEvent> listener) {
+    return this.addEventListener(ChangedEvent.class, listener);
   }
 
   /**
@@ -799,7 +816,7 @@ public class SuggestionEdit extends ElementComposite
    *
    * @return The list of suggestions.
    */
-  public List<String> getSuggestions() {
+  public List<Suggestion> getSuggestions() {
     return super.get(this.suggestionsProp);
   }
 
@@ -809,7 +826,7 @@ public class SuggestionEdit extends ElementComposite
    * @param suggestions The list of suggestions.
    * @return This {@code SuggestionEdit} instance for method chaining.
    */
-  public SuggestionEdit setSuggestions(List<String> suggestions) {
+  public SuggestionEdit setSuggestions(List<Suggestion> suggestions) {
     super.set(this.suggestionsProp, suggestions);
     return this;
   }
