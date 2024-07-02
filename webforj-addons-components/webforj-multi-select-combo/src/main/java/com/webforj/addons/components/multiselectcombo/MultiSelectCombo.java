@@ -1,6 +1,5 @@
 package com.webforj.addons.components.multiselectcombo;
 
-
 import com.google.gson.annotations.SerializedName;
 import com.webforj.addons.components.multiselectcombo.events.InputEvent;
 import com.webforj.addons.components.multiselectcombo.events.OpenedChangedEvent;
@@ -37,7 +36,9 @@ import java.util.List;
 @JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
     attributes = {@Attribute(name = "type", value = "module")})
 public class MultiSelectCombo extends ElementComposite implements HasPlaceholder<MultiSelectCombo>,
-    HasReadOnly<MultiSelectCombo>, HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse> {
+    HasReadOnly<MultiSelectCombo>, HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse>,
+    HasClientAutoValidation<MultiSelectCombo>, HasClientAutoValidationOnLoad<MultiSelectCombo>,
+    HasClientValidation<MultiSelectCombo>, HasClientValidationStyle<MultiSelectCombo> {
 
   /**
    * The placement of where the dropdown list should appear
@@ -261,6 +262,57 @@ public class MultiSelectCombo extends ElementComposite implements HasPlaceholder
   private final PropertyDescriptor<Integer> skiddingProp =
       PropertyDescriptor.property("skidding", null);
 
+  /**
+   * Property for enforcing automatic validation to the input.
+   */
+  private final PropertyDescriptor<Boolean> autoValidateProp =
+      PropertyDescriptor.property("autoValidate", true);
+
+  /**
+   * Property for triggering a validation on the input when the component loaded.
+   */
+  private final PropertyDescriptor<Boolean> autoValidateOnLoadProp =
+      PropertyDescriptor.property("autoValidateOnLoad", false);
+
+  /**
+   * Attribute determining whether the component is valid or invalid.
+   */
+  private final PropertyDescriptor<Boolean> invalidProp =
+      PropertyDescriptor.attribute("invalid", false);
+
+  /**
+   * Property for error message to display to the user when the component is invalid.
+   */
+  private final PropertyDescriptor<String> invalidMessageProp =
+      PropertyDescriptor.property("invalidMessage", null);
+
+  /**
+   * Property for A JavaScript expression or function to validate the component on the client.
+   * <p>
+   * This expression can be a direct return statement or a function. If the expression includes the
+   * return keyword, it is used as is; otherwise, it is wrapped with {@code return} and {@code ;} to
+   * create a function.
+   * <p>
+   * The expression has access to the following parameters:
+   * <ul>
+   * <li><strong>value</strong>: The control's value.</li>
+   * <li><strong>x</strong>: Alias for value.</li>
+   * <li><strong>text</strong>: Same as value, included for consistency with the legacy control and
+   * form validation APIs.</li>
+   * <li><strong>component</strong>: The instance of the client component.</li>
+   * <li><strong>control</strong>: Alias for component.</li>
+   * </ul>
+   */
+  private final PropertyDescriptor<String> validatorProp =
+      PropertyDescriptor.property("validator", null);
+
+  /**
+   * Property for specifying the appearance of the validation message. When {@code popover}, the
+   * invalid message will be displayed as a popover; otherwise it will be displayed as an inline
+   * message.
+   */
+  private final PropertyDescriptor<ValidationStyle> validationStyleProp =
+      PropertyDescriptor.property("validation-style", null);
 
   /**
    * Add a listener for the opened event.
@@ -813,6 +865,126 @@ public class MultiSelectCombo extends ElementComposite implements HasPlaceholder
    */
   public MultiSelectCombo setSkidding(int skidding) {
     set(this.skiddingProp, skidding);
+    return this;
+  }
+
+  /**
+   * Retrieves the auto-validate value of the input element.
+   *
+   * @return The auto-validate value.
+   */
+  public boolean isAutoClientValidate() {
+    return get(this.autoValidateProp);
+  }
+
+  /**
+   * Sets the auto-validate value of the input element.
+   *
+   * @param autoValidate The auto-validate property.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setAutoClientValidate(boolean autoValidate) {
+    set(this.autoValidateProp, autoValidate);
+    return this;
+  }
+
+  /**
+   * Retrieves the auto-validate-on-load property value.
+   *
+   * @return The value indicating whether to trigger validation on load.
+   */
+  public boolean isAutoValidateOnLoad() {
+    return get(this.autoValidateOnLoadProp);
+  }
+
+  /**
+   * Sets the auto-validate-on-load property value.
+   *
+   * @param autoValidateOnLoad The value indicating whether to trigger validation on load.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setAutoValidateOnLoad(boolean autoValidateOnLoad) {
+    set(this.autoValidateOnLoadProp, autoValidateOnLoad);
+    return this;
+  }
+
+  /**
+   * Retrieves the invalid property value.
+   *
+   * @return The value indicating whether the component is valid or invalid.
+   */
+  public boolean isInvalid() {
+    return get(this.invalidProp, true);
+  }
+
+  /**
+   * Sets the invalid property value.
+   *
+   * @param invalid The value indicating whether the component is valid or invalid.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setInvalid(boolean invalid) {
+    set(this.invalidProp, invalid);
+    return this;
+  }
+
+  /**
+   * Retrieves the invalid message property value.
+   *
+   * @return The error message to display when the component is invalid.
+   */
+  public String getInvalidMessage() {
+    return get(this.invalidMessageProp);
+  }
+
+  /**
+   * Sets the invalid message property value.
+   *
+   * @param invalidMessage The error message to display when the component is invalid.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setInvalidMessage(String invalidMessage) {
+    set(this.invalidMessageProp, invalidMessage);
+    return this;
+  }
+
+  /**
+   * Retrieves the validator property value.
+   *
+   * @return The JavaScript expression or function to validate the component on the client.
+   */
+  public String getValidator() {
+    return get(this.validatorProp);
+  }
+
+  /**
+   * Sets the validator property value.
+   *
+   * @param validator The JavaScript expression or function to validate the component on the client.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidator(String validator) {
+    set(this.validatorProp, validator);
+    return this;
+  }
+
+  /**
+   * Retrieves the validation style property value.
+   *
+   * @return The validation style indicating how the invalid message is displayed.
+   */
+  public ValidationStyle getValidationStyle() {
+    return get(this.validationStyleProp);
+  }
+
+  /**
+   * Sets the validation style property value.
+   *
+   * @param validationStyle The validation style indicating how the invalid message is displayed.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidationStyle(ValidationStyle validationStyle) {
+    set(this.validationStyleProp, validationStyle);
     return this;
   }
 }
