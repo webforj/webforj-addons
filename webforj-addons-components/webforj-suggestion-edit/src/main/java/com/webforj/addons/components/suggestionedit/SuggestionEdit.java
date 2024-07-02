@@ -268,7 +268,7 @@ public class SuggestionEdit extends ElementComposite
   /**
    * Property for the value of the component.
    */
-  private final PropertyDescriptor<String> valueProp = PropertyDescriptor.attribute("value", "");
+  private final PropertyDescriptor<String> valueProp = PropertyDescriptor.property("value", "");
 
   /**
    * Adds a listener for the modified event, which is triggered when the input value is modified.
