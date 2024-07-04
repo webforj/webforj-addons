@@ -110,6 +110,16 @@ public class RelyingParty {
   }
 
   /**
+   * Cancels an active WebAuthn operation, it can be authentication or registration, the last
+   * operation reference will always be stored and can have only one active operation at a time.
+   * <p>
+   * Therefore, canceling a ceremony aborts the last operation which is also the only active one.
+   */
+  public void cancelCeremony() {
+    this.anyElement.getElement().executeJs("window.dwcWebAuthn.cancelCeremony()");
+  }
+
+  /**
    * Checks whether the current browser environment supports the Web Authentication API (WebAuthn).
    *
    * @return True if WebAuthn is supported in the current environment, false otherwise.
