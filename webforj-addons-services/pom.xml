@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -9,30 +9,41 @@
     <artifactId>webforj-addons</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+
+  <groupId>com.webforj.addons</groupId>
+  <artifactId>webforj-addons-services</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <artifactId>webforj-addons-services</artifactId>
   <name>${project.artifactId}</name>
   <description>
     The services module for webforJ provides essential functionalities such as authentication,
     authorization, and other core services that support the main webforJ framework.
   </description>
 
+  <modules>
+    <module>webforj-webauthn</module>
+    <module>webforj-simple-router</module>
+  </modules>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <webforj.version>24.02</webforj.version>
   </properties>
-
-  <modules>
-    <module>webforj-webauthn</module>
-  </modules>
 
   <dependencies>
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-foundation</artifactId>
-      <version>24.01</version>
+      <version>${webforj.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj</artifactId>
+      <version>${webforj.version}</version>
+      <type>pom</type>
     </dependency>
   </dependencies>
 </project>
