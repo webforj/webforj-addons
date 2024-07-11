@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import com.webforj.addons.components.multiselectcombo.events.InputEvent;
 import com.webforj.addons.components.multiselectcombo.events.OpenedChangedEvent;
 import com.webforj.addons.components.multiselectcombo.events.SelectedChangedEvent;
+import com.webforj.annotation.Attribute;
+import com.webforj.annotation.JavaScript;
 import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
@@ -32,6 +34,8 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-multi-select-combo")
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
+    attributes = {@Attribute(name = "type", value = "module")})
 public class MultiSelectCombo extends ElementComposite implements HasPlaceholder<MultiSelectCombo>,
     HasReadOnly<MultiSelectCombo>, HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse> {
 
