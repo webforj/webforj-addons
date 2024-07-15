@@ -104,7 +104,7 @@ public class Route {
    * @param routeString the route string to check
    * @return true if the route string matches the pattern, false otherwise
    */
-  public Boolean matches(String routeString) {
+  public boolean matches(String routeString) {
     Matcher matcher = routePattern.matcher(routeString + "/");
     if (matcher.matches()) {
       if (routeSegments.size() > 0) {

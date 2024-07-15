@@ -31,7 +31,7 @@ public class SimpleRouter {
    * current URL from the Request object.
    */
   private SimpleRouter() {
-    String url = Request.getCurrent().getUrl();
+    String url = App.getUrl();
     String name = App.getApplicationName();
     if (ObjectTable.get("webforj_base_url") != null) {
       this.baseUrl = ObjectTable.get("webforj_base_url").toString();
@@ -74,9 +74,7 @@ public class SimpleRouter {
    * @param routeStrings the route strings to match against
    */
   public void onRouteMatch(EventListener<SimpleRouteMatchEvent> listener, String... routeStrings) {
-    Iterator<String> it = Arrays.stream(routeStrings).iterator();
-    while (it.hasNext()) {
-      String routeString = it.next();
+    for (String routeString : routeStrings) {
       EventDispatcher dispatcher;
       if (eventMap.containsKey(routeString)) {
         dispatcher = eventMap.get(routeString);
@@ -101,7 +99,7 @@ public class SimpleRouter {
    * Navigates to the current URL's corresponding route within the application.
    */
   public void navigate() {
-    String url = Request.getCurrent().getUrl();
+    String url = App.getUrl();
     if (url.startsWith(this.baseUrl + "/")) {
       url = url.substring(this.baseUrl.length() + 1);
       navigate(url);
@@ -115,14 +113,12 @@ public class SimpleRouter {
    * @param routeString the route string to navigate to
    */
   public void navigate(String routeString) {
-    Boolean done = false;
-    Iterator<String> it = eventMap.keySet().iterator();
+    boolean done = false;
 
-    while (it.hasNext()) {
-      String registeredRouteString = it.next();
+    for (String registeredRouteString : eventMap.keySet()) {
       Route r = new Route(registeredRouteString);
-      if (Boolean.TRUE.equals(r.matches(routeString))) {
-        if (Boolean.FALSE.equals(done)) {
+      if (r.matches(routeString)) {
+        if (!done) {
           currentRoute = routeString;
           done = true;
         }
@@ -130,7 +126,7 @@ public class SimpleRouter {
         dispatcher.dispatchEvent(new SimpleRouteMatchEvent(this, r));
       }
     }
-    if (Boolean.TRUE.equals(done)) {
+    if (done) {
       updateUrl(currentRoute);
     }
   }
