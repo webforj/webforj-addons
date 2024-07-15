@@ -1,9 +1,8 @@
 package com.webforj.addons.components.suggestionedit;
 
 import com.google.gson.annotations.SerializedName;
-import com.webforj.addons.components.suggestionedit.events.BlurredEvent;
-import com.webforj.addons.components.suggestionedit.events.FocusedEvent;
-import com.webforj.addons.components.suggestionedit.events.ModifiedEvent;
+import com.webforj.PendingResult;
+import com.webforj.addons.components.suggestionedit.events.*;
 import com.webforj.annotation.Attribute;
 import com.webforj.annotation.JavaScript;
 import com.webforj.component.ExpanseBase;
@@ -38,11 +37,12 @@ import java.util.List;
  */
 @NodeName("dwc-suggestion-edit")
 @JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
-    attributes = {@Attribute(name = "type", value = "module")})
-public class SuggestionEdit extends ElementComposite
-    implements HasMaxLength<SuggestionEdit>, HasMinLength<SuggestionEdit>,
-    HasEnablement<SuggestionEdit>, HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>,
-    HasLabel<SuggestionEdit>, HasPlaceholder<SuggestionEdit>, HasReadOnly<SuggestionEdit> {
+  attributes = {@Attribute(name = "type", value = "module")})
+public class SuggestionEdit extends ElementComposite implements HasMaxLength<SuggestionEdit>,
+    HasMinLength<SuggestionEdit>, HasEnablement<SuggestionEdit>,
+    HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>, HasLabel<SuggestionEdit>,
+    HasPlaceholder<SuggestionEdit>, HasReadOnly<SuggestionEdit>, HasClassName<SuggestionEdit>,
+    HasStyle<SuggestionEdit>, HasFocusStatus, HasJsExecution, HasRequired<SuggestionEdit> {
 
   /**
    * The control's expanse
@@ -122,37 +122,31 @@ public class SuggestionEdit extends ElementComposite
    * Property for blurring the component when an item is selected.
    */
   private final PropertyDescriptor<Boolean> blurOnSelectionProp =
-      PropertyDescriptor.attribute("blur-on-selection", false);
+      PropertyDescriptor.property("blurOnSelection", false);
 
   /**
    * Property for clearing the component when the {@code Escape} key is pressed.
    */
   private final PropertyDescriptor<Boolean> clearWithEscapeProp =
-      PropertyDescriptor.attribute("clear-with-escape", true);
+      PropertyDescriptor.property("clearWithEscape", true);
 
   /**
    * Property for allowing clearing of the component.
    */
   private final PropertyDescriptor<Boolean> clearableProp =
-      PropertyDescriptor.attribute("clearable", true);
-
-  /**
-   * Property for opening the component dropdown when focused.
-   */
-  private final PropertyDescriptor<Boolean> openOnFocusProp =
-      PropertyDescriptor.attribute("open-on-focus", false);
+      PropertyDescriptor.property("clearable", true);
 
   /**
    * Property for disabling the component.
    */
   private final PropertyDescriptor<Boolean> disabledProp =
-      PropertyDescriptor.property("disabled", false);
+      PropertyDescriptor.attribute("disabled", false);
 
   /**
    * Property for the distance between the component and its suggestion list.
    */
   private final PropertyDescriptor<Integer> distanceProp =
-      PropertyDescriptor.attribute("distance", 3);
+      PropertyDescriptor.property("distance", 3);
 
   /**
    * Property for the expansiveness of the component.
@@ -175,25 +169,25 @@ public class SuggestionEdit extends ElementComposite
   /**
    * Property for the label text of the component.
    */
-  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.attribute("label", null);
+  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.property("label", null);
 
   /**
    * Property for limiting the maximum number of rows in the suggestion list to be shown.
    */
   private final PropertyDescriptor<Integer> maxRowCountProp =
-      PropertyDescriptor.attribute("max-row-count", null);
+      PropertyDescriptor.property("maxRowCount", null);
 
   /**
    * Property for limiting the maximum length of the component input value.
    */
   private final PropertyDescriptor<Integer> maxLengthProp =
-      PropertyDescriptor.attribute("maxlength", null);
+      PropertyDescriptor.property("maxlength", null);
 
   /**
    * Property for limiting the minimum length of the component input value.
    */
   private final PropertyDescriptor<Integer> minLengthProp =
-      PropertyDescriptor.attribute("minlength", null);
+      PropertyDescriptor.property("minlength", null);
 
   /**
    * Property for the name attribute of the component.
@@ -204,13 +198,13 @@ public class SuggestionEdit extends ElementComposite
    * Property for the height of the component when open.
    */
   private final PropertyDescriptor<String> openHeightProp =
-      PropertyDescriptor.attribute("open-height", "");
+      PropertyDescriptor.property("openHeight", "");
 
   /**
    * Property for the width of the component when open.
    */
   private final PropertyDescriptor<String> openWidthProp =
-      PropertyDescriptor.attribute("open-width", "");
+      PropertyDescriptor.property("openWidth", "");
 
   /**
    * Property for the pattern of the component input value.
@@ -222,7 +216,7 @@ public class SuggestionEdit extends ElementComposite
    * Property for the placeholder text of the input.
    */
   private final PropertyDescriptor<String> placeholderProp =
-      PropertyDescriptor.attribute("placeholder", null);
+      PropertyDescriptor.property("placeholder", null);
 
   /**
    * Property for the {@link Placement} where the suggestion list is shown.
@@ -251,34 +245,65 @@ public class SuggestionEdit extends ElementComposite
    * Property for the skidding of the suggestion list from the input.
    */
   private final PropertyDescriptor<Integer> skiddingProp =
-      PropertyDescriptor.attribute("skidding", 0);
+      PropertyDescriptor.property("skidding", 0);
 
   /**
    * Property for the list of suggestions for the component.
    */
-  private final PropertyDescriptor<List<String>> suggestionsProp =
+  private final PropertyDescriptor<List<Suggestion>> suggestionsProp =
       PropertyDescriptor.property("suggestions", new ArrayList<>());
 
   /**
    * Property for indicating the tab traversable behavior of the component.
    */
   private final PropertyDescriptor<Integer> tabTraversableProp =
-      PropertyDescriptor.attribute("tab-traversable", 0);
+      PropertyDescriptor.property("tabTraversable", 0);
+
+  /**
+   * Property for indicating whether the dropdown should toggle on input click.
+   */
+  private final PropertyDescriptor<Boolean> toggleOnClickProp =
+      PropertyDescriptor.property("toggleOnClick", true);
+
+  /**
+   * Property for whether the dropdown should open on arrow key down on the input.
+   */
+  private final PropertyDescriptor<Boolean> openOnArrowProp =
+      PropertyDescriptor.property("openOnArrow", true);
 
   /**
    * Property for the value of the component.
    */
-  private final PropertyDescriptor<String> valueProp = PropertyDescriptor.attribute("value", "");
+  private final PropertyDescriptor<String> valueProp = PropertyDescriptor.property("value", "");
 
   /**
-   * Adds a listener for the modified event, which is triggered when the input value is modified.
+   * Property specifies the debounce delay for events triggered by typing input values. When the
+   * user types, the input event is debounced by the specified delay to reduce the number of event
+   * triggers.
+   */
+  private final PropertyDescriptor<Integer> debounceProp =
+      PropertyDescriptor.property("debounce", 250);
+
+  /**
+   * Adds a listener for the input event, which is triggered when the input value is modified.
    *
    * @param listener The event listener to add.
    * @return A registration object that can be used to unregister the listener if needed.
    */
-  public ListenerRegistration<ModifiedEvent> addModifiedListener(
-      EventListener<ModifiedEvent> listener) {
-    return this.addEventListener(ModifiedEvent.class, listener);
+  public ListenerRegistration<InputEvent> addInputListener(EventListener<InputEvent> listener) {
+    return this.addEventListener(InputEvent.class, listener);
+  }
+
+  /**
+   * Adds a listener for the change event, which is triggered when the value is changed to a
+   * suggestion.
+   *
+   * @param listener The event listener to add.
+   * @return A registration object that can be used to unregister the listener if needed.
+   */
+  public ListenerRegistration<ChangedEvent> addChangedListener(
+      EventListener<ChangedEvent> listener) {
+    return this.addEventListener(ChangedEvent.class, listener);
   }
 
   /**
@@ -302,6 +327,41 @@ public class SuggestionEdit extends ElementComposite
       EventListener<BlurredEvent> listener) {
     return this.addEventListener(BlurredEvent.class, listener);
   }
+
+  /**
+   * Opens the suggestions dropdown list.
+   */
+  public void open() {
+    this.executeJs("component.open()");
+  }
+
+  /**
+   * Closes the suggestions dropdown list.
+   */
+  public void close() {
+    this.executeJs("component.close()");
+  }
+
+  /**
+   * Sets focus on the suggestion input.
+   */
+  public void setFocus() {
+    this.executeJs("component.setFocus()");
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public Object executeJs(String js) {
+    return super.getElement().executeJs(js);
+  };
+
+  /**
+   * {@inheritDoc}
+   */
+  public PendingResult<Object> executeJsAsync(String js) {
+    return super.getElement().executeJsAsync(js);
+  };
 
   /**
    * Retrieves the current value of the {@code autofocus} property, indicating whether the input
@@ -393,28 +453,6 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
-   * Retrieves the current value of the {@code openOnFocus} property, indicating whether the
-   * suggestion list should automatically open when the input field gains focus. Assuming there are
-   * {@code suggestions} set
-   *
-   * @return {@code true} if opening on focus is enabled, {@code false} otherwise.
-   */
-  public boolean getOpenOnFocus() {
-    return super.get(this.openOnFocusProp);
-  }
-
-  /**
-   * Sets whether the suggestion list should automatically open when the input field gains focus.
-   *
-   * @param openOnFocus {@code true} if opening on focus is enabled, {@code false} otherwise.
-   * @return This {@code SuggestionEdit} instance for method chaining.
-   */
-  public SuggestionEdit setOpenOnFocus(boolean openOnFocus) {
-    super.set(this.openOnFocusProp, openOnFocus);
-    return this;
-  }
-
-  /**
    * Retrieves the current value of the {@code disabled} property, indicating whether the input
    * field is disabled.
    *
@@ -475,6 +513,15 @@ public class SuggestionEdit extends ElementComposite
   public SuggestionEdit setExpanse(Expanse expanse) {
     super.set(this.expanseProp, expanse);
     return this;
+  }
+
+  /**
+   * Retrieves the current focus state of the component in the document.
+   *
+   * @return The focus value.
+   */
+  public boolean hasFocus() {
+    return super.get(this.hasFocusProp);
   }
 
   /**
@@ -736,7 +783,7 @@ public class SuggestionEdit extends ElementComposite
    *
    * @return {@code true} if the input field is required, {@code false} otherwise.
    */
-  public boolean getRequired() {
+  public boolean isRequired() {
     return super.get(this.requiredProp);
   }
 
@@ -799,7 +846,7 @@ public class SuggestionEdit extends ElementComposite
    *
    * @return The list of suggestions.
    */
-  public List<String> getSuggestions() {
+  public List<Suggestion> getSuggestions() {
     return super.get(this.suggestionsProp);
   }
 
@@ -809,7 +856,7 @@ public class SuggestionEdit extends ElementComposite
    * @param suggestions The list of suggestions.
    * @return This {@code SuggestionEdit} instance for method chaining.
    */
-  public SuggestionEdit setSuggestions(List<String> suggestions) {
+  public SuggestionEdit setSuggestions(List<Suggestion> suggestions) {
     super.set(this.suggestionsProp, suggestions);
     return this;
   }
@@ -836,12 +883,54 @@ public class SuggestionEdit extends ElementComposite
   }
 
   /**
+   * Retrieves whether the dropdown should toggle on input click.
+   *
+   * @return {@code true} if dropdown toggling on input click is enabled, otherwise {@code false}.
+   */
+  public boolean isToggleOnClick() {
+    return super.get(this.toggleOnClickProp);
+  }
+
+  /**
+   * Sets whether the dropdown should toggle on input click.
+   *
+   * @param toggleOnClick {@code true} to enable dropdown toggling on input click, {@code false} to
+   *        disable.
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit setToggleOnClick(boolean toggleOnClick) {
+    super.set(this.toggleOnClickProp, toggleOnClick);
+    return this;
+  }
+
+  /**
+   * Retrieves whether the dropdown should open on arrow key down on the input.
+   *
+   * @return {@code true} if dropdown opening on arrow key down is enabled, otherwise {@code false}.
+   */
+  public boolean isOpenOnArrow() {
+    return super.get(this.openOnArrowProp, true);
+  }
+
+  /**
+   * Sets whether the dropdown should open on arrow key down on the input.
+   *
+   * @param openOnArrow {@code true} to enable dropdown opening on arrow key down, {@code false} to
+   *        disable.
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit setOpenOnArrow(boolean openOnArrow) {
+    super.set(this.openOnArrowProp, openOnArrow);
+    return this;
+  }
+
+  /**
    * Retrieves the current value of the input field.
    *
    * @return The value of the input field.
    */
   public String getValue() {
-    return super.get(this.valueProp);
+    return super.get(this.valueProp, true);
   }
 
   /**
@@ -852,6 +941,105 @@ public class SuggestionEdit extends ElementComposite
    */
   public SuggestionEdit setValue(String value) {
     super.set(this.valueProp, value);
+    return this;
+  }
+
+  /**
+   * Retrieves the debounce delay for events triggered by typing input values.
+   *
+   * @return The debounce delay in milliseconds.
+   */
+  public int getDebounce() {
+    return super.get(this.debounceProp);
+  }
+
+  /**
+   * Sets the debounce delay for events triggered by typing input values.
+   *
+   * @param debounce The debounce delay in milliseconds.
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit setDebounce(int debounce) {
+    super.set(this.debounceProp, debounce);
+    return this;
+  }
+
+  /**
+   * Adds a CSS class to the list of CSS classes for the component.
+   *
+   * @param classNames the name of the CSS class to be added.
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit addClassName(String... classNames) {
+    super.getElement().addClassName(classNames);
+    return this;
+  }
+
+  /**
+   * Removes a CSS class from the list of CSS classes for the component.
+   *
+   * @param classNames the name of the CSS class to be removed.
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit removeClassName(String... classNames) {
+    super.getElement().removeClassName(classNames);
+    return this;
+  }
+
+  /**
+   * Gets the value of a CSS property.
+   *
+   * <p>
+   * This method is intended to be used to retrieve the value of a CSS property of a component.
+   * </p>
+   *
+   * @param property The CSS property to be retrieved
+   * @return String containing the value of the CSS property
+   */
+  public String getStyle(String property) {
+    return super.getElement().getStyle(property);
+  }
+
+  /**
+   * Gets the computed value of a CSS property.
+   *
+   * <p>
+   * This method is used to obtain the computed value of a CSS property for the component. The
+   * computed value represents the final value that is applied to the element after considering all
+   * styles applied to it, including styles inherited from parent elements and user-agent defaults.
+   * </p>
+   *
+   * @param property The CSS property to be retrieved
+   * @return String containing all computed styles
+   */
+  public String getComputedStyle(String property) {
+    return super.getElement().getComputedStyle(property);
+  }
+
+  /**
+   * Sets a CSS property to a specific value.
+   *
+   * <p>
+   * This method is intended to be used to modify a single CSS property of a component.
+   * </p>
+   *
+   * @param property The CSS property to be changed
+   * @param value The value to be assigned to the CSS property
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit setStyle(String property, String value) {
+    super.getElement().setStyle(property, value);
+    return this;
+  }
+
+  /**
+   * Removes a CSS property to a specific value.
+   *
+   * @param property The CSS property to be changed
+   * @return This {@code SuggestionEdit} instance for method chaining.
+   */
+  public SuggestionEdit removeStyle(String property) {
+    super.getElement().removeStyle(property);
     return this;
   }
 }
