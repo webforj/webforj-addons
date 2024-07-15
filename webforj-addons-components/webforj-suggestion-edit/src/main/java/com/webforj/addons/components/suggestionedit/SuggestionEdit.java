@@ -37,7 +37,7 @@ import java.util.List;
  */
 @NodeName("dwc-suggestion-edit")
 @JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
-  attributes = {@Attribute(name = "type", value = "module")})
+    attributes = {@Attribute(name = "type", value = "module")})
 public class SuggestionEdit extends ElementComposite implements HasMaxLength<SuggestionEdit>,
     HasMinLength<SuggestionEdit>, HasEnablement<SuggestionEdit>,
     HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>, HasLabel<SuggestionEdit>,
