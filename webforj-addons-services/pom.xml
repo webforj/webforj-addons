@@ -7,12 +7,12 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>23.02-SNAPSHOT</version>
   </parent>
 
   <groupId>com.webforj.addons</groupId>
   <artifactId>webforj-addons-services</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>23.02-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -30,8 +30,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <webforj.version>24.01</webforj.version>
+    <webforj.version>24.02-SNAPSHOT</webforj.version>
   </properties>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>ossrh-snapshots</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
 
   <dependencies>
     <dependency>
