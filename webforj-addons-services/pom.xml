@@ -7,12 +7,11 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons</artifactId>
-    <version>23.02-SNAPSHOT</version>
+    <version>24.02-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.webforj.addons</groupId>
   <artifactId>webforj-addons-services</artifactId>
-  <version>23.02-SNAPSHOT</version>
+  <version>24.02-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -30,7 +29,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <webforj.version>24.02-SNAPSHOT</webforj.version>
+
   </properties>
 
   <pluginRepositories>
