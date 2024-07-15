@@ -118,37 +118,31 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * Property for blurring the component when an item is selected.
    */
   private final PropertyDescriptor<Boolean> blurOnSelectionProp =
-      PropertyDescriptor.attribute("blur-on-selection", false);
+      PropertyDescriptor.property("blurOnSelection", false);
 
   /**
    * Property for clearing the component when the {@code Escape} key is pressed.
    */
   private final PropertyDescriptor<Boolean> clearWithEscapeProp =
-      PropertyDescriptor.attribute("clear-with-escape", true);
+      PropertyDescriptor.property("clearWithEscape", true);
 
   /**
    * Property for allowing clearing of the component.
    */
   private final PropertyDescriptor<Boolean> clearableProp =
-      PropertyDescriptor.attribute("clearable", true);
-
-  /**
-   * Property for opening the component dropdown when focused.
-   */
-  private final PropertyDescriptor<Boolean> openOnFocusProp =
-      PropertyDescriptor.attribute("open-on-focus", false);
+      PropertyDescriptor.property("clearable", true);
 
   /**
    * Property for disabling the component.
    */
   private final PropertyDescriptor<Boolean> disabledProp =
-      PropertyDescriptor.property("disabled", false);
+      PropertyDescriptor.attribute("disabled", false);
 
   /**
    * Property for the distance between the component and its suggestion list.
    */
   private final PropertyDescriptor<Integer> distanceProp =
-      PropertyDescriptor.attribute("distance", 3);
+      PropertyDescriptor.property("distance", 3);
 
   /**
    * Property for the expansiveness of the component.
@@ -171,25 +165,25 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
   /**
    * Property for the label text of the component.
    */
-  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.attribute("label", null);
+  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.property("label", null);
 
   /**
    * Property for limiting the maximum number of rows in the suggestion list to be shown.
    */
   private final PropertyDescriptor<Integer> maxRowCountProp =
-      PropertyDescriptor.attribute("max-row-count", null);
+      PropertyDescriptor.property("maxRowCount", null);
 
   /**
    * Property for limiting the maximum length of the component input value.
    */
   private final PropertyDescriptor<Integer> maxLengthProp =
-      PropertyDescriptor.attribute("maxlength", null);
+      PropertyDescriptor.property("maxlength", null);
 
   /**
    * Property for limiting the minimum length of the component input value.
    */
   private final PropertyDescriptor<Integer> minLengthProp =
-      PropertyDescriptor.attribute("minlength", null);
+      PropertyDescriptor.property("minlength", null);
 
   /**
    * Property for the name attribute of the component.
@@ -200,13 +194,13 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * Property for the height of the component when open.
    */
   private final PropertyDescriptor<String> openHeightProp =
-      PropertyDescriptor.attribute("open-height", "");
+      PropertyDescriptor.property("openHeight", "");
 
   /**
    * Property for the width of the component when open.
    */
   private final PropertyDescriptor<String> openWidthProp =
-      PropertyDescriptor.attribute("open-width", "");
+      PropertyDescriptor.property("openWidth", "");
 
   /**
    * Property for the pattern of the component input value.
@@ -218,7 +212,7 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * Property for the placeholder text of the input.
    */
   private final PropertyDescriptor<String> placeholderProp =
-      PropertyDescriptor.attribute("placeholder", null);
+      PropertyDescriptor.property("placeholder", null);
 
   /**
    * Property for the {@link Placement} where the suggestion list is shown.
@@ -247,7 +241,7 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * Property for the skidding of the suggestion list from the input.
    */
   private final PropertyDescriptor<Integer> skiddingProp =
-      PropertyDescriptor.attribute("skidding", 0);
+      PropertyDescriptor.property("skidding", 0);
 
   /**
    * Property for the list of suggestions for the component.
@@ -259,19 +253,19 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * Property for indicating the tab traversable behavior of the component.
    */
   private final PropertyDescriptor<Integer> tabTraversableProp =
-      PropertyDescriptor.attribute("tab-traversable", 0);
+      PropertyDescriptor.property("tabTraversable", 0);
 
   /**
    * Property for indicating whether the dropdown should toggle on input click.
    */
   private final PropertyDescriptor<Boolean> toggleOnClickProp =
-      PropertyDescriptor.attribute("toggle-on-click", true);
+      PropertyDescriptor.property("toggleOnClick", true);
 
   /**
    * Property for whether the dropdown should open on arrow key down on the input.
    */
   private final PropertyDescriptor<Boolean> openOnArrowProp =
-    PropertyDescriptor.attribute("open-on-arrow", true);
+      PropertyDescriptor.property("openOnArrow", true);
 
   /**
    * Property for the value of the component.
@@ -328,6 +322,27 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
   public ListenerRegistration<BlurredEvent> addBlurredListener(
       EventListener<BlurredEvent> listener) {
     return this.addEventListener(BlurredEvent.class, listener);
+  }
+
+  /**
+   * Opens the suggestions dropdown list.
+   */
+  public void open() {
+    this.executeJs("component.open()");
+  }
+
+  /**
+   * Closes the suggestions dropdown list.
+   */
+  public void close() {
+    this.executeJs("component.close()");
+  }
+
+  /**
+   * Sets focus on the suggestion input.
+   */
+  public void setFocus() {
+    this.executeJs("component.setFocus()");
   }
 
   /**
@@ -430,28 +445,6 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    */
   public SuggestionEdit setClearable(boolean clearable) {
     super.set(this.clearableProp, clearable);
-    return this;
-  }
-
-  /**
-   * Retrieves the current value of the {@code openOnFocus} property, indicating whether the
-   * suggestion list should automatically open when the input field gains focus. Assuming there are
-   * {@code suggestions} set
-   *
-   * @return {@code true} if opening on focus is enabled, {@code false} otherwise.
-   */
-  public boolean getOpenOnFocus() {
-    return super.get(this.openOnFocusProp);
-  }
-
-  /**
-   * Sets whether the suggestion list should automatically open when the input field gains focus.
-   *
-   * @param openOnFocus {@code true} if opening on focus is enabled, {@code false} otherwise.
-   * @return This {@code SuggestionEdit} instance for method chaining.
-   */
-  public SuggestionEdit setOpenOnFocus(boolean openOnFocus) {
-    super.set(this.openOnFocusProp, openOnFocus);
     return this;
   }
 
@@ -933,7 +926,7 @@ public class SuggestionEdit extends ElementComposite implements HasMaxLength<Sug
    * @return The value of the input field.
    */
   public String getValue() {
-    return super.get(this.valueProp);
+    return super.get(this.valueProp, true);
   }
 
   /**
