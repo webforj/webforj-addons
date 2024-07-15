@@ -182,7 +182,7 @@ public class MultiSelectCombo extends ElementComposite implements HasPlaceholder
   /**
    * Property for specifying the label attribute of the component.
    */
-  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.attribute("label", "");
+  private final PropertyDescriptor<String> labelProp = PropertyDescriptor.property("label", "");
 
   /**
    * Property for specifying the placeholder text of the component.
@@ -206,7 +206,7 @@ public class MultiSelectCombo extends ElementComposite implements HasPlaceholder
    * Property for specifying the maximum number of rows displayed by the component.
    */
   private final PropertyDescriptor<Integer> maxRowCountProp =
-      PropertyDescriptor.attribute("max-row-count", null);
+      PropertyDescriptor.property("maxRowCount", null);
 
   /**
    * Property for controlling whether the dropdown opens on arrow key press.
@@ -312,7 +312,7 @@ public class MultiSelectCombo extends ElementComposite implements HasPlaceholder
    * message.
    */
   private final PropertyDescriptor<ValidationStyle> validationStyleProp =
-      PropertyDescriptor.property("validation-style", null);
+      PropertyDescriptor.property("validationStyle", null);
 
   /**
    * Add a listener for the opened event.
