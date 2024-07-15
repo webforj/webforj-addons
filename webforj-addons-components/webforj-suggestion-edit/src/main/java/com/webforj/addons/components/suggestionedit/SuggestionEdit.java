@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 import com.webforj.addons.components.suggestionedit.events.BlurredEvent;
 import com.webforj.addons.components.suggestionedit.events.FocusedEvent;
 import com.webforj.addons.components.suggestionedit.events.ModifiedEvent;
+import com.webforj.annotation.Attribute;
+import com.webforj.annotation.JavaScript;
 import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
@@ -35,6 +37,8 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-suggestion-edit")
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
+    attributes = {@Attribute(name = "type", value = "module")})
 public class SuggestionEdit extends ElementComposite
     implements HasMaxLength<SuggestionEdit>, HasMinLength<SuggestionEdit>,
     HasEnablement<SuggestionEdit>, HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>,

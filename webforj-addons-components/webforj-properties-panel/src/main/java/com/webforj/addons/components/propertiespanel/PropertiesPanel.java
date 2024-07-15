@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.webforj.PendingResult;
 import com.webforj.addons.components.propertiespanel.events.ChangedEvent;
 import com.webforj.addons.components.propertiespanel.schema.*;
+import com.webforj.annotation.Attribute;
+import com.webforj.annotation.JavaScript;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
 import com.webforj.component.element.annotation.NodeName;
@@ -32,6 +34,8 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-properties-panel")
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true,
+    attributes = {@Attribute(name = "type", value = "module")})
 public class PropertiesPanel extends ElementComposite {
 
   /**
