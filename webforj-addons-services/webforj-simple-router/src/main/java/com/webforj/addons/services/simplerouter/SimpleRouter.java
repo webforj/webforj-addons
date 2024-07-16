@@ -1,6 +1,7 @@
 package com.webforj.addons.services.simplerouter;
 
 import com.webforj.App;
+import com.webforj.Page;
 import com.webforj.Request;
 import com.webforj.dispatcher.EventDispatcher;
 import com.webforj.dispatcher.EventListener;
@@ -8,9 +9,7 @@ import com.webforj.environment.ObjectTable;
 
 import com.webforj.addons.services.simplerouter.event.SimpleRouteMatchEvent;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -31,7 +30,7 @@ public class SimpleRouter {
    * current URL from the Request object.
    */
   private SimpleRouter() {
-    String url = App.getUrl();
+    String url = Request.getCurrent().getUrl();
     String name = App.getApplicationName();
     if (ObjectTable.get("webforj_base_url") != null) {
       this.baseUrl = ObjectTable.get("webforj_base_url").toString();
@@ -63,7 +62,7 @@ public class SimpleRouter {
    * @param routeString the new route string to set in the URL
    */
   private void updateUrl(String routeString) {
-    App.getPage().executeJs(
+    Page.getCurrent().executeJs(
         "window.history.replaceState({},'title','" + baseUrl + "/" + routeString + "');");
   }
 
@@ -99,7 +98,7 @@ public class SimpleRouter {
    * Navigates to the current URL's corresponding route within the application.
    */
   public void navigate() {
-    String url = App.getUrl();
+    String url = Request.getCurrent().getUrl();
     if (url.startsWith(this.baseUrl + "/")) {
       url = url.substring(this.baseUrl.length() + 1);
       navigate(url);
