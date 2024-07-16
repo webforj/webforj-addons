@@ -42,10 +42,10 @@ public class SuggestionEdit extends ElementComposite
     implements HasMaxLength<SuggestionEdit>, HasMinLength<SuggestionEdit>,
     HasEnablement<SuggestionEdit>, HasExpanse<SuggestionEdit, SuggestionEdit.Expanse>,
     HasLabel<SuggestionEdit>, HasPlaceholder<SuggestionEdit>, HasReadOnly<SuggestionEdit>,
-    HasClassName<com.webforj.addons.components.suggestionedit.SuggestionEdit>,
-    HasStyle<SuggestionEdit>, HasFocusStatus, HasJsExecution, HasRequired<SuggestionEdit>,
-    HasClientAutoValidation<SuggestionEdit>, HasClientAutoValidationOnLoad<SuggestionEdit>,
-    HasClientValidation<SuggestionEdit>, HasClientValidationStyle<SuggestionEdit> {
+    HasClassName<SuggestionEdit>, HasStyle<SuggestionEdit>, HasFocusStatus, HasJsExecution,
+    HasRequired<SuggestionEdit>, HasClientAutoValidation<SuggestionEdit>,
+    HasClientAutoValidationOnLoad<SuggestionEdit>, HasClientValidation<SuggestionEdit>,
+    HasClientValidationStyle<SuggestionEdit> {
 
   /**
    * The control's expanse

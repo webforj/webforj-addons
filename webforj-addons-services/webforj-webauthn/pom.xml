@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons-services</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>24.02-SNAPSHOT</version>
   </parent>
 
   <artifactId>webforj-webauthn</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>24.02-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -20,12 +20,39 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>ossrh-snapshots</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
   <dependencies>
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-html-elements</artifactId>
-      <version>24.01</version>
+      <version>24.02-SNAPSHOT</version>
     </dependency>
   </dependencies>
+
+  <build>
+  <pluginManagement>
+  <plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-deploy-plugin</artifactId>
+    <configuration>
+      <skip>true</skip>
+    </configuration>
+  </plugin>
+  </plugins>
+  </pluginManagement>
+  </build>
 
 </project>
