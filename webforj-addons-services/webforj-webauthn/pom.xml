@@ -37,7 +37,7 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-html-elements</artifactId>
-      <version>24.02-SNAPSHOT</version>
+      <version>24.02</version>
     </dependency>
   </dependencies>
 
