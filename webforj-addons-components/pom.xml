@@ -48,7 +48,7 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-foundation</artifactId>
-      <version>24.02-SNAPSHOT</version>
+      <version>24.02</version>
     </dependency>
   </dependencies>
 </project>
