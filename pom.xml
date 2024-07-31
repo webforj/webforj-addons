@@ -6,7 +6,7 @@
 
   <groupId>com.webforj.addons</groupId>
   <artifactId>webforj-addons</artifactId>
-  <version>24.02-SNAPSHOT</version>
+  <version>24.10-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>webforj-addons</name>
@@ -25,7 +25,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <webforj.version>24.02</webforj.version>
+    <webforj.version>24.10</webforj.version>
   </properties>
 
   <issueManagement>
