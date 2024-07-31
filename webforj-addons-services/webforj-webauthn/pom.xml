@@ -42,17 +42,26 @@
   </dependencies>
 
   <build>
-  <pluginManagement>
-  <plugins>
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-deploy-plugin</artifactId>
-    <configuration>
-      <skip>true</skip>
-    </configuration>
-  </plugin>
-  </plugins>
-  </pluginManagement>
-  </build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
+    <plugins>
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <configuration>
+          <configFile>${project.parent.parent.basedir}/formatter.xml</configFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

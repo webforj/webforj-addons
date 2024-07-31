@@ -13,11 +13,21 @@
   <version>24.02-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>net.revelc.code.formatter</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <configuration>
+          <configFile>${project.parent.parent.basedir}/formatter.xml</configFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
