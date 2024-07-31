@@ -7,11 +7,11 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons</artifactId>
-    <version>24.02-SNAPSHOT</version>
+    <version>24.10-SNAPSHOT</version>
   </parent>
 
   <artifactId>webforj-addons-services</artifactId>
-  <version>24.02-SNAPSHOT</version>
+  <version>24.10-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -20,16 +20,16 @@
     authorization, and other core services that support the main webforJ framework.
   </description>
 
-  <modules>
-    <module>webforj-webauthn</module>
-    <module>webforj-simple-router</module>
-  </modules>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
+
+  <modules>
+    <module>webforj-webauthn</module>
+    <module>webforj-simple-router</module>
+  </modules>
 
   <pluginRepositories>
     <pluginRepository>

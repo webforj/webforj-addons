@@ -7,11 +7,13 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons</artifactId>
-    <version>24.02-SNAPSHOT</version>
+    <version>24.10-SNAPSHOT</version>
   </parent>
-  <packaging>pom</packaging>
 
   <artifactId>webforj-addons-components</artifactId>
+  <version>24.10-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
   <name>${project.artifactId}</name>
   <description>
     addons for webforJ enhances the user interface of the main webforJ framework with a diverse
@@ -48,7 +50,7 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-foundation</artifactId>
-      <version>24.02</version>
+      <version>${webforj.version}</version>
     </dependency>
   </dependencies>
 
