@@ -15,13 +15,13 @@ import java.util.Map;
 @EventName("dwc-input")
 public class InputEvent extends ComponentEvent<MultiSelectCombo> {
 
-  /**
-   * Creates a new event.
-   *
-   * @param control the control
-   * @param eventMap the event map
-   */
-  public InputEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
-    super(control, eventMap);
-  }
+	/**
+	 * Creates a new event.
+	 *
+	 * @param control the control
+	 * @param eventMap the event map
+	 */
+	public InputEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
+		super(control, eventMap);
+	}
 }

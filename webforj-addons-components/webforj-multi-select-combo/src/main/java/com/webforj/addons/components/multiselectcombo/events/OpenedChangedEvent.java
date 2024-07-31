@@ -14,13 +14,13 @@ import java.util.Map;
 @EventName("dwc-opened-changed")
 public class OpenedChangedEvent extends ComponentEvent<MultiSelectCombo> {
 
-  /**
-   * Creates a new event.
-   *
-   * @param control the control
-   * @param eventMap the event map
-   */
-  public OpenedChangedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
-    super(control, eventMap);
-  }
+	/**
+	 * Creates a new event.
+	 *
+	 * @param control the control
+	 * @param eventMap the event map
+	 */
+	public OpenedChangedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
+		super(control, eventMap);
+	}
 }

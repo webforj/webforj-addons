@@ -18,31 +18,31 @@ import java.util.Map;
 @EventOptions(data = {@EventOptions.EventData(key = "detail", exp = "event.detail"),})
 public class SearchedEvent extends ComponentEvent<SideMenu> {
 
-  /**
-   * Creates a new event {@code dwc-searched} event.
-   *
-   * @param component the component that fired the event
-   * @param payload the event map
-   */
-  public SearchedEvent(SideMenu component, Map<String, Object> payload) {
-    super(component, payload);
-  }
+	/**
+	 * Creates a new event {@code dwc-searched} event.
+	 *
+	 * @param component the component that fired the event
+	 * @param payload the event map
+	 */
+	public SearchedEvent(SideMenu component, Map<String, Object> payload) {
+		super(component, payload);
+	}
 
-  /**
-   * Gets the newly selected item from the side menu
-   *
-   * @return The new selected item.
-   */
-  public Item getSearched() {
-    return (Item) this.getEventMap().get("selected");
-  }
+	/**
+	 * Gets the newly selected item from the side menu
+	 *
+	 * @return The new selected item.
+	 */
+	public Item getSearched() {
+		return (Item) this.getEventMap().get("selected");
+	}
 
-  /**
-   * Gets the deselected item from the side menu.
-   *
-   * @return The deselected item.
-   */
-  public Item getDeselectedItem() {
-    return (Item) this.getEventMap().get("deselected");
-  }
+	/**
+	 * Gets the deselected item from the side menu.
+	 *
+	 * @return The deselected item.
+	 */
+	public Item getDeselectedItem() {
+		return (Item) this.getEventMap().get("deselected");
+	}
 }

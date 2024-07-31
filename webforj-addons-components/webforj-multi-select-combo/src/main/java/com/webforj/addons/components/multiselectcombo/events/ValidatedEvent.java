@@ -17,22 +17,22 @@ import java.util.Map;
 @EventOptions(data = {@EventOptions.EventData(key = "invalid", exp = "event.detail"),})
 public class ValidatedEvent extends ComponentEvent<MultiSelectCombo> {
 
-  /**
-   * Creates a new event.
-   *
-   * @param control the control
-   * @param eventMap the event map
-   */
-  public ValidatedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
-    super(control, eventMap);
-  }
+	/**
+	 * Creates a new event.
+	 *
+	 * @param control the control
+	 * @param eventMap the event map
+	 */
+	public ValidatedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
+		super(control, eventMap);
+	}
 
-  /**
-   * Gets the result of the component validation.
-   *
-   * @return The invalidity value.
-   */
-  public boolean isInvalid() {
-    return (boolean) this.getEventMap().get("invalid");
-  }
+	/**
+	 * Gets the result of the component validation.
+	 *
+	 * @return The invalidity value.
+	 */
+	public boolean isInvalid() {
+		return (boolean) this.getEventMap().get("invalid");
+	}
 }
