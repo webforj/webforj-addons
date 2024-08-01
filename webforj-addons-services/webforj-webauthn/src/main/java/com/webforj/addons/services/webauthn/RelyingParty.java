@@ -125,7 +125,7 @@ public class RelyingParty {
 	 * only active one.
 	 */
 	public void cancelCeremony() {
-		this.anyElement.getElement().executeJs("window.dwcWebAuthn.cancelCeremony()");
+		Page.getCurrent().executeJs("window.dwcWebAuthn.webAuthnAbort.cancelCeremony()");
 	}
 
 	/**

@@ -41,3 +41,21 @@ bbj/.project
 .DS_Store
 *.versionsBackup
 
+# Client
+**/dist/
+
+*~
+*.sw[mnpcod]
+*.log
+*.lock
+*.tmp
+*.tmp.*
+
+**/.idea/
+**/.vscode/
+**/.versions/
+**/node_modules/
+**/node/
+
+**/.env
+**/coverage/

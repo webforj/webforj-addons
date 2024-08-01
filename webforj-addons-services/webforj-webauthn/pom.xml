@@ -62,6 +62,93 @@
           <configFile>${project.parent.parent.basedir}/formatter.xml</configFile>
         </configuration>
       </plugin>
+
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}/client/dist</directory>
+            </fileset>
+            <fileset>
+              <directory>${project.basedir}/client/node</directory>
+            </fileset>
+            <fileset>
+              <directory>${project.basedir}/client/node_modules</directory>
+            </fileset>
+            <fileset>
+              <directory>${project.basedir}/src/main/resources/services</directory>
+              <includes>
+                <include>webauthn.js</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.15.0</version>
+        <executions>
+          <execution>
+            <id>install node and npm</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>install-node-and-npm</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>npm install</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>build</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run build</arguments>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <nodeVersion>v20.12.2</nodeVersion>
+          <npmVersion>10.5.0</npmVersion>
+          <workingDirectory>${project.basedir}/client</workingDirectory>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-client-build</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.basedir}/src/main/resources/services</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/client/dist</directory>
+                  <includes>
+                    <include>webauthn.js</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
