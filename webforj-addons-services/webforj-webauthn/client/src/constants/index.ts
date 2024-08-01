@@ -1,0 +1,1 @@
+export const AUTHENTICATOR_ATTACHMENTS: AuthenticatorAttachment[] = ['cross-platform', 'platform'];
