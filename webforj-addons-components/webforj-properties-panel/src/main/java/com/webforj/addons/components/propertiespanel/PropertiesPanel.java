@@ -38,7 +38,12 @@ import java.util.List;
 @NodeName("dwc-properties-panel")
 @JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.0/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
-public class PropertiesPanel extends ElementComposite {
+public class PropertiesPanel extends ElementComposite
+		implements
+			HasClassName<PropertiesPanel>,
+			HasProperty<PropertiesPanel>,
+			HasStyle<PropertiesPanel>,
+			HasJsExecution {
 
 	/**
 	 * Property that must be provided to the component as a list of
@@ -93,5 +98,106 @@ public class PropertiesPanel extends ElementComposite {
 	public PropertiesPanel setSchema(List<SchemaGroup> schema) {
 		set(schemaProp, schema);
 		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesPanel addClassName(String... classNames) {
+		this.getBoundComponent().addClassName(classNames);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesPanel removeClassName(String... classNames) {
+		this.getBoundComponent().removeClassName(classNames);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object executeJs(String js) {
+		return this.getBoundComponent().executeJs(js);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PendingResult<Object> executeJsAsync(String js) {
+		return this.getBoundComponent().executeJsAsync(js);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getStyle(String property) {
+		return this.getBoundComponent().getStyle(property);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getComputedStyle(String property) {
+		return this.getBoundComponent().getComputedStyle(property);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesPanel setStyle(String property, String value) {
+		this.getBoundComponent().setStyle(property, value);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesPanel removeStyle(String property) {
+		this.getBoundComponent().removeStyle(property);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesPanel setProperty(String property, Object value) {
+		this.getBoundComponent().setProperty(property, value);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <V> V getProperty(String property, Type typeOfV) {
+		return this.getBoundComponent().getProperty(property, typeOfV);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <V> V getProperty(String property, Class<V> classOfV) {
+		return this.getBoundComponent().getProperty(property, classOfV);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object getProperty(String property) {
+		return this.getBoundComponent().getProperty(property);
 	}
 }
