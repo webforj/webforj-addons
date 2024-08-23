@@ -36,7 +36,7 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-multi-select-combo")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true, attributes = {
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.0/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
 public class MultiSelectCombo extends ElementComposite
 		implements
