@@ -10,6 +10,7 @@ import com.webforj.annotation.JavaScript;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
 import com.webforj.component.element.annotation.NodeName;
+import com.webforj.concern.*;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
 
@@ -35,7 +36,7 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-properties-panel")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/0.0.1/dwc-addons.esm.js", top = true, attributes = {
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.0/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
 public class PropertiesPanel extends ElementComposite {
 
