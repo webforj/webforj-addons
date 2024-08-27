@@ -26,7 +26,7 @@ public enum COSEAlgorithmIdentifier {
 	 *      Elliptic Curve Diffie-Hellman (ECDH) and Signatures in JSON Object
 	 *      Signing and Encryption (JOSE)</a>
 	 */
-	EdDSA(-8, "EDDSA"),
+	EDDSA(-8, "EDDSA"),
 
 	/**
 	 * ES256 algorithm identifier (-7). ES256 (Elliptic Curve Digital Signature

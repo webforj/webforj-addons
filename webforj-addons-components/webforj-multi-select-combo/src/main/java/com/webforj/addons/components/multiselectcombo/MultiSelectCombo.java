@@ -403,6 +403,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The expanse value.
 	 */
+	@Override
 	public Expanse getExpanse() {
 		return get(this.expanseProp);
 	}
@@ -413,6 +414,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * @param expanse The expanse value.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setExpanse(Expanse expanse) {
 		set(this.expanseProp, expanse);
 		return this;
@@ -603,6 +605,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The name value.
 	 */
+	@Override
 	public String getName() {
 		return get(this.nameProp);
 	}
@@ -613,6 +616,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * @param name The name value.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setName(String name) {
 		set(this.nameProp, name);
 		return this;
@@ -705,6 +709,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The placeholder text.
 	 */
+	@Override
 	public String getPlaceholder() {
 		return super.get(this.placeholderProp);
 	}
@@ -715,6 +720,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * @param placeholder The placeholder text.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setPlaceholder(String placeholder) {
 		super.set(this.placeholderProp, placeholder);
 		return this;
@@ -747,6 +753,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * @return {@code true} if the input field is in read-only mode, {@code false}
 	 *         otherwise.
 	 */
+	@Override
 	public boolean isReadOnly() {
 		return super.get(this.readonlyProp);
 	}
@@ -758,6 +765,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *            {@code false} otherwise.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setReadOnly(boolean readonly) {
 		super.set(this.readonlyProp, readonly);
 		return this;
@@ -888,6 +896,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The auto-validate value.
 	 */
+	@Override
 	public boolean isAutoClientValidate() {
 		return get(this.autoValidateProp);
 	}
@@ -898,6 +907,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * @param autoValidate The auto-validate property.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setAutoClientValidate(boolean autoValidate) {
 		set(this.autoValidateProp, autoValidate);
 		return this;
@@ -929,6 +939,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The value indicating whether the component is valid or invalid.
 	 */
+	@Override
 	public boolean isInvalid() {
 		return get(this.invalidProp, true);
 	}
@@ -940,6 +951,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *            invalid.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setInvalid(boolean invalid) {
 		set(this.invalidProp, invalid);
 		return this;
@@ -950,6 +962,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The error message to display when the component is invalid.
 	 */
+	@Override
 	public String getInvalidMessage() {
 		return get(this.invalidMessageProp);
 	}
@@ -961,6 +974,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *            invalid.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setInvalidMessage(String invalidMessage) {
 		set(this.invalidMessageProp, invalidMessage);
 		return this;
@@ -993,6 +1007,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @return The validation style indicating how the invalid message is displayed.
 	 */
+	@Override
 	public ValidationStyle getValidationStyle() {
 		return get(this.validationStyleProp);
 	}
@@ -1004,6 +1019,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *            message is displayed.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
+	@Override
 	public MultiSelectCombo setValidationStyle(ValidationStyle validationStyle) {
 		set(this.validationStyleProp, validationStyle);
 		return this;

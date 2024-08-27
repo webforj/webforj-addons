@@ -1,6 +1,6 @@
 package com.webforj.addons.services.webauthn.data;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * This class represents the attributes specified by a caller when referring to
@@ -28,7 +28,7 @@ public class PublicKeyCredentialDescriptor {
 	/**
 	 * The type of the credential the caller is referring to.
 	 */
-	private final String type = "public-key";
+	private static final String type = "public-key";
 
 	/**
 	 * The credential ID of the public key credential the caller is referring to.
@@ -43,7 +43,7 @@ public class PublicKeyCredentialDescriptor {
 	 * This should be stored along with the ID and used unmodified whenever creating
 	 * a {@code PublicKeyCredentialDescriptor} for this credential.
 	 */
-	private EnumSet<AuthenticatorTransport> transports;
+	private Set<AuthenticatorTransport> transports;
 
 	/**
 	 * Creates a new instance of PublicKeyCredentialDescriptor.
@@ -52,7 +52,7 @@ public class PublicKeyCredentialDescriptor {
 	 * @param transports The transports used for communication with the managing
 	 *            authenticator.
 	 */
-	public PublicKeyCredentialDescriptor(String id, EnumSet<AuthenticatorTransport> transports) {
+	public PublicKeyCredentialDescriptor(String id, Set<AuthenticatorTransport> transports) {
 		this.id = id;
 		this.transports = transports;
 	}
@@ -81,7 +81,7 @@ public class PublicKeyCredentialDescriptor {
 	 *
 	 * @return An optional sorted set of AuthenticatorTransport values.
 	 */
-	public EnumSet<AuthenticatorTransport> getTransports() {
+	public Set<AuthenticatorTransport> getTransports() {
 		return transports;
 	}
 }

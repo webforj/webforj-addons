@@ -431,16 +431,18 @@ public class SuggestionEdit extends ElementComposite
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Object executeJs(String js) {
 		return super.getElement().executeJs(js);
-	};
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public PendingResult<Object> executeJsAsync(String js) {
 		return super.getElement().executeJsAsync(js);
-	};
+	}
 
 	/**
 	 * Retrieves the current value of the {@code autofocus} property, indicating
@@ -590,6 +592,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The expanse value.
 	 */
+	@Override
 	public Expanse getExpanse() {
 		return super.get(this.expanseProp);
 	}
@@ -600,6 +603,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param expanse The expanse value {@link Expanse}.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setExpanse(Expanse expanse) {
 		super.set(this.expanseProp, expanse);
 		return this;
@@ -610,6 +614,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The focus value.
 	 */
+	@Override
 	public boolean hasFocus() {
 		return super.get(this.hasFocusProp);
 	}
@@ -642,6 +647,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The label of the input field.
 	 */
+	@Override
 	public String getLabel() {
 		return super.get(this.labelProp);
 	}
@@ -652,6 +658,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param label The label of the input field.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setLabel(String label) {
 		super.set(this.labelProp, label);
 		return this;
@@ -684,6 +691,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The maximum length of the input field.
 	 */
+	@Override
 	public int getMaxLength() {
 		return super.get(this.maxLengthProp);
 	}
@@ -694,6 +702,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param maxLength The maximum length of the input field.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setMaxLength(int maxLength) {
 		super.set(this.maxLengthProp, maxLength);
 		return this;
@@ -705,6 +714,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The minimum length of the input field.
 	 */
+	@Override
 	public int getMinLength() {
 		return super.get(this.minLengthProp);
 	}
@@ -715,6 +725,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param minLength The minimum length of the input field.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setMinLength(int minLength) {
 		super.set(this.minLengthProp, minLength);
 		return this;
@@ -726,6 +737,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The name of the input field.
 	 */
+	@Override
 	public String getName() {
 		return super.get(this.nameProp);
 	}
@@ -736,6 +748,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param name The name of the input field.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setName(String name) {
 		super.set(this.nameProp, name);
 		return this;
@@ -811,6 +824,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The placeholder text.
 	 */
+	@Override
 	public String getPlaceholder() {
 		return super.get(this.placeholderProp);
 	}
@@ -821,6 +835,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param placeholder The placeholder text.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setPlaceholder(String placeholder) {
 		super.set(this.placeholderProp, placeholder);
 		return this;
@@ -856,6 +871,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @return {@code true} if the input field is in read-only mode, {@code false}
 	 *         otherwise.
 	 */
+	@Override
 	public boolean isReadOnly() {
 		return super.get(this.readonlyProp);
 	}
@@ -867,6 +883,7 @@ public class SuggestionEdit extends ElementComposite
 	 *            {@code false} otherwise.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setReadOnly(boolean readonly) {
 		super.set(this.readonlyProp, readonly);
 		return this;
@@ -878,6 +895,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return {@code true} if the input field is required, {@code false} otherwise.
 	 */
+	@Override
 	public boolean isRequired() {
 		return super.get(this.requiredProp);
 	}
@@ -889,6 +907,7 @@ public class SuggestionEdit extends ElementComposite
 	 *            otherwise.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setRequired(boolean required) {
 		super.set(this.requiredProp, required);
 		return this;
@@ -1067,6 +1086,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The auto-validate value.
 	 */
+	@Override
 	public boolean isAutoClientValidate() {
 		return get(this.autoValidateProp);
 	}
@@ -1077,6 +1097,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param autoValidate The auto-validate property.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setAutoClientValidate(boolean autoValidate) {
 		set(this.autoValidateProp, autoValidate);
 		return this;
@@ -1109,6 +1130,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param classNames the name of the CSS class to be added.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit addClassName(String... classNames) {
 		super.getElement().addClassName(classNames);
 		return this;
@@ -1120,6 +1142,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param classNames the name of the CSS class to be removed.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit removeClassName(String... classNames) {
 		super.getElement().removeClassName(classNames);
 		return this;
@@ -1130,6 +1153,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The value indicating whether the component is valid or invalid.
 	 */
+	@Override
 	public boolean isInvalid() {
 		return get(this.invalidProp, true);
 	}
@@ -1141,6 +1165,7 @@ public class SuggestionEdit extends ElementComposite
 	 *            invalid.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setInvalid(boolean invalid) {
 		set(this.invalidProp, invalid);
 		return this;
@@ -1159,6 +1184,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param property The CSS property to be retrieved
 	 * @return String containing all computed styles
 	 */
+	@Override
 	public String getComputedStyle(String property) {
 		return super.getElement().getComputedStyle(property);
 	}
@@ -1174,6 +1200,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param property The CSS property to be retrieved
 	 * @return String containing the value of the CSS property
 	 */
+	@Override
 	public String getStyle(String property) {
 		return super.getElement().getStyle(property);
 	}
@@ -1190,6 +1217,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param value The value to be assigned to the CSS property
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setStyle(String property, String value) {
 		super.getElement().setStyle(property, value);
 		return this;
@@ -1201,6 +1229,7 @@ public class SuggestionEdit extends ElementComposite
 	 * @param property The CSS property to be changed
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit removeStyle(String property) {
 		super.getElement().removeStyle(property);
 		return this;
@@ -1211,6 +1240,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The error message to display when the component is invalid.
 	 */
+	@Override
 	public String getInvalidMessage() {
 		return get(this.invalidMessageProp);
 	}
@@ -1222,6 +1252,7 @@ public class SuggestionEdit extends ElementComposite
 	 *            invalid.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setInvalidMessage(String invalidMessage) {
 		set(this.invalidMessageProp, invalidMessage);
 		return this;
@@ -1254,6 +1285,7 @@ public class SuggestionEdit extends ElementComposite
 	 *
 	 * @return The validation style indicating how the invalid message is displayed.
 	 */
+	@Override
 	public ValidationStyle getValidationStyle() {
 		return get(this.validationStyleProp);
 	}
@@ -1265,6 +1297,7 @@ public class SuggestionEdit extends ElementComposite
 	 *            message is displayed.
 	 * @return This {@code SuggestionEdit} instance for method chaining.
 	 */
+	@Override
 	public SuggestionEdit setValidationStyle(ValidationStyle validationStyle) {
 		set(this.validationStyleProp, validationStyle);
 		return this;

@@ -175,41 +175,41 @@ public class RelyingParty {
 	 *             data in the response.
 	 */
 	public RegistrationResponse validateRegistrationResponse(RegistrationResponse response)
-			throws RuntimeException {
+			throws IllegalArgumentException {
 		ClientDataJSON clientDataJSON = ClientDataJSON
 				.fromBase64Url(response.getResponse().getClientDataJSON());
 
 		if (response.getId() == null) {
-			throw new RuntimeException("Missing credential id");
+			throw new IllegalArgumentException("Missing credential id");
 		}
 
 		if (!response.getId().equals(response.getRawId())) {
-			throw new RuntimeException("Credential ID was not base64url-encoded");
+			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
 		}
 
 		if (!response.getType().equals("public-key")) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected credential type " + response.getType() + ", expected 'public-key'");
 		}
 
 		if (!clientDataJSON.getType().equals("webauthn.create")) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected registration response type \"%s\", expected one of: webauthn.create"
 							.formatted(clientDataJSON.getType()));
 		}
 
 		if (clientDataJSON.getChallenge() == null) {
-			throw new RuntimeException("Challenge cannot be null");
+			throw new IllegalArgumentException("Challenge cannot be null");
 		}
 
 		if (clientDataJSON.getOrigin().equals(this.relyingPartyIdentity.getId())) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected registration response origin \"%s\", expected \"%s\"".formatted(
 							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
 		}
 
 		if (response.getResponse().getAttestationObject() == null) {
-			throw new RuntimeException("attestationObject cannot be null");
+			throw new IllegalArgumentException("attestationObject cannot be null");
 		}
 
 		COSEAlgorithmIdentifier.fromValue(response.getResponse().getPublicKeyAlgorithm());
@@ -226,35 +226,35 @@ public class RelyingParty {
 	 *             data in the response.
 	 */
 	public AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse response)
-			throws RuntimeException {
+			throws IllegalArgumentException {
 		ClientDataJSON clientDataJSON = ClientDataJSON
 				.fromBase64Url(response.getResponse().getClientDataJSON());
 
 		if (response.getId() == null) {
-			throw new RuntimeException("Missing credential id");
+			throw new IllegalArgumentException("Missing credential id");
 		}
 
 		if (!response.getId().equals(response.getRawId())) {
-			throw new RuntimeException("Credential ID was not base64url-encoded");
+			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
 		}
 
 		if (!response.getType().equals("public-key")) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected credential type " + response.getType() + ", expected 'public-key'");
 		}
 
 		if (!clientDataJSON.getType().equals("webauthn.get")) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected registration response type \"%s\", expected one of: webauthn.create"
 							.formatted(clientDataJSON.getType()));
 		}
 
 		if (clientDataJSON.getChallenge() == null) {
-			throw new RuntimeException("Challenge cannot be null");
+			throw new IllegalArgumentException("Challenge cannot be null");
 		}
 
 		if (clientDataJSON.getOrigin().equals(this.relyingPartyIdentity.getId())) {
-			throw new RuntimeException(
+			throw new IllegalArgumentException(
 					"Unexpected registration response origin \"%s\", expected \"%s\"".formatted(
 							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
 		}
@@ -308,18 +308,13 @@ public class RelyingParty {
 	private void validateKeyFactory(PublicKeyCredentialParameters param)
 			throws NoSuchAlgorithmException {
 		switch (COSEAlgorithmIdentifier.fromValue(param.getAlg())) {
-			case EdDSA :
+			case EDDSA :
 				KeyFactory.getInstance("EdDSA");
 				break;
-			case ES256 :
-			case ES384 :
-			case ES512 :
+			case ES256, ES384, ES512 :
 				KeyFactory.getInstance("EC");
 				break;
-			case RS256 :
-			case RS384 :
-			case RS512 :
-			case RS1 :
+			case RS256, RS384, RS512, RS1 :
 				KeyFactory.getInstance("RSA");
 				break;
 			default :

@@ -72,14 +72,12 @@ public class Item {
 	/**
 	 * Constructs a new {@code SideMenu} instance with the specified properties.
 	 */
-	public Item(String id, String icon, String caption, String link, boolean newTab,
-			String shortcut, boolean favorite, List<Item> children) {
+	public Item(String id, String icon, String caption, String link, boolean favorite,
+			List<Item> children) {
 		this.id = id;
 		this.icon = icon;
 		this.caption = caption;
 		this.link = link;
-		this.newTab = newTab;
-		this.shortcut = shortcut;
 		this.favorite = favorite;
 		this.children = children;
 	}
@@ -88,14 +86,7 @@ public class Item {
 	 * Constructs a new {@code SideMenu} instance with the specified properties.
 	 */
 	public Item(String id, String icon, String caption, String link, boolean favorite) {
-		this.id = id;
-		this.icon = icon;
-		this.caption = caption;
-		this.link = link;
-		this.newTab = false;
-		this.shortcut = "";
-		this.favorite = favorite;
-		this.children = new ArrayList<>();
+		this(id, icon, caption, link, favorite, List.of());
 	}
 
 	/**
