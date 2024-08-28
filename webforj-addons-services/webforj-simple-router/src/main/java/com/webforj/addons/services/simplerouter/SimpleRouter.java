@@ -115,17 +115,20 @@ public class SimpleRouter {
 	public void navigate(String routeString) {
 		boolean done = false;
 
-		for (String registeredRouteString : eventMap.keySet()) {
+		for (Map.Entry<String, EventDispatcher> entry : eventMap.entrySet()) {
+			String registeredRouteString = entry.getKey();
+			EventDispatcher dispatcher = entry.getValue();
 			Route r = new Route(registeredRouteString);
+
 			if (r.matches(routeString)) {
 				if (!done) {
 					currentRoute = routeString;
 					done = true;
 				}
-				EventDispatcher dispatcher = eventMap.get(registeredRouteString);
 				dispatcher.dispatchEvent(new SimpleRouteMatchEvent(this, r));
 			}
 		}
+
 		if (done) {
 			updateUrl(currentRoute);
 		}

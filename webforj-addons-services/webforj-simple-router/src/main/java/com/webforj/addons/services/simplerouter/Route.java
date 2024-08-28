@@ -3,7 +3,6 @@ package com.webforj.addons.services.simplerouter;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,18 +16,18 @@ public class Route {
 	/**
 	 * Represents a segment of the route.
 	 */
-	private class RouteSegment {
-		public int position;
+	private static class RouteSegment {
+		private final int position;
 
 		/**
 		 * Enum representing the type of the segment.
 		 */
 		public enum SegmentType {
 			STR, INT, NUM, BOOL
-		};
+		}
 
-		public SegmentType type;
-		public String name;
+		private SegmentType type;
+		private final String name;
 
 		/**
 		 * Constructs a RouteSegment with the specified position and segment string.
@@ -41,7 +40,6 @@ public class Route {
 
 			String[] tmp = segStr.split(":");
 			this.name = tmp[1];
-			this.type = SegmentType.STR;
 			if (tmp.length == 3) {
 				switch (tmp[2]) {
 					case "int" :
@@ -53,6 +51,8 @@ public class Route {
 					case "bool" :
 						this.type = SegmentType.BOOL;
 						break;
+					default :
+						this.type = SegmentType.STR;
 				}
 			}
 		}
@@ -66,7 +66,7 @@ public class Route {
 
 	private final String route;
 	private final Pattern routePattern;
-	private HashMap<String, RouteSegment> routeSegments = new HashMap<>();
+	private final HashMap<String, RouteSegment> routeSegments = new HashMap<>();
 
 	/**
 	 * Constructs a Route with the specified route string.
@@ -76,27 +76,27 @@ public class Route {
 	public Route(String route) {
 		this.route = route;
 
-		String routePatterns = "^";
+		final StringBuilder routePatterns = new StringBuilder("^");
 		String[] a = Arrays.stream(route.split("/")).map(s -> s.split("\\?"))
 				.flatMap(Arrays::stream).map(s -> s.split("&")).flatMap(Arrays::stream)
 				.toArray(String[]::new);
 		for (int i = 0; i < a.length; i++) {
 			if (i > 0) {
-				routePatterns += "/";
+				routePatterns.append("/");
 			}
 			if (a[i].equals("*")) {
-				routePatterns += ".*";
+				routePatterns.append(".*");
 				continue;
 			}
 			if (a[i].startsWith(":")) {
-				routePatterns += ".*";
+				routePatterns.append(".*");
 				RouteSegment seg = new RouteSegment(i, a[i]);
 				routeSegments.put(seg.name, seg);
 			} else {
-				routePatterns += a[i];
+				routePatterns.append(a[i]);
 			}
 		}
-		this.routePattern = Pattern.compile(routePatterns, Pattern.CASE_INSENSITIVE);
+		this.routePattern = Pattern.compile(routePatterns.toString(), Pattern.CASE_INSENSITIVE);
 	}
 
 	/**
@@ -106,35 +106,48 @@ public class Route {
 	 * @return true if the route string matches the pattern, false otherwise
 	 */
 	public boolean matches(String routeString) {
-		Matcher matcher = routePattern.matcher(routeString + "/");
-		if (matcher.matches()) {
-			if (routeSegments.size() > 0) {
-				// check if segments resolve in terms of correct types
-				Iterator<String> it = routeSegments.keySet().iterator();
-				while (it.hasNext()) {
-					RouteSegment rs = routeSegments.get(it.next());
-					if (rs.type == RouteSegment.SegmentType.STR
-							&& getString(routeString, rs.name) == null) {
-						return false;
-					}
-					if (rs.type == RouteSegment.SegmentType.BOOL
-							&& getBool(routeString, rs.name) == null) {
-						return false;
-					}
-					if (rs.type == RouteSegment.SegmentType.INT
-							&& getInt(routeString, rs.name) == null) {
-						return false;
-					}
-					if (rs.type == RouteSegment.SegmentType.NUM
-							&& getNum(routeString, rs.name) == null) {
-						return false;
-					}
-				}
-			}
-			return true;
-		} else {
+		Matcher matcher = this.routePattern.matcher(routeString + "/");
+
+		if (!matcher.matches()) {
 			return false;
 		}
+
+		if (this.routeSegments.isEmpty()) {
+			return true;
+		}
+
+		return this.areRouteSegmentsValid(routeString);
+	}
+
+	/**
+	 * Validates route segments against the route string.
+	 *
+	 * @param routeString the route string to check
+	 * @return true if all route segments are valid, false otherwise
+	 */
+	private boolean areRouteSegmentsValid(String routeString) {
+		for (RouteSegment rs : routeSegments.values()) {
+			if (!isSegmentValid(routeString, rs)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Checks if a single route segment is valid.
+	 *
+	 * @param routeString the route string to check
+	 * @param rs the route segment to validate
+	 * @return true if the route segment is valid, false otherwise
+	 */
+	private boolean isSegmentValid(String routeString, RouteSegment rs) {
+		return switch (rs.type) {
+			case STR -> getString(routeString, rs.name) != null;
+			case BOOL -> getBool(routeString, rs.name) != null;
+			case INT -> getInt(routeString, rs.name) != null;
+			case NUM -> getNum(routeString, rs.name) != null;
+		};
 	}
 
 	/**
@@ -175,7 +188,8 @@ public class Route {
 		if (tmp != null && routeSegments.get(segmentName).type == RouteSegment.SegmentType.INT) {
 			try {
 				return Integer.parseInt(tmp);
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException error) {
+        System.err.println("Error parsing integer from string: " + tmp);
 			}
 		}
 		return null;
@@ -194,7 +208,8 @@ public class Route {
 		if (tmp != null && routeSegments.get(segmentName).type == RouteSegment.SegmentType.NUM) {
 			try {
 				return new BigDecimal(tmp);
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException error) {
+        System.err.println("Error parsing integer from string: " + tmp);
 			}
 		}
 		return null;
@@ -211,7 +226,7 @@ public class Route {
 	public Boolean getBool(String routeString, String segmentName) {
 		String tmp = getString(routeString, segmentName);
 		if (tmp != null && routeSegments.get(segmentName).type == RouteSegment.SegmentType.BOOL) {
-			return !(tmp.toLowerCase().equals("false") || tmp.equals("0"));
+			return !(tmp.equalsIgnoreCase("false") || tmp.equals("0"));
 		}
 		return null;
 	}

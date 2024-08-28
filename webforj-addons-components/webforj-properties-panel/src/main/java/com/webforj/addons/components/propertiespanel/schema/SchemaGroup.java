@@ -93,7 +93,7 @@ public class SchemaGroup {
 	 *
 	 * @return The list of properties within the group.
 	 */
-	public List<?> getProperties() {
+	public List<BaseSchema<?>> getProperties() {
 		return properties;
 	}
 

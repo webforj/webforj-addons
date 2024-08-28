@@ -70,7 +70,7 @@ public class PublicKeyCredentialCreationOptions {
 	 * </p>
 	 */
 	private List<PublicKeyCredentialParameters> pubKeyCredParams = List.of(
-			new PublicKeyCredentialParameters(COSEAlgorithmIdentifier.EdDSA),
+			new PublicKeyCredentialParameters(COSEAlgorithmIdentifier.EDDSA),
 			new PublicKeyCredentialParameters(COSEAlgorithmIdentifier.ES256),
 			new PublicKeyCredentialParameters(COSEAlgorithmIdentifier.RS256));
 
