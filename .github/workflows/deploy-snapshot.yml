@@ -1,0 +1,60 @@
+name: Deploy Snapshot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Bump Version"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
+      - name: Setup Maven settings
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          servers: |
+            [{
+              "id": "ossrh",
+              "username": "${{ secrets.SONATYPE_USERNAME }}",
+              "password": "${{ secrets.SONATYPE_PASSWORD }}"
+            }]
+
+      - name: Extract version and check if snapshot
+        id: extract_and_check_version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "version=$VERSION" >> $GITHUB_ENV
+          if [[ $VERSION == *"-SNAPSHOT" ]]; then
+            echo "is_snapshot=true" >> $GITHUB_OUTPUT
+            echo "This is a snapshot version: $VERSION"
+          else
+            echo "is_snapshot=false" >> $GITHUB_OUTPUT
+            echo "Not a snapshot version: $VERSION"
+            exit 1
+          fi
+
+      - name: Build and Deploy Snapshot
+        if: ${{ steps.extract_and_check_version.outputs.is_snapshot == 'true' }}
+        run: mvn -B clean deploy -DskipTests
