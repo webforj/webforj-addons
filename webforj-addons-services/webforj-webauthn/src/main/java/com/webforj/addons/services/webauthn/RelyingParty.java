@@ -166,101 +166,132 @@ public class RelyingParty {
 				.thenApply(String::valueOf).thenApply(Boolean::parseBoolean);
 	}
 
-	/**
-	 * Validates the registration response received from the client.
-	 *
-	 * @param registrationResponse The {@code RegistrationResponse} to validate.
-	 * @return The validated {@code RegistrationResponse} if successful.
-	 * @throws RuntimeException If validation fails due to missing or unexpected
-	 *             data in the response.
-	 */
-	public RegistrationResponse validateRegistrationResponse(RegistrationResponse registrationResponse)
-			throws IllegalArgumentException {
-		ClientDataJSON clientDataJSON = ClientDataJSON
-				.fromBase64Url(registrationResponse.getResponse().getClientDataJSON());
+  /**
+   * Validates the common fields of the client data response.
+   *
+   * @param clientDataJSON The {@code ClientDataJSON} to validate.
+   * @param id The credential ID to validate.
+   * @param rawId The raw credential ID to compare.
+   * @param type The credential type to validate.
+   * @param expectedType The expected type of the client data.
+   * @param origin The origin to compare.
+   * @throws IllegalArgumentException If validation fails due to missing or unexpected data.
+   */
+  private void validateCommonFields(ClientDataJSON clientDataJSON, String id, String rawId, String type,
+                                    String expectedType, String origin) throws IllegalArgumentException {
+    validateId(id, rawId);
+    validateCredentialType(type);
+    validateClientDataType(clientDataJSON, expectedType);
+    validateChallenge(clientDataJSON);
+    validateOrigin(clientDataJSON, origin);
+  }
 
-		if (registrationResponse.getId() == null) {
-			throw new IllegalArgumentException("Missing credential id");
-		}
+  /**
+   * Validates the ID field of the response.
+   *
+   * @param id The credential ID to validate.
+   * @param rawId The raw credential ID to compare.
+   * @throws IllegalArgumentException If the ID is missing or incorrect.
+   */
+  private void validateId(String id, String rawId) throws IllegalArgumentException {
+    if (id == null) {
+      throw new IllegalArgumentException("Missing credential id");
+    }
+    if (!id.equals(rawId)) {
+      throw new IllegalArgumentException("Credential ID was not base64url-encoded");
+    }
+  }
 
-		if (!registrationResponse.getId().equals(registrationResponse.getRawId())) {
-			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
-		}
+  /**
+   * Validates the credential type field.
+   *
+   * @param type The credential type to validate.
+   * @throws IllegalArgumentException If the credential type is unexpected.
+   */
+  private void validateCredentialType(String type) throws IllegalArgumentException {
+    if (!type.equals("public-key")) {
+      throw new IllegalArgumentException("Unexpected credential type " + type + ", expected 'public-key'");
+    }
+  }
 
-		if (!registrationResponse.getType().equals("public-key")) {
-			throw new IllegalArgumentException(
-					"Unexpected credential type " + registrationResponse.getType() + ", expected 'public-key'");
-		}
+  /**
+   * Validates the client data type.
+   *
+   * @param clientDataJSON The {@code ClientDataJSON} to validate.
+   * @param expectedType The expected type of the client data.
+   * @throws IllegalArgumentException If the client data type is unexpected.
+   */
+  private void validateClientDataType(ClientDataJSON clientDataJSON, String expectedType) throws IllegalArgumentException {
+    if (!clientDataJSON.getType().equals(expectedType)) {
+      throw new IllegalArgumentException(
+        "Unexpected response type \"%s\", expected one of: %s".formatted(
+          clientDataJSON.getType(), expectedType));
+    }
+  }
 
-		if (!clientDataJSON.getType().equals("webauthn.create")) {
-			throw new IllegalArgumentException(
-					"Unexpected registration response type \"%s\", expected one of: webauthn.create"
-							.formatted(clientDataJSON.getType()));
-		}
+  /**
+   * Validates the challenge field in the client data.
+   *
+   * @param clientDataJSON The {@code ClientDataJSON} to validate.
+   * @throws IllegalArgumentException If the challenge is null.
+   */
+  private void validateChallenge(ClientDataJSON clientDataJSON) throws IllegalArgumentException {
+    if (clientDataJSON.getChallenge() == null) {
+      throw new IllegalArgumentException("Challenge cannot be null");
+    }
+  }
 
-		if (clientDataJSON.getChallenge() == null) {
-			throw new IllegalArgumentException("Challenge cannot be null");
-		}
+  /**
+   * Validates the origin field in the client data.
+   *
+   * @param clientDataJSON The {@code ClientDataJSON} to validate.
+   * @param origin The expected origin.
+   * @throws IllegalArgumentException If the origin is unexpected.
+   */
+  private void validateOrigin(ClientDataJSON clientDataJSON, String origin) throws IllegalArgumentException {
+    if (clientDataJSON.getOrigin().equals(origin)) {
+      throw new IllegalArgumentException(
+        "Unexpected response origin \"%s\", expected \"%s\"".formatted(
+          clientDataJSON.getOrigin(), origin));
+    }
+  }
 
-		if (clientDataJSON.getOrigin().equals(this.relyingPartyIdentity.getId())) {
-			throw new IllegalArgumentException(
-					"Unexpected registration response origin \"%s\", expected \"%s\"".formatted(
-							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
-		}
+  /**
+   * Validates the registration response received from the client.
+   *
+   * @param response The {@code RegistrationResponse} to validate.
+   * @return The validated {@code RegistrationResponse} if successful.
+   * @throws IllegalArgumentException If validation fails due to missing or unexpected data.
+   */
+  public RegistrationResponse validateRegistrationResponse(RegistrationResponse response)
+    throws IllegalArgumentException {
+    ClientDataJSON clientDataJSON = ClientDataJSON.fromBase64Url(response.getResponse().getClientDataJSON());
+    validateCommonFields(clientDataJSON, response.getId(), response.getRawId(), response.getType(),
+      "webauthn.create", this.relyingPartyIdentity.getId());
 
-		if (registrationResponse.getResponse().getAttestationObject() == null) {
-			throw new IllegalArgumentException("attestationObject cannot be null");
-		}
+    if (response.getResponse().getAttestationObject() == null) {
+      throw new IllegalArgumentException("attestationObject cannot be null");
+    }
 
-		COSEAlgorithmIdentifier.fromValue(registrationResponse.getResponse().getPublicKeyAlgorithm());
+    COSEAlgorithmIdentifier.fromValue(response.getResponse().getPublicKeyAlgorithm());
+    return response;
+  }
 
-		return registrationResponse;
-	}
+  /**
+   * Validates the authentication response received from the client.
+   *
+   * @param response The {@code AuthenticationResponse} to validate.
+   * @return The validated {@code AuthenticationResponse} if successful.
+   * @throws IllegalArgumentException If validation fails due to missing or unexpected data.
+   */
+  public AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse response)
+    throws IllegalArgumentException {
+    ClientDataJSON clientDataJSON = ClientDataJSON.fromBase64Url(response.getResponse().getClientDataJSON());
+    validateCommonFields(clientDataJSON, response.getId(), response.getRawId(), response.getType(),
+      "webauthn.get", this.relyingPartyIdentity.getId());
 
-	/**
-	 * Validates the authentication response received from the client.
-	 *
-	 * @param registrationResponse The {@code AuthenticationResponse} to validate.
-	 * @return The validated {@code AuthenticationResponse} if successful.
-	 * @throws RuntimeException If validation fails due to missing or unexpected
-	 *             data in the response.
-	 */
-	public AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse registrationResponse)
-			throws IllegalArgumentException {
-		ClientDataJSON clientDataJSON = ClientDataJSON
-				.fromBase64Url(registrationResponse.getResponse().getClientDataJSON());
-
-		if (registrationResponse.getId() == null) {
-			throw new IllegalArgumentException("Missing credential id");
-		}
-
-		if (!registrationResponse.getId().equals(registrationResponse.getRawId())) {
-			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
-		}
-
-		if (!registrationResponse.getType().equals("public-key")) {
-			throw new IllegalArgumentException(
-					"Unexpected credential type " + registrationResponse.getType() + ", expected 'public-key'");
-		}
-
-		if (!clientDataJSON.getType().equals("webauthn.get")) {
-			throw new IllegalArgumentException(
-					"Unexpected registration response type \"%s\", expected one of: webauthn.create"
-							.formatted(clientDataJSON.getType()));
-		}
-
-		if (clientDataJSON.getChallenge() == null) {
-			throw new IllegalArgumentException("Challenge cannot be null");
-		}
-
-		if (clientDataJSON.getOrigin().equals(this.relyingPartyIdentity.getId())) {
-			throw new IllegalArgumentException(
-					"Unexpected registration response origin \"%s\", expected \"%s\"".formatted(
-							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
-		}
-
-		return registrationResponse;
-	}
+    return response;
+  }
 
 	/**
 	 * Filters the list of {@code PublicKeyCredentialParameters} to include only
