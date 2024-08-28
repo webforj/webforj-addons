@@ -169,27 +169,27 @@ public class RelyingParty {
 	/**
 	 * Validates the registration response received from the client.
 	 *
-	 * @param response The {@code RegistrationResponse} to validate.
+	 * @param registrationResponse The {@code RegistrationResponse} to validate.
 	 * @return The validated {@code RegistrationResponse} if successful.
 	 * @throws RuntimeException If validation fails due to missing or unexpected
 	 *             data in the response.
 	 */
-	public RegistrationResponse validateRegistrationResponse(RegistrationResponse response)
+	public RegistrationResponse validateRegistrationResponse(RegistrationResponse registrationResponse)
 			throws IllegalArgumentException {
 		ClientDataJSON clientDataJSON = ClientDataJSON
-				.fromBase64Url(response.getResponse().getClientDataJSON());
+				.fromBase64Url(registrationResponse.getResponse().getClientDataJSON());
 
-		if (response.getId() == null) {
+		if (registrationResponse.getId() == null) {
 			throw new IllegalArgumentException("Missing credential id");
 		}
 
-		if (!response.getId().equals(response.getRawId())) {
+		if (!registrationResponse.getId().equals(registrationResponse.getRawId())) {
 			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
 		}
 
-		if (!response.getType().equals("public-key")) {
+		if (!registrationResponse.getType().equals("public-key")) {
 			throw new IllegalArgumentException(
-					"Unexpected credential type " + response.getType() + ", expected 'public-key'");
+					"Unexpected credential type " + registrationResponse.getType() + ", expected 'public-key'");
 		}
 
 		if (!clientDataJSON.getType().equals("webauthn.create")) {
@@ -208,39 +208,39 @@ public class RelyingParty {
 							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
 		}
 
-		if (response.getResponse().getAttestationObject() == null) {
+		if (registrationResponse.getResponse().getAttestationObject() == null) {
 			throw new IllegalArgumentException("attestationObject cannot be null");
 		}
 
-		COSEAlgorithmIdentifier.fromValue(response.getResponse().getPublicKeyAlgorithm());
+		COSEAlgorithmIdentifier.fromValue(registrationResponse.getResponse().getPublicKeyAlgorithm());
 
-		return response;
+		return registrationResponse;
 	}
 
 	/**
 	 * Validates the authentication response received from the client.
 	 *
-	 * @param response The {@code AuthenticationResponse} to validate.
+	 * @param registrationResponse The {@code AuthenticationResponse} to validate.
 	 * @return The validated {@code AuthenticationResponse} if successful.
 	 * @throws RuntimeException If validation fails due to missing or unexpected
 	 *             data in the response.
 	 */
-	public AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse response)
+	public AuthenticationResponse validateAuthenticationResponse(AuthenticationResponse registrationResponse)
 			throws IllegalArgumentException {
 		ClientDataJSON clientDataJSON = ClientDataJSON
-				.fromBase64Url(response.getResponse().getClientDataJSON());
+				.fromBase64Url(registrationResponse.getResponse().getClientDataJSON());
 
-		if (response.getId() == null) {
+		if (registrationResponse.getId() == null) {
 			throw new IllegalArgumentException("Missing credential id");
 		}
 
-		if (!response.getId().equals(response.getRawId())) {
+		if (!registrationResponse.getId().equals(registrationResponse.getRawId())) {
 			throw new IllegalArgumentException("Credential ID was not base64url-encoded");
 		}
 
-		if (!response.getType().equals("public-key")) {
+		if (!registrationResponse.getType().equals("public-key")) {
 			throw new IllegalArgumentException(
-					"Unexpected credential type " + response.getType() + ", expected 'public-key'");
+					"Unexpected credential type " + registrationResponse.getType() + ", expected 'public-key'");
 		}
 
 		if (!clientDataJSON.getType().equals("webauthn.get")) {
@@ -259,7 +259,7 @@ public class RelyingParty {
 							clientDataJSON.getOrigin(), this.relyingPartyIdentity.getId()));
 		}
 
-		return response;
+		return registrationResponse;
 	}
 
 	/**

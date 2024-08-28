@@ -188,7 +188,8 @@ public class Route {
 		if (tmp != null && routeSegments.get(segmentName).type == RouteSegment.SegmentType.INT) {
 			try {
 				return Integer.parseInt(tmp);
-			} catch (NumberFormatException ignored) {
+			} catch (NumberFormatException error) {
+        System.err.println("Error parsing integer from string: " + tmp);
 			}
 		}
 		return null;
@@ -207,7 +208,8 @@ public class Route {
 		if (tmp != null && routeSegments.get(segmentName).type == RouteSegment.SegmentType.NUM) {
 			try {
 				return new BigDecimal(tmp);
-			} catch (NumberFormatException ignored) {
+			} catch (NumberFormatException error) {
+        System.err.println("Error parsing integer from string: " + tmp);
 			}
 		}
 		return null;

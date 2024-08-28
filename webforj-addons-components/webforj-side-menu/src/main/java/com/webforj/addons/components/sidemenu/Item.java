@@ -1,6 +1,5 @@
 package com.webforj.addons.components.sidemenu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

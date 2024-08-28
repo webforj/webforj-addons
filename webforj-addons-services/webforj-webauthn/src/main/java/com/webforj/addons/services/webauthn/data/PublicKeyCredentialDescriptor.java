@@ -28,7 +28,7 @@ public class PublicKeyCredentialDescriptor {
 	/**
 	 * The type of the credential the caller is referring to.
 	 */
-	private static final String type = "public-key";
+	private final String type;
 
 	/**
 	 * The credential ID of the public key credential the caller is referring to.
@@ -43,7 +43,7 @@ public class PublicKeyCredentialDescriptor {
 	 * This should be stored along with the ID and used unmodified whenever creating
 	 * a {@code PublicKeyCredentialDescriptor} for this credential.
 	 */
-	private Set<AuthenticatorTransport> transports;
+	private final Set<AuthenticatorTransport> transports;
 
 	/**
 	 * Creates a new instance of PublicKeyCredentialDescriptor.
@@ -55,6 +55,7 @@ public class PublicKeyCredentialDescriptor {
 	public PublicKeyCredentialDescriptor(String id, Set<AuthenticatorTransport> transports) {
 		this.id = id;
 		this.transports = transports;
+    this.type = "public-key";
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class PublicKeyCredentialDescriptor {
 	 * @param id The credential ID.
 	 */
 	public PublicKeyCredentialDescriptor(String id) {
-		this.id = id;
+    this(id, null);
 	}
 
 	/**
@@ -73,6 +74,15 @@ public class PublicKeyCredentialDescriptor {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Retrieves the type.
+	 *
+	 * @return The type.
+	 */
+	public String getType() {
+		return type;
 	}
 
 	/**
