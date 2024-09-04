@@ -43,7 +43,13 @@ import java.util.HashSet;
 @NodeName("dwc-side-menu")
 @JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.0/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
-public class SideMenu extends ElementComposite implements HasClassName<SideMenu>, HasProperty<SideMenu>, HasStyle<SideMenu>, HasJsExecution, HasAttribute<SideMenu> {
+public class SideMenu extends ElementComposite
+		implements
+			HasClassName<SideMenu>,
+			HasProperty<SideMenu>,
+			HasStyle<SideMenu>,
+			HasJsExecution,
+			HasAttribute<SideMenu> {
 
 	/**
 	 * Enum representing {@code sections} in a side menu component. These are the
@@ -344,105 +350,105 @@ public class SideMenu extends ElementComposite implements HasClassName<SideMenu>
 		return this;
 	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu addClassName(String... classNames) {
-    this.getBoundComponent().addClassName(classNames);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu addClassName(String... classNames) {
+		this.getBoundComponent().addClassName(classNames);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu removeClassName(String... classNames) {
-    this.getBoundComponent().removeClassName(classNames);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu removeClassName(String... classNames) {
+		this.getBoundComponent().removeClassName(classNames);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Object getProperty(String property) {
-    return this.getBoundComponent().getProperty(property);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object getProperty(String property) {
+		return this.getBoundComponent().getProperty(property);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu setProperty(String property, Object value) {
-    this.getBoundComponent().setProperty(property, value);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu setProperty(String property, Object value) {
+		this.getBoundComponent().setProperty(property, value);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String getAttribute(String attribute) {
-    return this.getBoundComponent().getAttribute(attribute);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getAttribute(String attribute) {
+		return this.getBoundComponent().getAttribute(attribute);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu setAttribute(String property, String value) {
-    this.getBoundComponent().setAttribute(property, value);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu setAttribute(String property, String value) {
+		this.getBoundComponent().setAttribute(property, value);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String getStyle(String property) {
-    return this.getBoundComponent().getStyle(property);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getStyle(String property) {
+		return this.getBoundComponent().getStyle(property);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public String getComputedStyle(String property) {
-    return this.getBoundComponent().getComputedStyle(property);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getComputedStyle(String property) {
+		return this.getBoundComponent().getComputedStyle(property);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu setStyle(String property, String value) {
-    this.getBoundComponent().setStyle(property, value);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu setStyle(String property, String value) {
+		this.getBoundComponent().setStyle(property, value);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public SideMenu removeStyle(String property) {
-    this.getBoundComponent().removeStyle(property);
-    return this;
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public SideMenu removeStyle(String property) {
+		this.getBoundComponent().removeStyle(property);
+		return this;
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Object executeJs(String js) {
-    return this.getBoundComponent().executeJs(js);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Object executeJs(String js) {
+		return this.getBoundComponent().executeJs(js);
+	}
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public PendingResult<Object> executeJsAsync(String js) {
-    return this.getBoundComponent().executeJsAsync(js);
-  }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PendingResult<Object> executeJsAsync(String js) {
+		return this.getBoundComponent().executeJsAsync(js);
+	}
 }
