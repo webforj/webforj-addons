@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Setup Maven settings
-        uses: whelk-io/maven-settings-xml-action@v20
+        uses: whelk-io/maven-settings-xml-action@v22
         with:
           servers: |
             [{
