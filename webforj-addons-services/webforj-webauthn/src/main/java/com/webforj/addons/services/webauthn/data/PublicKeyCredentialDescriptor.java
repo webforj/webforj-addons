@@ -55,7 +55,7 @@ public class PublicKeyCredentialDescriptor {
 	public PublicKeyCredentialDescriptor(String id, Set<AuthenticatorTransport> transports) {
 		this.id = id;
 		this.transports = transports;
-    this.type = "public-key";
+		this.type = "public-key";
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class PublicKeyCredentialDescriptor {
 	 * @param id The credential ID.
 	 */
 	public PublicKeyCredentialDescriptor(String id) {
-    this(id, null);
+		this(id, null);
 	}
 
 	/**
