@@ -37,7 +37,9 @@ jobs:
         run: sudo apt install maven
 
       - name: Bump version in POM files
-        run: mvn versions:set -DnewVersion=${{ github.event.inputs.version }} -q
+        run: |
+          mvn versions:set -DnewVersion=${{ github.event.inputs.version }} -q
+          mvn versions:commit
 
       - name: Commit & Push changes
         run: |
