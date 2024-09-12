@@ -441,7 +441,7 @@ public class SideMenu extends ElementComposite
 	 */
 	@Override
 	public Object executeJs(String js) {
-		return this.getBoundComponent().executeJs(js);
+    return super.getBoundComponent().executeJs(js);
 	}
 
 	/**
@@ -449,7 +449,7 @@ public class SideMenu extends ElementComposite
 	 */
 	@Override
 	public PendingResult<Object> executeJsAsync(String js) {
-		return this.getBoundComponent().executeJsAsync(js);
+		return super.getBoundComponent().executeJsAsync(js);
 	}
 
 	/**
@@ -457,6 +457,6 @@ public class SideMenu extends ElementComposite
 	 */
 	@Override
 	public void executeJsVoidAsync(String js) {
-		this.getBoundComponent().executeJsVoidAsync(js);
+		super.getBoundComponent().executeJsVoidAsync(js);
 	}
 }
