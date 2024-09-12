@@ -411,21 +411,21 @@ public class SuggestionEdit extends ElementComposite
 	 * Opens the suggestions dropdown list.
 	 */
 	public void open() {
-		this.executeJs("component.open()");
+		this.executeJsVoidAsync("component.open()");
 	}
 
 	/**
 	 * Closes the suggestions dropdown list.
 	 */
 	public void close() {
-		this.executeJs("component.close()");
+		this.executeJsVoidAsync("component.close()");
 	}
 
 	/**
 	 * Sets focus on the suggestion input.
 	 */
 	public void setFocus() {
-		this.executeJs("component.setFocus()");
+		this.executeJsVoidAsync("component.setFocus()");
 	}
 
 	/**
@@ -442,6 +442,14 @@ public class SuggestionEdit extends ElementComposite
 	@Override
 	public PendingResult<Object> executeJsAsync(String js) {
 		return super.getElement().executeJsAsync(js);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void executeJsVoidAsync(String js) {
+		super.getElement().executeJsVoidAsync(js);
 	}
 
 	/**
