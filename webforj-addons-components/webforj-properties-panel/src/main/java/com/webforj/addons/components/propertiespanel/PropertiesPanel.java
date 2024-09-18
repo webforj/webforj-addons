@@ -138,6 +138,14 @@ public class PropertiesPanel extends ElementComposite
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void executeJsVoidAsync(String js) {
+		this.getBoundComponent().executeJsVoidAsync(js);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getStyle(String property) {
 		return this.getBoundComponent().getStyle(property);
 	}

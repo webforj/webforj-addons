@@ -27,14 +27,6 @@ import java.util.List;
  */
 public class RelyingParty {
 
-	// FIXME: Should be used temporarily
-	/**
-	 * Represents any HTML element to execute JavaScript functions. There should be
-	 * other ways provided for executing async JavaScript in the client, until then,
-	 * we will use a random element.
-	 */
-	public final Div anyElement = new Div();
-
 	/**
 	 * The identity of the relying party associated with this instance. This field
 	 * represents the identity information of the relying party (RP) with which this
@@ -76,7 +68,7 @@ public class RelyingParty {
 		registerOptions.setRp(this.relyingPartyIdentity).setPubKeyCredParams(
 				this.filterAvailableAlgorithms(registerOptions.getPubKeyCredParams()));
 		String options = registerOptions.toJson();
-		return this.anyElement.getElement()
+		return Page.getCurrent()
 				.executeJsAsync("window.dwcWebAuthn.register(%s);".formatted(options))
 				.thenApply(response -> RegistrationResponse.fromJson(response.toString()))
 				.thenApply(this::validateRegistrationResponse);
@@ -95,7 +87,7 @@ public class RelyingParty {
 			PublicKeyCredentialGetOptions authenticateOptions, boolean autofill) {
 		authenticateOptions.setRpId(relyingPartyIdentity.getId());
 		String options = authenticateOptions.toJson();
-		return this.anyElement.getElement()
+		return Page.getCurrent()
 				.executeJsAsync(
 						"window.dwcWebAuthn.authenticate(%s, %b)".formatted(options, autofill))
 				.thenApply(response -> AuthenticationResponse.fromJson(response.toString()))
