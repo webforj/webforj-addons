@@ -50,9 +50,7 @@ public final class DrawPanel extends Window {
 	protected void onCreate(Window window) {
 		super.onCreate(window);
 		this.window = window;
-		App.console().log("in onCreate");
 		try {
-			App.console().log("inTry");
 			BBjWindow w = WindowAccessor.getDefault().getBBjWindow(window);
 			w.setSize(new BasisNumber(width), new BasisNumber(height));
 			this.drawPanel = w.getDrawPanel();
@@ -60,9 +58,7 @@ public final class DrawPanel extends Window {
 			setOpaque(opacity);
 			setPenColor(penColor);
 			setPenWidth(penWidth);
-			App.console().log("endTry");
 		} catch (BBjException | IllegalAccessException e) {
-			App.console().log("inCatch");
 			throw new WebforjRuntimeException(e);
 		}
 	}
