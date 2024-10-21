@@ -17,22 +17,22 @@
     <dependency>
       <groupId>com.basis.lib</groupId>
       <artifactId>BBj</artifactId>
-      <version>24.12-SNAPSHOT</version>
+      <version>24.12</version>
     </dependency>
     <dependency>
       <groupId>com.basis.lib</groupId>
       <artifactId>BBjStartup</artifactId>
-      <version>24.12-SNAPSHOT</version>
+      <version>24.12</version>
     </dependency>
     <dependency>
       <groupId>com.basis.lib</groupId>
       <artifactId>BBjUtil</artifactId>
-      <version>24.12-SNAPSHOT</version>
+      <version>24.12</version>
     </dependency>
     <dependency>
       <groupId>com.basis.lib</groupId>
       <artifactId>BBjsp</artifactId>
-      <version>24.12-SNAPSHOT</version>
+      <version>24.12</version>
     </dependency>
   </dependencies>
 
