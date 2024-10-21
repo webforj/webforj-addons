@@ -31,6 +31,7 @@
     <module>webforj-suggestion-edit</module>
     <module>webforj-multi-select-combo</module>
     <module>webforj-properties-panel</module>
+    <module>webforj-draw-panel</module>
   </modules>
 
   <pluginRepositories>
