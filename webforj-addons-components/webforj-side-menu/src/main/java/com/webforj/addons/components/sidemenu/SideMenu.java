@@ -441,7 +441,7 @@ public class SideMenu extends ElementComposite
 	 */
 	@Override
 	public Object executeJs(String js) {
-    return super.getBoundComponent().executeJs(js);
+		return super.getBoundComponent().executeJs(js);
 	}
 
 	/**
