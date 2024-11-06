@@ -39,7 +39,7 @@ import java.util.List;
  * @since 1.00
  */
 @NodeName("dwc-suggestion-edit")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.1/dwc-addons.esm.js", top = true, attributes = {
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.2/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
 public class SuggestionEdit extends ElementComposite
 		implements
