@@ -303,7 +303,7 @@ public class SideMenu extends ElementComposite
 			if (!concatenatedSections.isEmpty()) {
 				concatenatedSections.append(", ");
 			}
-			concatenatedSections.append(section.name());
+			concatenatedSections.append(section.name().toLowerCase());
 		}
 
 		super.set(sectionsProp, concatenatedSections.toString());
