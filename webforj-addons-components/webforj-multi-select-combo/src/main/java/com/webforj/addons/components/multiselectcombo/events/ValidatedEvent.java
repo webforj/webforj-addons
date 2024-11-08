@@ -20,11 +20,11 @@ public class ValidatedEvent extends ComponentEvent<MultiSelectCombo> {
 	/**
 	 * Creates a new event.
 	 *
-	 * @param control the control
+	 * @param component the component
 	 * @param eventMap the event map
 	 */
-	public ValidatedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
-		super(control, eventMap);
+	public ValidatedEvent(MultiSelectCombo component, Map<String, Object> eventMap) {
+		super(component, eventMap);
 	}
 
 	/**
