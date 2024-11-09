@@ -1,9 +1,14 @@
 package com.webforj.addons.components.multiselectcombo.events;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.webforj.addons.components.multiselectcombo.Item;
 import com.webforj.addons.components.multiselectcombo.MultiSelectCombo;
 import com.webforj.component.element.annotation.EventName;
+import com.webforj.component.element.annotation.EventOptions;
 import com.webforj.component.event.ComponentEvent;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,15 +18,27 @@ import java.util.Map;
  * @since 1.00
  */
 @EventName("dwc-selected-changed")
+@EventOptions(data = {@EventOptions.EventData(key = "selected", exp = "event.detail")})
 public class SelectedChangedEvent extends ComponentEvent<MultiSelectCombo> {
 
 	/**
 	 * Creates a new event.
 	 *
-	 * @param control the control
+	 * @param component the component
 	 * @param eventMap the event map
 	 */
-	public SelectedChangedEvent(MultiSelectCombo control, Map<String, Object> eventMap) {
-		super(control, eventMap);
+	public SelectedChangedEvent(MultiSelectCombo component, Map<String, Object> eventMap) {
+		super(component, eventMap);
+	}
+
+	/**
+	 * Retrieves a list of selected items from the component's event map.
+	 */
+	public List<Item> getSelectedItems() {
+		final var gson = new Gson();
+		final var type = new TypeToken<List<Item>>() {
+		}.getType();
+		final var json = gson.toJson(this.getEventMap().get("selected"), List.class);
+		return gson.fromJson(json, type);
 	}
 }
