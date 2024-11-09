@@ -1,9 +1,7 @@
 package com.webforj.addons.components.multiselectcombo;
 
 import com.google.gson.annotations.SerializedName;
-import com.webforj.addons.components.multiselectcombo.events.InputEvent;
-import com.webforj.addons.components.multiselectcombo.events.OpenedChangedEvent;
-import com.webforj.addons.components.multiselectcombo.events.SelectedChangedEvent;
+import com.webforj.addons.components.multiselectcombo.events.*;
 import com.webforj.annotation.Attribute;
 import com.webforj.annotation.JavaScript;
 import com.webforj.component.ExpanseBase;
@@ -41,6 +39,8 @@ import java.util.List;
 public class MultiSelectCombo extends ElementComposite
 		implements
 			HasPlaceholder<MultiSelectCombo>,
+			HasClassName<MultiSelectCombo>,
+			HasFocusStatus,
 			HasReadOnly<MultiSelectCombo>,
 			HasExpanse<MultiSelectCombo, MultiSelectCombo.Expanse>,
 			HasClientAutoValidation<MultiSelectCombo>,
@@ -348,6 +348,28 @@ public class MultiSelectCombo extends ElementComposite
 	}
 
 	/**
+	 * Add a listener for the focus event.
+	 *
+	 * @param listener the listener
+	 * @return the control
+	 */
+	public ListenerRegistration<FocusedEvent> addFocusedListener(
+			EventListener<FocusedEvent> listener) {
+		return super.addEventListener(FocusedEvent.class, listener);
+	}
+
+	/**
+	 * Add a listener for the blur event.
+	 *
+	 * @param listener the listener
+	 * @return the control
+	 */
+	public ListenerRegistration<BlurredEvent> addBlurredListener(
+			EventListener<BlurredEvent> listener) {
+		return super.addEventListener(BlurredEvent.class, listener);
+	}
+
+	/**
 	 * Add a listener for the change of selected options' event.
 	 *
 	 * @param listener the listener
@@ -357,6 +379,70 @@ public class MultiSelectCombo extends ElementComposite
 			EventListener<SelectedChangedEvent> listener) {
 		return super.addEventListener(SelectedChangedEvent.class, listener);
 	}
+
+  /**
+   * Sets focus on the component's input field, allowing user interaction.
+   *
+   * <p>
+   * This method programmatically shifts focus to the component's input field, simulating
+   * a user click or tab action. This can be used to ensure the component is ready
+   * for input, particularly in forms or interactive interfaces.
+   * </p>
+   */
+  public void setFocus() {
+    this.getBoundComponent().callJsFunction("setFocus");
+  }
+
+  /**
+   * Removes focus from the component's input field, preventing further user interaction.
+   *
+   * <p>
+   * This method programmatically removes focus from the input field of the component,
+   * simulating a user action that would cause the component to lose focus.
+   * It is useful when you need to shift focus to other parts of the UI.
+   * </p>
+   */
+  public void removeFocus() {
+    this.getBoundComponent().callJsFunction("removeFocus");
+  }
+
+  /**
+   * Opens the dropdown menu, displaying all available options.
+   *
+   * <p>
+   * This method triggers the dropdown to expand, allowing users to view and select
+   * from the list of available options. It is useful when you want to programmatically
+   * open the dropdown in response to other UI actions.
+   * </p>
+   */
+  public void open() {
+    this.getBoundComponent().callJsFunction("open");
+  }
+
+  /**
+   * Closes the dropdown menu, hiding all available options.
+   *
+   * <p>
+   * This method programmatically closes the dropdown menu, typically used to hide
+   * the options list after a selection is made or in response to other UI actions.
+   * </p>
+   */
+  public void close() {
+    this.getBoundComponent().callJsFunction("close");
+  }
+
+  /**
+   * Clears the input field and removes all selected items from the component.
+   *
+   * <p>
+   * This method resets the component, clearing any text in the input field and
+   * deselecting all currently selected items. It is helpful in scenarios where
+   * the user needs to start fresh without any previous selections.
+   * </p>
+   */
+  public void clear() {
+    this.getBoundComponent().callJsFunction("clear");
+  }
 
 	/**
 	 * Retrieves the label of the control.
@@ -501,23 +587,11 @@ public class MultiSelectCombo extends ElementComposite
 	}
 
 	/**
-	 * Retrieves the value indicating whether the control has focus.
-	 *
-	 * @return The hasFocus value.
+	 * {@inheritDoc}
 	 */
-	public Boolean getHasFocus() {
+	@Override
+	public boolean hasFocus() {
 		return get(this.hasFocusProp);
-	}
-
-	/**
-	 * Sets the value indicating whether the control has focus.
-	 *
-	 * @param hasFocus The hasFocus value.
-	 * @return This {@code MultiSelectCombo} instance for method chaining.
-	 */
-	public MultiSelectCombo setHasFocus(Boolean hasFocus) {
-		set(this.hasFocusProp, hasFocus);
-		return this;
 	}
 
 	/**
@@ -541,21 +615,37 @@ public class MultiSelectCombo extends ElementComposite
 	}
 
 	/**
-	 * Retrieves the tab traversable value of the control.
+	 * Checks whether the user can focus to the component using the tab key.
 	 *
-	 * @return The tabTraversable value.
+	 * <p>
+	 * It's important to note that if the component is set as focusable but is
+	 * disabled, the user won't be able to navigate to the component using the Tab
+	 * key or focus it programmatically. However, the component will still be
+	 * included in the tab order.
+	 * </p>
+	 *
+	 * @return true if the user can navigate to the component with the Tab key,
+	 *         false if not.
 	 */
-	public Integer getTabTraversable() {
-		return get(this.tabTraversableProp);
+	public boolean isFocusable() {
+		final var tabTraversable = get(this.tabTraversableProp);
+		return tabTraversable > -1;
 	}
 
 	/**
-	 * Sets the tab traversable value of the control.
+	 * Sets whether the user can focus to the component using the tab key.
 	 *
-	 * @param tabTraversable The tabTraversable value.
-	 * @return This {@code MultiSelectCombo} instance for method chaining.
+	 * <p>
+	 * This method allows you to enable or disable focusing the component. When
+	 * enabled, the component will be part of the tab order. When disabled the
+	 * component is excluded from tab navigation.
+	 * </p>
+	 *
+	 * @param focusable true to enable focusing the component, false to disable it.
+	 * @return the component itself.
 	 */
-	public MultiSelectCombo setTabTraversable(Integer tabTraversable) {
+	public MultiSelectCombo setFocusable(boolean focusable) {
+		final var tabTraversable = focusable ? 0 : -1;
 		set(this.tabTraversableProp, tabTraversable);
 		return this;
 	}
@@ -1022,6 +1112,24 @@ public class MultiSelectCombo extends ElementComposite
 	@Override
 	public MultiSelectCombo setValidationStyle(ValidationStyle validationStyle) {
 		set(this.validationStyleProp, validationStyle);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public MultiSelectCombo addClassName(String... classNames) {
+		this.getBoundComponent().addClassName(classNames);
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public MultiSelectCombo removeClassName(String... classNames) {
+		this.getBoundComponent().removeClassName(classNames);
 		return this;
 	}
 }
