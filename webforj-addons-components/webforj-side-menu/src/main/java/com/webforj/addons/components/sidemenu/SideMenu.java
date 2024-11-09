@@ -41,7 +41,7 @@ import java.util.HashSet;
  * @author ElyasSalar
  */
 @NodeName("dwc-side-menu")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.2/dwc-addons.esm.js", top = true, attributes = {
+@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.3/dwc-addons.esm.js", top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
 public class SideMenu extends ElementComposite
 		implements
