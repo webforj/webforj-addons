@@ -380,69 +380,83 @@ public class MultiSelectCombo extends ElementComposite
 		return super.addEventListener(SelectedChangedEvent.class, listener);
 	}
 
-  /**
-   * Sets focus on the component's input field, allowing user interaction.
-   *
-   * <p>
-   * This method programmatically shifts focus to the component's input field, simulating
-   * a user click or tab action. This can be used to ensure the component is ready
-   * for input, particularly in forms or interactive interfaces.
-   * </p>
-   */
-  public void setFocus() {
-    this.getBoundComponent().callJsFunction("setFocus");
-  }
+	/**
+	 * Add a listener for the keydown on the component part event.
+	 *
+	 * @param listener the listener
+	 * @return the control
+	 */
+	public ListenerRegistration<KeydownEvent> addKeydownListener(
+			EventListener<KeydownEvent> listener) {
+		return super.addEventListener(KeydownEvent.class, listener);
+	}
 
-  /**
-   * Removes focus from the component's input field, preventing further user interaction.
-   *
-   * <p>
-   * This method programmatically removes focus from the input field of the component,
-   * simulating a user action that would cause the component to lose focus.
-   * It is useful when you need to shift focus to other parts of the UI.
-   * </p>
-   */
-  public void removeFocus() {
-    this.getBoundComponent().callJsFunction("removeFocus");
-  }
+	/**
+	 * Sets focus on the component's input field, allowing user interaction.
+	 *
+	 * <p>
+	 * This method programmatically shifts focus to the component's input field,
+	 * simulating a user click or tab action. This can be used to ensure the
+	 * component is ready for input, particularly in forms or interactive
+	 * interfaces.
+	 * </p>
+	 */
+	public void setFocus() {
+		this.getBoundComponent().callJsFunction("setFocus");
+	}
 
-  /**
-   * Opens the dropdown menu, displaying all available options.
-   *
-   * <p>
-   * This method triggers the dropdown to expand, allowing users to view and select
-   * from the list of available options. It is useful when you want to programmatically
-   * open the dropdown in response to other UI actions.
-   * </p>
-   */
-  public void open() {
-    this.getBoundComponent().callJsFunction("open");
-  }
+	/**
+	 * Removes focus from the component's input field, preventing further user
+	 * interaction.
+	 *
+	 * <p>
+	 * This method programmatically removes focus from the input field of the
+	 * component, simulating a user action that would cause the component to lose
+	 * focus. It is useful when you need to shift focus to other parts of the UI.
+	 * </p>
+	 */
+	public void removeFocus() {
+		this.getBoundComponent().callJsFunction("removeFocus");
+	}
 
-  /**
-   * Closes the dropdown menu, hiding all available options.
-   *
-   * <p>
-   * This method programmatically closes the dropdown menu, typically used to hide
-   * the options list after a selection is made or in response to other UI actions.
-   * </p>
-   */
-  public void close() {
-    this.getBoundComponent().callJsFunction("close");
-  }
+	/**
+	 * Opens the dropdown menu, displaying all available options.
+	 *
+	 * <p>
+	 * This method triggers the dropdown to expand, allowing users to view and
+	 * select from the list of available options. It is useful when you want to
+	 * programmatically open the dropdown in response to other UI actions.
+	 * </p>
+	 */
+	public void open() {
+		this.getBoundComponent().callJsFunction("open");
+	}
 
-  /**
-   * Clears the input field and removes all selected items from the component.
-   *
-   * <p>
-   * This method resets the component, clearing any text in the input field and
-   * deselecting all currently selected items. It is helpful in scenarios where
-   * the user needs to start fresh without any previous selections.
-   * </p>
-   */
-  public void clear() {
-    this.getBoundComponent().callJsFunction("clear");
-  }
+	/**
+	 * Closes the dropdown menu, hiding all available options.
+	 *
+	 * <p>
+	 * This method programmatically closes the dropdown menu, typically used to hide
+	 * the options list after a selection is made or in response to other UI
+	 * actions.
+	 * </p>
+	 */
+	public void close() {
+		this.getBoundComponent().callJsFunction("close");
+	}
+
+	/**
+	 * Clears the input field and removes all selected items from the component.
+	 *
+	 * <p>
+	 * This method resets the component, clearing any text in the input field and
+	 * deselecting all currently selected items. It is helpful in scenarios where
+	 * the user needs to start fresh without any previous selections.
+	 * </p>
+	 */
+	public void clear() {
+		this.getBoundComponent().callJsFunction("clear");
+	}
 
 	/**
 	 * Retrieves the label of the control.
