@@ -20,6 +20,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.webforj.addons</groupId>
+      <artifactId>webforj-components-common</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
