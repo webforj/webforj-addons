@@ -5,6 +5,8 @@ package com.webforj.addons.constant;
  */
 public class GlobalConstants {
 
+  private GlobalConstants() {}
+
 	/**
 	 * The version of the DWC client components CDN.
 	 */
