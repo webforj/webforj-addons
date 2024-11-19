@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.webforj.PendingResult;
 import com.webforj.addons.components.sidemenu.events.ChangedEvent;
 import com.webforj.addons.components.sidemenu.events.SearchedEvent;
+import com.webforj.addons.constant.GlobalConstants;
 import com.webforj.annotation.Attribute;
 import com.webforj.annotation.JavaScript;
 import com.webforj.component.element.ElementComposite;
@@ -41,7 +42,7 @@ import java.util.HashSet;
  * @author ElyasSalar
  */
 @NodeName("dwc-side-menu")
-@JavaScript(value = "https://d3hx2iico687v8.cloudfront.net/1.0.4/dwc-addons.esm.js", top = true, attributes = {
+@JavaScript(value = GlobalConstants.DWC_CDN, top = true, attributes = {
 		@Attribute(name = "type", value = "module")})
 public class SideMenu extends ElementComposite
 		implements

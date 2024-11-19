@@ -10,7 +10,7 @@
     <version>24.20-SNAPSHOT</version>
   </parent>
 
-  <artifactId>webforj-suggestion-edit</artifactId>
+  <artifactId>webforj-components-common</artifactId>
   <version>${project.parent.version}</version>
   <packaging>jar</packaging>
 
@@ -18,15 +18,8 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <dwc.cdn.version>1.1.0</dwc.cdn.version>
   </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>com.webforj.addons</groupId>
-      <artifactId>webforj-components-common</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
