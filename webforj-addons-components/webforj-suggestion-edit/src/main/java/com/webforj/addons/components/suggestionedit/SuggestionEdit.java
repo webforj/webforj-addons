@@ -10,6 +10,7 @@ import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
 import com.webforj.component.element.annotation.NodeName;
+import com.webforj.data.selection.SelectionRange;
 import com.webforj.concern.*;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
@@ -409,24 +410,103 @@ public class SuggestionEdit extends ElementComposite
 	}
 
 	/**
-	 * Opens the suggestions dropdown list.
-	 */
-	public void open() {
-		this.executeJsVoidAsync("component.open()");
-	}
-
-	/**
-	 * Closes the suggestions dropdown list.
-	 */
-	public void close() {
-		this.executeJsVoidAsync("component.close()");
-	}
-
-	/**
-	 * Sets focus on the suggestion input.
+	 * Sets focus on the component.
 	 */
 	public void setFocus() {
-		this.executeJsVoidAsync("component.setFocus()");
+		getBoundComponent().callJsFunctionVoidAsync("setFocus");
+	}
+
+	/**
+	 * Removes focus from the component.
+	 */
+	public void removeFocus() {
+		getBoundComponent().callJsFunctionVoidAsync("removeFocus");
+	}
+
+	/**
+	 * Retrieves the caret position of the input element.
+	 *
+	 * @return an integer representing the index position of the caret.
+	 */
+	public PendingResult<Object> getCursorPos() {
+		return getBoundComponent().callJsFunctionAsync("getCursorPos");
+	}
+
+	/**
+	 * Sets the caret position of the input element.
+	 *
+	 * @param index the index position where the caret should be placed.
+	 */
+	public void setCursorPos(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("setCursorPos", index);
+	}
+
+	/**
+	 * Retrieves the selection range of the input element.
+	 *
+	 * @return an object representing of type {@link SelectionRange}
+	 */
+	public PendingResult<Object> getSelectionRange() {
+		return getBoundComponent().callJsFunctionAsync("getSelectionRange");
+	}
+
+	/**
+	 * Sets the selection range of the input element.
+	 *
+	 * @param start the start position of the selection.
+	 * @param end the end position of the selection.
+	 */
+	public void setSelectionRange(int start, int end) {
+		getBoundComponent().callJsFunctionVoidAsync("setSelectionRange", start, end);
+	}
+
+	/**
+	 * Opens the suggestion dropdown list in the client component.
+	 */
+	public void open() {
+		getBoundComponent().callJsFunctionVoidAsync("open");
+	}
+
+	/**
+	 * Closes the suggestion dropdown list in the client component.
+	 */
+	public void close() {
+		getBoundComponent().callJsFunctionVoidAsync("close");
+	}
+
+	/**
+	 * Toggles the suggestion dropdown list in the client component. Opens it if it
+	 * is closed, or closes it if it is open.
+	 */
+	public void toggle() {
+		getBoundComponent().callJsFunctionVoidAsync("toggle");
+	}
+
+	/**
+	 * Activates a specific item in the dropdown menu.
+	 *
+	 * @param index an integer representing the index of the item to be activated
+	 */
+	public void activateItem(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("activateItem", index);
+	}
+
+	/**
+	 * Scrolls to a specified index in the dropdown menu when it is open.
+	 *
+	 * @param index the zero-based index of the item to scroll to.
+	 */
+	public void scrollToIndex(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("scrollToIndex", index);
+	}
+
+	/**
+	 * Selects a specific item in the dropdown menu.
+	 *
+	 * @param index an integer representing the index of the item to be selected.
+	 */
+	public void selectItem(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("activateItem", index);
 	}
 
 	/**
