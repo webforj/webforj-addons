@@ -10,6 +10,7 @@ import com.webforj.component.ExpanseBase;
 import com.webforj.component.element.ElementComposite;
 import com.webforj.component.element.PropertyDescriptor;
 import com.webforj.component.element.annotation.NodeName;
+import com.webforj.data.selection.SelectionRange;
 import com.webforj.concern.*;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
@@ -408,25 +409,171 @@ public class SuggestionEdit extends ElementComposite
 		return this.addEventListener(BlurredEvent.class, listener);
 	}
 
-	/**
-	 * Opens the suggestions dropdown list.
-	 */
-	public void open() {
-		this.executeJsVoidAsync("component.open()");
-	}
-
-	/**
-	 * Closes the suggestions dropdown list.
-	 */
-	public void close() {
-		this.executeJsVoidAsync("component.close()");
-	}
-
-	/**
-	 * Sets focus on the suggestion input.
-	 */
+  /**
+   * Sets focus on the component's input field, allowing user interaction.
+   *
+   * <p>
+   * This method programmatically shifts focus to the component's input field,
+   * simulating a user click or tab action. This can be used to ensure the
+   * component is ready for input, particularly in forms or interactive
+   * interfaces.
+   * </p>
+   */
 	public void setFocus() {
-		this.executeJsVoidAsync("component.setFocus()");
+		getBoundComponent().callJsFunctionVoidAsync("setFocus");
+	}
+
+  /**
+   * Removes focus from the component's input field, preventing further user
+   * interaction.
+   *
+   * <p>
+   * This method programmatically removes focus from the input field of the
+   * component, simulating a user action that would cause the component to lose
+   * focus. It is useful when you need to shift focus to other parts of the UI.
+   * </p>
+   */
+	public void removeFocus() {
+		getBoundComponent().callJsFunctionVoidAsync("removeFocus");
+	}
+
+  /**
+   * Retrieves the current caret position within the component's input field.
+   *
+   * <p>
+   * This method returns the index of the caret's position, which can be used
+   * to determine where in the text the user is currently focused. This is
+   * especially useful for implementing advanced input manipulation or analysis.
+   * </p>
+   *
+   * @return the zero-based index position of the caret.
+   */
+	public PendingResult<Object> getCursorPos() {
+		return getBoundComponent().callJsFunctionAsync("getCursorPos");
+	}
+
+  /**
+   * Sets the caret position within the component's input field.
+   *
+   * <p>
+   * This method moves the caret to the specified position, allowing precise
+   * control over where user input or text manipulation should occur.
+   * </p>
+   *
+   * @param index the zero-based index where the caret should be positioned.
+   */
+	public void setCursorPos(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("setCursorPos", index);
+	}
+
+  /**
+   * Retrieves the current text selection range within the input field.
+   *
+   * <p>
+   * This method returns the start and end positions of the text selection,
+   * enabling programmatic interaction with the selected text. It is useful
+   * for implementing text-related features like copy, cut, or formatting.
+   * </p>
+   *
+   * @return an object of {@link SelectionRange} describing the selection range.
+   */
+	public PendingResult<Object> getSelectionRange() {
+		return getBoundComponent().callJsFunctionAsync("getSelectionRange");
+	}
+
+  /**
+   * Sets the text selection range within the component's input field.
+   *
+   * <p>
+   * This method selects the text between the specified start and end positions,
+   * allowing for programmatic highlighting or text manipulation.
+   * </p>
+   *
+   * @param start the start position of the selection.
+   * @param end   the end position of the selection.
+   */
+	public void setSelectionRange(int start, int end) {
+		getBoundComponent().callJsFunctionVoidAsync("setSelectionRange", start, end);
+	}
+
+  /**
+   * Opens the dropdown menu, displaying all available options.
+   *
+   * <p>
+   * This method triggers the dropdown to expand, allowing users to view and
+   * select from the list of available options. It is useful when you want to
+   * programmatically open the dropdown in response to other UI actions.
+   * </p>
+   */
+	public void open() {
+		getBoundComponent().callJsFunctionVoidAsync("open");
+	}
+
+  /**
+   * Closes the dropdown menu, hiding all available options.
+   *
+   * <p>
+   * This method programmatically closes the dropdown menu, typically used to hide
+   * the options list after a selection is made or in response to other UI actions.
+   * </p>
+   */
+	public void close() {
+		getBoundComponent().callJsFunctionVoidAsync("close");
+	}
+
+  /**
+   * Toggles the dropdown menu, opening or closing it based on its current state.
+   *
+   * <p>
+   * This method alternates the dropdown's state, ensuring it opens if it is
+   * currently closed or closes if it is currently open. It provides dynamic
+   * control over the menu's visibility.
+   * </p>
+   */
+	public void toggle() {
+		getBoundComponent().callJsFunctionVoidAsync("toggle");
+	}
+
+  /**
+   * Activates a specific item in the dropdown menu.
+   *
+   * <p>
+   * This method sets a specified item as active, highlighting it for the user.
+   * The item can be identified by its index or an HTML element.
+   * </p>
+   *
+   * @param index an index identifying the item to activate.
+   */
+	public void activateItem(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("activateItem", index);
+	}
+
+  /**
+   * Scrolls to a specified item in the dropdown menu.
+   *
+   * <p>
+   * This method ensures the specified item is brought into view, useful for
+   * navigating long lists of options programmatically.
+   * </p>
+   *
+   * @param index the zero-based index of the item to scroll to.
+   */
+	public void scrollToIndex(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("scrollToIndex", index);
+	}
+
+  /**
+   * Selects a specific item in the dropdown menu.
+   *
+   * <p>
+   * This method marks an item as selected, allowing programmatic selection of
+   * dropdown options. The item can be identified by its index or an HTML element.
+   * </p>
+   *
+   * @param index an index identifying the item to select.
+   */
+	public void selectItem(int index) {
+		getBoundComponent().callJsFunctionVoidAsync("selectItem", index);
 	}
 
 	/**
