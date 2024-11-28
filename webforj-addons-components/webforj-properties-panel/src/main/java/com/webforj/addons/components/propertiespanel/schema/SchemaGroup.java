@@ -13,6 +13,11 @@ import java.util.Objects;
  * together, facilitating structured and organized presentation. It supports
  * collapsible and expandable behavior for efficient use of space.
  *
+ * <p>
+ * Allows heterogeneous property types (any subclass of {@link BaseSchema}) in
+ * the same group.
+ * </p>
+ *
  * @author ElyasSalar
  * @since 1.00
  */
