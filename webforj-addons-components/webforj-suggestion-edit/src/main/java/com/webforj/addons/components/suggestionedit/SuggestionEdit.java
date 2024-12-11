@@ -409,30 +409,33 @@ public class SuggestionEdit extends ElementComposite
 		return this.addEventListener(BlurredEvent.class, listener);
 	}
 
-  /**
-   * Adds a listener for the opened event, which is triggered when the suggestions dropdown is opened.
-   *
-   * @param listener The event listener to add.
-   * @return A registration object that can be used to unregister the listener if needed.
-   */
-  public ListenerRegistration<OpenedEvent> addOpenedListener(
-    EventListener<OpenedEvent> listener) {
-    return this.addEventListener(OpenedEvent.class, listener);
-  }
+	/**
+	 * Adds a listener for the opened event, which is triggered when the suggestions
+	 * dropdown is opened.
+	 *
+	 * @param listener The event listener to add.
+	 * @return A registration object that can be used to unregister the listener if
+	 *         needed.
+	 */
+	public ListenerRegistration<OpenedEvent> addOpenedListener(
+			EventListener<OpenedEvent> listener) {
+		return this.addEventListener(OpenedEvent.class, listener);
+	}
 
-  /**
-   * Adds a listener for the closed event, which is triggered when the suggestions dropdown is closed.
-   *
-   * @param listener The event listener to add.
-   * @return A registration object that can be used to unregister the listener if needed.
-   */
-  public ListenerRegistration<ClosedEvent> addClosedListener(
-    EventListener<ClosedEvent> listener) {
-    return this.addEventListener(ClosedEvent.class, listener);
-  }
+	/**
+	 * Adds a listener for the closed event, which is triggered when the suggestions
+	 * dropdown is closed.
+	 *
+	 * @param listener The event listener to add.
+	 * @return A registration object that can be used to unregister the listener if
+	 *         needed.
+	 */
+	public ListenerRegistration<ClosedEvent> addClosedListener(
+			EventListener<ClosedEvent> listener) {
+		return this.addEventListener(ClosedEvent.class, listener);
+	}
 
-
-  /**
+	/**
 	 * Sets focus on the component's input field, allowing user interaction.
 	 *
 	 * <p>

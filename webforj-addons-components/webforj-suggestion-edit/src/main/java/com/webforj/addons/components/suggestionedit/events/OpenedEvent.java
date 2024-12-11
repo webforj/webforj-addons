@@ -15,13 +15,13 @@ import java.util.Map;
 @EventName("dwc-opened")
 public class OpenedEvent extends ComponentEvent<SuggestionEdit> {
 
-  /**
-   * Creates a new {@code dwc-opened} event.
-   *
-   * @param component the component that fired the event
-   * @param payload the event map
-   */
-  public OpenedEvent(SuggestionEdit component, Map<String, Object> payload) {
-    super(component, payload);
-  }
+	/**
+	 * Creates a new {@code dwc-opened} event.
+	 *
+	 * @param component the component that fired the event
+	 * @param payload the event map
+	 */
+	public OpenedEvent(SuggestionEdit component, Map<String, Object> payload) {
+		super(component, payload);
+	}
 }
