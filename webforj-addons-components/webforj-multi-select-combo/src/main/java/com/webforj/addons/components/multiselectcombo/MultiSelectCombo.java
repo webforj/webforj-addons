@@ -403,8 +403,8 @@ public class MultiSelectCombo extends ElementComposite
 	 * component is ready for input, particularly in forms or interactive
 	 * interfaces.
 	 * </p>
-   *
-   * @return a pending result which will be resolved with void.
+	 *
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> setFocus() {
 		return getBoundComponent().callJsFunctionAsync("setFocus");
@@ -419,8 +419,8 @@ public class MultiSelectCombo extends ElementComposite
 	 * component, simulating a user action that would cause the component to lose
 	 * focus. It is useful when you need to shift focus to other parts of the UI.
 	 * </p>
-   *
-   * @return a pending result which will be resolved with void.
+	 *
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> removeFocus() {
 		return getBoundComponent().callJsFunctionAsync("removeFocus");
@@ -434,8 +434,8 @@ public class MultiSelectCombo extends ElementComposite
 	 * select from the list of available options. It is useful when you want to
 	 * programmatically open the dropdown in response to other UI actions.
 	 * </p>
-   *
-   * @return a pending result which will be resolved with void.
+	 *
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> open() {
 		return getBoundComponent().callJsFunctionAsync("open");
@@ -449,8 +449,8 @@ public class MultiSelectCombo extends ElementComposite
 	 * the options list after a selection is made or in response to other UI
 	 * actions.
 	 * </p>
-   *
-   * @return a pending result which will be resolved with void.
+	 *
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> close() {
 		return getBoundComponent().callJsFunctionAsync("close");
@@ -464,8 +464,8 @@ public class MultiSelectCombo extends ElementComposite
 	 * deselecting all currently selected items. It is helpful in scenarios where
 	 * the user needs to start fresh without any previous selections.
 	 * </p>
-   *
-   * @return a pending result which will be resolved with void.
+	 *
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> clear() {
 		return getBoundComponent().callJsFunctionAsync("clear");
@@ -495,7 +495,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * </p>
 	 *
 	 * @param index the zero-based index where the caret should be positioned.
-   * @return a pending result which will be resolved with void.
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> setCursorPos(int index) {
 		return getBoundComponent().callJsFunctionAsync("setCursorPos", index);
@@ -526,7 +526,7 @@ public class MultiSelectCombo extends ElementComposite
 	 *
 	 * @param start the start position of the selection.
 	 * @param end the end position of the selection.
-   * @return a pending result which will be resolved with void.
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> setSelectionRange(int start, int end) {
 		return getBoundComponent().callJsFunctionAsync("setSelectionRange", start, end);
@@ -541,7 +541,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * </p>
 	 *
 	 * @param index an index identifying the item to activate.
-   * @return a pending result which will be resolved with void.
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> activateItem(int index) {
 		return getBoundComponent().callJsFunctionAsync("activateItem", index);
@@ -556,7 +556,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * </p>
 	 *
 	 * @param index the zero-based index of the item to scroll to.
-   * @return a pending result which will be resolved with void.
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> scrollToIndex(int index) {
 		return getBoundComponent().callJsFunctionAsync("scrollToIndex", index);
@@ -571,7 +571,7 @@ public class MultiSelectCombo extends ElementComposite
 	 * </p>
 	 *
 	 * @param index an index identifying the item to select.
-   * @return a pending result which will be resolved with void.
+	 * @return a pending result which will be resolved with void.
 	 */
 	public PendingResult<Object> selectItem(int index) {
 		return getBoundComponent().callJsFunctionAsync("selectItem", index);
