@@ -3,6 +3,7 @@ package com.webforj.addons.components.sidemenu;
 import com.google.gson.annotations.SerializedName;
 import com.webforj.PendingResult;
 import com.webforj.addons.components.sidemenu.events.ChangedEvent;
+import com.webforj.addons.components.sidemenu.events.ItemClickedEvent;
 import com.webforj.addons.components.sidemenu.events.SearchedEvent;
 import com.webforj.addons.constant.GlobalConstants;
 import com.webforj.annotation.Attribute;
@@ -125,6 +126,19 @@ public class SideMenu extends ElementComposite
 	 */
 	private final PropertyDescriptor<List<Item>> itemsProp = PropertyDescriptor.property("items",
 			new ArrayList<>());
+
+	/**
+	 * Adds a listener for the item clicked event, which is triggered when an item
+	 * is clicked.
+	 *
+	 * @param listener The event listener to add.
+	 * @return A registration object that can be used to unregister the listener if
+	 *         needed.
+	 */
+	public ListenerRegistration<ItemClickedEvent> addItemClickedListener(
+			EventListener<ItemClickedEvent> listener) {
+		return this.addEventListener(ItemClickedEvent.class, listener);
+	}
 
 	/**
 	 * Adds a listener for the changed event, which is triggered when item selection
