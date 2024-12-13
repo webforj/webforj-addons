@@ -1,5 +1,6 @@
 package com.webforj.addons.components.sidemenu.events;
 
+import com.google.gson.Gson;
 import com.webforj.addons.components.sidemenu.Item;
 import com.webforj.addons.components.sidemenu.SideMenu;
 import com.webforj.component.element.annotation.EventName;
@@ -34,6 +35,8 @@ public class ItemClickedEvent extends ComponentEvent<SideMenu> {
 	 * @return The clicked item.
 	 */
 	public Item getItem() {
-		return (Item) this.getEventMap().get("item");
+		final var gson = new Gson();
+		final var itemJson = gson.toJson(this.getEventMap().get("item"));
+		return gson.fromJson(itemJson, Item.class);
 	}
 }
