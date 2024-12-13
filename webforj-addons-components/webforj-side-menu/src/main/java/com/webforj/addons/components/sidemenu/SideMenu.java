@@ -15,11 +15,7 @@ import com.webforj.concern.*;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * A Side Menu component designed for webforj. The {@code SideMenu} facilitates
@@ -306,7 +302,7 @@ public class SideMenu extends ElementComposite
 	 * @return The updated instance of the side menu.
 	 */
 	public SideMenu setSections(Section... sections) {
-		Set<Section> uniqueSections = new HashSet<>(Arrays.asList(sections));
+		Set<Section> uniqueSections = new LinkedHashSet<>(Arrays.asList(sections));
 
 		if (uniqueSections.size() > Section.values().length) {
 			throw new IllegalArgumentException(
