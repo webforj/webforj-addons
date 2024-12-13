@@ -1,6 +1,5 @@
 package com.webforj.addons.components.sidemenu.events;
 
-import com.webforj.addons.components.sidemenu.Item;
 import com.webforj.addons.components.sidemenu.SideMenu;
 import com.webforj.component.element.annotation.EventName;
 import com.webforj.component.element.annotation.EventOptions;
@@ -15,7 +14,7 @@ import java.util.Map;
  * @author @ElyasSalar
  */
 @EventName("dwc-searched")
-@EventOptions(data = {@EventOptions.EventData(key = "detail", exp = "event.detail"),})
+@EventOptions(data = {@EventOptions.EventData(key = "value", exp = "event.detail"),})
 public class SearchedEvent extends ComponentEvent<SideMenu> {
 
 	/**
@@ -29,20 +28,11 @@ public class SearchedEvent extends ComponentEvent<SideMenu> {
 	}
 
 	/**
-	 * Gets the newly selected item from the side menu
+	 * Gets the value of the search input from the side menu
 	 *
-	 * @return The new selected item.
+	 * @return The search input value.
 	 */
-	public Item getSearched() {
-		return (Item) this.getEventMap().get("selected");
-	}
-
-	/**
-	 * Gets the deselected item from the side menu.
-	 *
-	 * @return The deselected item.
-	 */
-	public Item getDeselectedItem() {
-		return (Item) this.getEventMap().get("deselected");
+	public String getValue() {
+		return (String) this.getEventMap().get("value");
 	}
 }
