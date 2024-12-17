@@ -288,7 +288,13 @@ public class MultiSelectCombo extends ElementComposite
 			.property("autoValidateOnLoad", false);
 
 	/**
-	 * Attribute determining whether the component is valid or invalid.
+	 * Attribute determining whether the component is valid.
+	 */
+	private final PropertyDescriptor<Boolean> validProp = PropertyDescriptor.attribute("valid",
+			false);
+
+	/**
+	 * Attribute determining whether the component is invalid.
 	 */
 	private final PropertyDescriptor<Boolean> invalidProp = PropertyDescriptor.attribute("invalid",
 			false);
@@ -575,6 +581,24 @@ public class MultiSelectCombo extends ElementComposite
 	 */
 	public PendingResult<Object> selectItem(int index) {
 		return getBoundComponent().callJsFunctionAsync("selectItem", index);
+	}
+
+	/**
+	 * Validates the input value of the component.
+	 *
+	 * <p>
+	 * This method programmatically triggers the validation of the input value. It
+	 * is useful for ensuring that the current input satisfies any predefined
+	 * constraints or rules. The result of the validation can be used to check
+	 * whether the input is valid or not.
+	 * </p>
+	 *
+	 * @return a pending result which will be resolved with the validation outcome.
+	 *         It returns a boolean where {@code true} indicates valid input and
+	 *         {@code false} indicates invalid input.
+	 */
+	public PendingResult<Object> validate() {
+		return getBoundComponent().callJsFunctionAsync("validate");
 	}
 
 	/**
@@ -1158,9 +1182,29 @@ public class MultiSelectCombo extends ElementComposite
 	}
 
 	/**
+	 * Retrieves the valid property value.
+	 *
+	 * @return The value indicating whether the component is valid.
+	 */
+	public boolean isValid() {
+		return get(this.validProp, true);
+	}
+
+	/**
+	 * Sets the invalid property value.
+	 *
+	 * @param valid The value indicating whether the component is valid.
+	 * @return This {@code MultiSelectCombo} instance for method chaining.
+	 */
+	public MultiSelectCombo setValid(boolean valid) {
+		set(this.validProp, valid);
+		return this;
+	}
+
+	/**
 	 * Retrieves the invalid property value.
 	 *
-	 * @return The value indicating whether the component is valid or invalid.
+	 * @return The value indicating whether the component is invalid.
 	 */
 	@Override
 	public boolean isInvalid() {
@@ -1170,8 +1214,7 @@ public class MultiSelectCombo extends ElementComposite
 	/**
 	 * Sets the invalid property value.
 	 *
-	 * @param invalid The value indicating whether the component is valid or
-	 *            invalid.
+	 * @param invalid The value indicating whether the component is invalid.
 	 * @return This {@code MultiSelectCombo} instance for method chaining.
 	 */
 	@Override
