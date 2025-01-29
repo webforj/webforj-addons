@@ -93,7 +93,8 @@ public class SideMenu extends ElementComposite
 			.property("placeholder", "search");
 
 	/**
-	 * Controls the visibility of the "Expand All" and "Collapse All" buttons in the header of the items section.
+	 * Controls the visibility of the "Expand All" and "Collapse All" buttons in the
+	 * header of the items section.
 	 */
 	private final PropertyDescriptor<Boolean> expandCollapseButtonsVisibleProp = PropertyDescriptor
 			.property("expandCollapseButtonsVisible", true);
@@ -250,29 +251,29 @@ public class SideMenu extends ElementComposite
 		return this;
 	}
 
-  /**
-   * Gets the visibility state of the "Expand All" and "Collapse All" buttons.
-   *
-   * @return {@code true} if the "Expand All" and "Collapse All" buttons are visible; {@code false} otherwise.
-   */
-  public boolean isExpandCollapseButtonsVisible() {
-    return super.get(expandCollapseButtonsVisibleProp);
-  }
+	/**
+	 * Gets the visibility state of the "Expand All" and "Collapse All" buttons.
+	 *
+	 * @return {@code true} if the "Expand All" and "Collapse All" buttons are
+	 *         visible; {@code false} otherwise.
+	 */
+	public boolean isExpandCollapseButtonsVisible() {
+		return super.get(expandCollapseButtonsVisibleProp);
+	}
 
-  /**
-   * Sets the visibility state of the "Expand All" and "Collapse All" buttons.
-   *
-   * @param expandCollapseButtons {@code true} to display the "Expand All" and "Collapse All" buttons;
-   *                              {@code false} to hide them.
-   * @return The updated instance of the side menu.
-   */
-  public SideMenu setExpandCollapseButtonsVisible(boolean expandCollapseButtons) {
-    super.set(expandCollapseButtonsVisibleProp, expandCollapseButtons);
-    return this;
-  }
+	/**
+	 * Sets the visibility state of the "Expand All" and "Collapse All" buttons.
+	 *
+	 * @param expandCollapseButtons {@code true} to display the "Expand All" and
+	 *            "Collapse All" buttons; {@code false} to hide them.
+	 * @return The updated instance of the side menu.
+	 */
+	public SideMenu setExpandCollapseButtonsVisible(boolean expandCollapseButtons) {
+		super.set(expandCollapseButtonsVisibleProp, expandCollapseButtons);
+		return this;
+	}
 
-
-  /**
+	/**
 	 * Gets the initial search term in the search input.
 	 *
 	 * @return The search term in the search input.
