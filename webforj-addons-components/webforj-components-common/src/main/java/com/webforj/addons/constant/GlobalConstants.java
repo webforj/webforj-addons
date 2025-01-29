@@ -11,7 +11,7 @@ public class GlobalConstants {
 	/**
 	 * The version of the DWC client components CDN.
 	 */
-	public static final String DWC_CDN_VERSION = "1.1.2-0";
+	public static final String DWC_CDN_VERSION = "1.2.0";
 
 	/**
 	 * The full URL of the DWC CDN, including the version number. This constant
