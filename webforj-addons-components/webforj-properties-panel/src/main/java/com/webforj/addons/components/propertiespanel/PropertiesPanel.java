@@ -83,6 +83,80 @@ public class PropertiesPanel extends ElementComposite
 	}
 
 	/**
+	 * Updates the value of a property based on its name and applies the change to
+	 * the corresponding UI element.
+	 * <p>
+	 * This method ensures that the provided value is assigned to the specified
+	 * property, triggering any necessary updates in the UI. The expected value type
+	 * depends on the schema definition of the property:
+	 * <ul>
+	 * <li><b>String schema type:</b> Accepts values of type {@code String},
+	 * {@code Number}, or {@code Boolean}</li>
+	 * <li><b>Number schema type:</b> Accepts values of type {@code String} or
+	 * {@code Number}</li>
+	 * <li><b>Boolean schema type:</b> Accepts values of type {@code Boolean}.</li>
+	 * <li><b>Enum schema type:</b> Accepts values of type {@code Number}
+	 * (representing an index in an enumeration).</li>
+	 * </ul>
+	 * If the provided value does not match the expected type for the property, the
+	 * client-side implementation rejects the update and log an error.
+	 * </p>
+	 *
+	 * @param name The name of the property to update.
+	 * @param value The new value to assign to the property. The type must adhere to
+	 *            the expected schema constraints.
+	 * @return A {@link PendingResult} that completes when the property update has
+	 *         been processed.
+	 */
+	public PendingResult<Void> setSchemaProperty(String name, Object value) {
+		return this.getElement().callJsFunctionAsync("setProperty", name, value)
+				.thenApply(result -> null);
+	}
+
+	/**
+	 * Expands a specific header based on its index within the schema.
+	 *
+	 * @param index The index of the header to expand.
+	 * @return A {@link PendingResult} that completes when the expansion is applied.
+	 */
+	public PendingResult<Void> expandByIndex(int index) {
+		return this.getElement().callJsFunctionAsync("expandByIndex", index)
+				.thenApply(result -> null);
+	}
+
+	/**
+	 * Collapses a specific header based on its index within the schema.
+	 *
+	 * @param index The index of the header to collapse.
+	 * @return A {@link PendingResult} that completes when the collapse action is
+	 *         applied.
+	 */
+	public PendingResult<Void> collapseByIndex(int index) {
+		return this.getElement().callJsFunctionAsync("collapseByIndex", index)
+				.thenApply(result -> null);
+	}
+
+	/**
+	 * Expands all headers in the properties panel.
+	 *
+	 * @return A {@link PendingResult} that completes when all headers have been
+	 *         expanded.
+	 */
+	public PendingResult<Void> expandAll() {
+		return this.getElement().callJsFunctionAsync("expandAll").thenApply(result -> null);
+	}
+
+	/**
+	 * Collapses all headers in the properties panel.
+	 *
+	 * @return A {@link PendingResult} that completes when all headers have been
+	 *         collapsed.
+	 */
+	public PendingResult<Void> collapseAll() {
+		return this.getElement().callJsFunctionAsync("collapseAll").thenApply(result -> null);
+	}
+
+	/**
 	 * Retrieves the schema associated with the component.
 	 *
 	 * @return The schema associated with the component.
