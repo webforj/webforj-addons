@@ -54,6 +54,15 @@ public class PropertiesPanel extends ElementComposite
 			.property("schema", new ArrayList<>());
 
 	/**
+	 * Property that represents the indices of the expanded groups in the properties
+	 * panel. This property must be provided as a list of integers, where each
+	 * integer corresponds to the index of a group in the {@link #schemaProp} that
+	 * is currently expanded.
+	 */
+	private final PropertyDescriptor<List<Integer>> expandedGroupIndicesProp = PropertyDescriptor
+			.property("expandedGroupIndices", new ArrayList<>());
+
+	/**
 	 * Adds a listener for the changed event, which is triggered when the value of a
 	 * property changes.
 	 *
@@ -172,6 +181,28 @@ public class PropertiesPanel extends ElementComposite
 	 */
 	public PropertiesPanel setSchema(List<SchemaGroup> schema) {
 		set(schemaProp, schema);
+		return this;
+	}
+
+	/**
+	 * Retrieves the indices of the expanded groups.
+	 *
+	 * @return A list of integers representing the indices of the expanded groups.
+	 */
+	public List<Integer> getExpandedGroupIndices() {
+		return get(expandedGroupIndicesProp, true);
+	}
+
+	/**
+	 * Sets the indices of the expanded groups. Ensures that only valid indices
+	 * (non-negative and within the bounds of the schema's length) are stored.
+	 * Duplicate indices are removed to maintain uniqueness.
+	 *
+	 * @param expandedGroupIndices The list of indices to set as expanded.
+	 * @return This instance of {@link PropertiesPanel} for method chaining.
+	 */
+	public PropertiesPanel setExpandedGroupIndices(List<Integer> expandedGroupIndices) {
+		set(expandedGroupIndicesProp, expandedGroupIndices);
 		return this;
 	}
 
