@@ -22,6 +22,11 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 	 */
 	private String label;
 
+  /**
+   * An optional description for the property, which can be used for tooltips or help text.
+   */
+  private String description;
+
 	/**
 	 * The data type of the property, the possible values are:
 	 * <ol>
@@ -87,6 +92,26 @@ public abstract class BaseSchema<T extends BaseSchema<T>> {
 		this.label = label;
 		return this.getThis();
 	}
+
+  /**
+   * Retrieves the description for the property.
+   *
+   * @return The description of the property.
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets the description for the property.
+   *
+   * @param description The description to set for the property.
+   * @return The current instance for chaining.
+   */
+  public T setDescription(String description) {
+    this.description = description;
+    return this.getThis();
+  }
 
 	/**
 	 * Retrieves the data type of the property.
