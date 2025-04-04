@@ -57,4 +57,4 @@ jobs:
 
       - name: Build and Deploy Snapshot
         if: ${{ steps.extract_and_check_version.outputs.is_snapshot == 'true' }}
-        run: mvn -B clean deploy -DskipTests
+        run: mvn -B -U clean deploy -DskipTests
