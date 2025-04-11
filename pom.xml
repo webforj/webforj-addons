@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.webforj.addons</groupId>
@@ -10,46 +11,24 @@
   <packaging>pom</packaging>
 
   <name>webforj-addons</name>
-  <url>https://documentation.webforj.com/</url>
-  <description>
-    addons for webforJ enriches the main webforJ framework with a comprehensive suite
+  <description>addons for webforJ enriches the main webforJ framework with a comprehensive suite
     of additional UI components and specialized features, enhancing your web
-    development capabilities with Java.
-  </description>
+    development capabilities with Java.</description>
+  <url>https://documentation.webforj.com/</url>
   <organization>
     <name>BASIS International Ltd</name>
     <url>https://basis.cloud</url>
   </organization>
-
-  <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <webforj.version>25.00-SNAPSHOT</webforj.version>
-  </properties>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/webforj/webforj-addons/issues</url>
-  </issueManagement>
 
   <modules>
     <module>webforj-addons-components</module>
     <module>webforj-addons-services</module>
   </modules>
 
-  <repositories>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/webforj/webforj-addons/issues</url>
+  </issueManagement>
 
   <distributionManagement>
     <repository>
@@ -62,6 +41,26 @@
     </snapshotRepository>
   </distributionManagement>
 
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <webforj.version>25.00-SNAPSHOT</webforj.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -71,28 +70,8 @@
         </plugin>
 
         <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.1</version>
-        </plugin>
-
-        <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.14.0</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.5.3</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.2</version>
-        </plugin>
-
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>3.1.4</version>
         </plugin>
 
         <plugin>
@@ -101,8 +80,13 @@
         </plugin>
 
         <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.9.0</version>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>3.1.4</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.4.2</version>
         </plugin>
 
         <plugin>
@@ -115,22 +99,54 @@
             <failOnWarnings>false</failOnWarnings>
           </configuration>
         </plugin>
+
+        <plugin>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>3.9.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.5.3</version>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
       <plugin>
-        <groupId>net.revelc.code.formatter</groupId>
-        <artifactId>formatter-maven-plugin</artifactId>
-        <version>2.26.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>format</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>2.44.4</version>
         <configuration>
-          <configFile>${project.basedir}/formatter.xml</configFile>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <java>
+            <googleJavaFormat />
+            <includes>
+              <include>src/main/java/**/*.java</include>
+              <include>src/test/java/**/*.java</include>
+            </includes>
+          </java>
+          <pom>
+            <includes>
+              <include>pom.xml</include>
+            </includes>
+            <sortPom>
+              <encoding>${project.build.sourceEncoding}</encoding>
+              <lineSeparator>\n</lineSeparator>
+              <expandEmptyElements>false</expandEmptyElements>
+              <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+              <keepBlankLines>true</keepBlankLines>
+              <nrOfIndentSpace>2</nrOfIndentSpace>
+              <sortDependencies>groupId,artifactId</sortDependencies>
+              <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
+              <sortPlugins>groupId,artifactId</sortPlugins>
+              <indentAttribute>ALL</indentAttribute>
+            </sortPom>
+          </pom>
         </configuration>
       </plugin>
 
@@ -140,17 +156,18 @@
         <version>3.6.0</version>
         <configuration>
           <configLocation>google_checks.xml</configLocation>
+          <suppressionsLocation>/config/checkstyle-suppressions.xml</suppressionsLocation>
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
-          <linkXRef>false</linkXRef>
+          <violationSeverity>warning</violationSeverity>
         </configuration>
         <executions>
           <execution>
-            <id>validate</id>
-            <phase>validate</phase>
+            <id>validate-checkstyle</id>
             <goals>
               <goal>check</goal>
             </goals>
+            <phase>validate</phase>
           </execution>
         </executions>
       </plugin>
