@@ -1,0 +1,57 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test-coverage:
+    name: Build, Check Style, Test & Report Coverage
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17 and Cache Maven Packages
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Check Format, Style, Run Tests & Coverage
+        run: mvn -B -U clean verify
+
+      - name: Jacoco Report to PR
+        if: github.event_name == 'pull_request'
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: |
+            ${{ github.workspace }}/webforj-report-aggregate/target/site/jacoco-aggregate/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
+          title: ':bar_chart: Code Coverage Report'
+          update-comment: true
+
+      - name: Get the Coverage info from JaCoCo Report step
+        if: steps.jacoco.outputs.coverage-overall != ''
+        run: |
+          echo "Overall Coverage: ${{ steps.jacoco.outputs.coverage-overall }}%"
+          echo "Changed Files Coverage: ${{ steps.jacoco.outputs.coverage-changed-files }}%"
