@@ -1,12 +1,14 @@
 package com.webforj.addons.components.propertiespanel.schema;
 
 import com.google.gson.Gson;
+import com.webforj.addons.components.propertiespanel.schema.variants.EnumVariant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
- * Represents a schema for an enum property in a properties panel. Extends the BaseSchema class and
- * adds additional attributes specific to enum properties.
+ * Represents a schema for an enum property in a properties panel. Extends the {@link BaseSchema}
+ * class and adds additional attributes specific to enum properties.
  *
  * @author ElyasSalar
  * @since 1.00
@@ -19,9 +21,42 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
   /** The list of options available for the enum property. */
   private List<EnumOption> options = new ArrayList<>();
 
-  /** Constructs a new {@code EnumSchema}. */
+  /** The UI variant for the enum property. */
+  private EnumVariant variant;
+
+  /**
+   * Constructs a new {@code EnumSchema} with a name and label, defaulting the variant to {@link
+   * EnumVariant#LISTBOX}.
+   *
+   * @param name The unique name (key) for the property.
+   * @param label The human-readable label for the property.
+   * @throws NullPointerException if name or label is null.
+   */
   public EnumSchema(String name, String label) {
-    this.setType("enum").setName(name).setLabel(label);
+    Objects.requireNonNull(name, "name cannot be null");
+    Objects.requireNonNull(label, "label cannot be null");
+    this.setType("enum");
+    this.setName(name);
+    this.setLabel(label);
+    this.variant = EnumVariant.LISTBOX;
+  }
+
+  /**
+   * Constructs a new {@code EnumSchema} with a name, label, and a specific variant.
+   *
+   * @param name The unique name (key) for the property.
+   * @param label The human-readable label for the property.
+   * @param variant The desired UI variant (currently only {@link EnumVariant#LISTBOX}).
+   * @throws NullPointerException if name, label, or variant is null.
+   */
+  public EnumSchema(String name, String label, EnumVariant variant) {
+    Objects.requireNonNull(name, "name cannot be null");
+    Objects.requireNonNull(label, "label cannot be null");
+    Objects.requireNonNull(variant, "variant cannot be null");
+    this.setType("enum");
+    this.setName(name);
+    this.setLabel(label);
+    this.variant = variant;
   }
 
   /**
@@ -46,9 +81,9 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
   }
 
   /**
-   * Allows for chaining {@code EnumSchema} to the {@link BaseSchema} methods.
+   * Returns the specific type instance for chaining {@link BaseSchema} methods.
    *
-   * @return The current instance of this class
+   * @return The current instance of this class.
    */
   @Override
   protected EnumSchema getThis() {
@@ -68,9 +103,11 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
    * Sets the default value for the enum property.
    *
    * @param defaultValue The default value to set for the enum property.
+   * @return This {@code EnumSchema} instance for method chaining.
    */
-  public void setDefaultValue(String defaultValue) {
+  public EnumSchema setDefaultValue(String defaultValue) {
     this.defaultValue = defaultValue;
+    return this;
   }
 
   /**
@@ -86,9 +123,32 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
    * Sets the list of options available for the enum property.
    *
    * @param options The list of options to set for the enum property.
+   * @return This {@code EnumSchema} instance for method chaining.
    */
   public EnumSchema setOptions(List<EnumOption> options) {
-    this.options = options;
+    this.options = options == null ? new ArrayList<>() : options;
+    return this;
+  }
+
+  /**
+   * Retrieves the UI variant for the enum property.
+   *
+   * @return The {@link EnumVariant} indicating how the property should be displayed.
+   */
+  public EnumVariant getVariant() {
+    return variant;
+  }
+
+  /**
+   * Sets the UI variant for the enum property.
+   *
+   * @param variant The {@link EnumVariant} to set. Cannot be null.
+   * @return This {@code EnumSchema} instance for method chaining.
+   * @throws NullPointerException if variant is null.
+   */
+  public EnumSchema setVariant(EnumVariant variant) {
+    Objects.requireNonNull(variant, "variant cannot be null");
+    this.variant = variant;
     return this;
   }
 }
