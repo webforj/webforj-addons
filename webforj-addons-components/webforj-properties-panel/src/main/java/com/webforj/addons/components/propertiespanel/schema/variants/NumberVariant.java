@@ -1,5 +1,6 @@
 package com.webforj.addons.components.propertiespanel.schema.variants;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * @author ElyasSalar
  * @since 24.22
  */
+@JsonAdapter(VariantEnumAdapter.class)
 public enum NumberVariant {
 
   /** Represents a standard number input field. */
@@ -30,12 +32,12 @@ public enum NumberVariant {
   }
 
   /**
-   * Finds the NumberVariant enum constant corresponding to the given string value.
+   * Finds the {@code NumberVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding NumberVariant, or null if no match is found.
+   * @return The corresponding {@code NumberVariant}, or null if no match is found.
    */
-  public static NumberVariant fromString(String value) {
+  public static NumberVariant fromValue(String value) {
     if (value != null) {
       for (NumberVariant variant : NumberVariant.values()) {
         if (value.equalsIgnoreCase(variant.value)) {
@@ -43,6 +45,6 @@ public enum NumberVariant {
         }
       }
     }
-    return null;
+    return NUMBER;
   }
 }

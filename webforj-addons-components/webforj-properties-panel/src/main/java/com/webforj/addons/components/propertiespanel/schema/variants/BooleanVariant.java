@@ -1,5 +1,6 @@
 package com.webforj.addons.components.propertiespanel.schema.variants;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * @author ElyasSalar
  * @since 24.22
  */
+@JsonAdapter(VariantEnumAdapter.class)
 public enum BooleanVariant {
 
   /** Represents a standard checkbox input field. */
@@ -30,12 +32,12 @@ public enum BooleanVariant {
   }
 
   /**
-   * Finds the BooleanVariant enum constant corresponding to the given string value.
+   * Finds the {@code BooleanVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding BooleanVariant, or null if no match is found.
+   * @return The corresponding {@code BooleanVariant}, or null if no match is found.
    */
-  public static BooleanVariant fromString(String value) {
+  public static BooleanVariant fromValue(String value) {
     if (value != null) {
       for (BooleanVariant variant : BooleanVariant.values()) {
         if (value.equalsIgnoreCase(variant.value)) {
@@ -43,6 +45,6 @@ public enum BooleanVariant {
         }
       }
     }
-    return null;
+    return CHECKBOX;
   }
 }

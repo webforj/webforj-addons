@@ -1,5 +1,6 @@
 package com.webforj.addons.components.propertiespanel.schema.variants;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * @author ElyasSalar
  * @since 24.22
  */
+@JsonAdapter(VariantEnumAdapter.class)
 public enum EnumVariant {
 
   /** Represents a choicebox/listbox input field. */
@@ -30,12 +32,12 @@ public enum EnumVariant {
   }
 
   /**
-   * Finds the EnumVariant enum constant corresponding to the given string value.
+   * Finds the {@code EnumVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding EnumVariant, or null if no match is found.
+   * @return The corresponding {@code EnumVariant}, or null if no match is found.
    */
-  public static EnumVariant fromString(String value) {
+  public static EnumVariant fromValue(String value) {
     if (value != null) {
       for (EnumVariant variant : EnumVariant.values()) {
         if (value.equalsIgnoreCase(variant.value)) {
@@ -43,6 +45,6 @@ public enum EnumVariant {
         }
       }
     }
-    return null;
+    return LISTBOX;
   }
 }
