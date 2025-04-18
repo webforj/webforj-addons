@@ -1,0 +1,75 @@
+name: Bug Report
+description: Create a report to help us improve webforj-addons
+title: "[Bug]: "
+labels: ["type: bug", "status: needs triage"]
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible. Before submitting, please search for similar bug reports in the issues section to avoid duplicates.
+  - type: input
+    id: addon-affected
+    attributes:
+      label: Addon Affected
+      description: Which webforj-addon component or service is affected? (e.g., webforj-side-menu, webforj-webauthn)
+      placeholder: "e.g., webforj-side-menu"
+    validations:
+      required: true
+  - type: input
+    id: addon-version
+    attributes:
+      label: Addon Version
+      description: What version of the addon are you using?
+      placeholder: "e.g., 24.22"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+      placeholder: "E.g., Clicking on a button in the sidebar does not load the associated page component."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide detailed steps to reproduce the bug.
+      placeholder: "E.g., Start the application, open the sidebar, click on the 'Settings' button, and observe that no page is loaded."
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Please provide a clear and concise description of what you expected to happen.
+      placeholder: "E.g., Clicking on the 'Settings' button should load the settings page component in the main view."
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide relevant environment details.
+        - OS: [e.g. Ubuntu 22.04, Windows 11]
+        - Java Version: [e.g. OpenJDK 17]
+        - webforj Version: [e.g. 25.00-SNAPSHOT]
+        - Browser (if applicable): [e.g. Chrome 110, Firefox 108]
+      placeholder: |
+        - OS:
+        - Java Version:
+        - webforj Version:
+        - Browser:
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false

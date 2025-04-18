@@ -1,0 +1,42 @@
+name: Feature Request
+description: Suggest an idea for a new addon or an enhancement to an existing one
+title: "[Feature]: "
+labels: ["type: enhancement", "status: needs triage"]
+type: Feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an idea! Please provide details about your feature request. Before submitting, please search for similar feature requests in the issues section to avoid duplicates.
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+      placeholder: "E.g., When working on large options, I find it difficult to find the right option in the list."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+      placeholder: "E.g., I would like to have a search bar at the top of the options list to quickly filter options."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+      placeholder: "E.g., I could manually search through the list, but this is time-consuming."
+    validations:
+      required: false
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other context, mockups, or screenshots about the feature request here.
+      placeholder: "E.g., Screenshots, mockups, or specific use cases where this feature would help."
+    validations:
+      required: false
