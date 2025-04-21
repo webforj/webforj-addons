@@ -70,7 +70,7 @@ public class SideMenu extends ElementComposite
 
   /** Property for the icon displayed when an item is marked as a favorite. */
   private final PropertyDescriptor<String> favoriteFilledIconProp =
-      PropertyDescriptor.property("favoriteFilledIcon", "tabler:star-filled");
+      PropertyDescriptor.property("favoriteFilledIcon", "tabler:filled-star");
 
   /** Property for the icon displayed when an item is not marked as a favorite. */
   private final PropertyDescriptor<String> favoriteIconProp =
