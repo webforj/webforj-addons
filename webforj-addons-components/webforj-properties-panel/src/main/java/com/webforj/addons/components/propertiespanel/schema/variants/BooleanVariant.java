@@ -35,7 +35,7 @@ public enum BooleanVariant {
    * Finds the {@code BooleanVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding {@code BooleanVariant}, or null if no match is found.
+   * @return The corresponding {@code BooleanVariant}, or {@code CHECKBOX} if no match is found.
    */
   public static BooleanVariant fromValue(String value) {
     if (value != null) {

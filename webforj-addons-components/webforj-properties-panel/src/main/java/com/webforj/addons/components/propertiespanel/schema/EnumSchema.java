@@ -25,6 +25,15 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
   private EnumVariant variant;
 
   /**
+   * Default constructor for {@code EnumSchema}. Initializes the variant to {@link
+   * EnumVariant#LISTBOX}.
+   */
+  private EnumSchema() {
+    this.variant = EnumVariant.LISTBOX;
+    this.setType("enum");
+  }
+
+  /**
    * Constructs a new {@code EnumSchema} with a name and label, defaulting the variant to {@link
    * EnumVariant#LISTBOX}.
    *
@@ -33,12 +42,7 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
    * @throws NullPointerException if name or label is null.
    */
   public EnumSchema(String name, String label) {
-    Objects.requireNonNull(name, "name cannot be null");
-    Objects.requireNonNull(label, "label cannot be null");
-    this.setType("enum");
-    this.setName(name);
-    this.setLabel(label);
-    this.variant = EnumVariant.LISTBOX;
+    this(name, label, EnumVariant.LISTBOX);
   }
 
   /**
@@ -50,10 +54,10 @@ public class EnumSchema extends BaseSchema<EnumSchema> {
    * @throws NullPointerException if name, label, or variant is null.
    */
   public EnumSchema(String name, String label, EnumVariant variant) {
+    this();
     Objects.requireNonNull(name, "name cannot be null");
     Objects.requireNonNull(label, "label cannot be null");
     Objects.requireNonNull(variant, "variant cannot be null");
-    this.setType("enum");
     this.setName(name);
     this.setLabel(label);
     this.variant = variant;

@@ -20,6 +20,15 @@ public class BooleanSchema extends BaseSchema<BooleanSchema> {
   private BooleanVariant variant;
 
   /**
+   * Default constructor for {@code BooleanSchema}. Initializes the variant to {@link
+   * BooleanVariant#CHECKBOX}.
+   */
+  private BooleanSchema() {
+    this.variant = BooleanVariant.CHECKBOX;
+    this.setType("boolean");
+  }
+
+  /**
    * Constructs a new {@code BooleanSchema} with a name and label, defaulting the variant to {@link
    * BooleanVariant#CHECKBOX}.
    *
@@ -28,12 +37,7 @@ public class BooleanSchema extends BaseSchema<BooleanSchema> {
    * @throws NullPointerException if name or label is null.
    */
   public BooleanSchema(String name, String label) {
-    Objects.requireNonNull(name, "name cannot be null");
-    Objects.requireNonNull(label, "label cannot be null");
-    this.setType("boolean");
-    this.setLabel(label);
-    this.setName(name);
-    this.variant = BooleanVariant.CHECKBOX;
+    this(name, label, BooleanVariant.CHECKBOX);
   }
 
   /**
@@ -45,10 +49,10 @@ public class BooleanSchema extends BaseSchema<BooleanSchema> {
    * @throws NullPointerException if name, label, or variant is null.
    */
   public BooleanSchema(String name, String label, BooleanVariant variant) {
+    this();
     Objects.requireNonNull(name, "name cannot be null");
     Objects.requireNonNull(label, "label cannot be null");
     Objects.requireNonNull(variant, "variant cannot be null");
-    this.setType("boolean");
     this.setLabel(label);
     this.setName(name);
     this.variant = variant;

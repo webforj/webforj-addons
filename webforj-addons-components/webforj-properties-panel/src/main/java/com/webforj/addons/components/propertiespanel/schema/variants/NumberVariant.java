@@ -35,7 +35,7 @@ public enum NumberVariant {
    * Finds the {@code NumberVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding {@code NumberVariant}, or null if no match is found.
+   * @return The corresponding {@code NumberVariant}, or {@code NUMBER} if no match is found.
    */
   public static NumberVariant fromValue(String value) {
     if (value != null) {

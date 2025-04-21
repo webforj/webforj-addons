@@ -19,6 +19,10 @@ public class StringSchema extends BaseSchema<StringSchema> {
   /** The UI variant for the string property (e.g., text field or text area). */
   private StringVariant variant;
 
+  /**
+   * Default constructor for {@code StringSchema}. Initializes the variant to {@link
+   * StringVariant#TEXT}.
+   */
   private StringSchema() {
     this.variant = StringVariant.TEXT;
     this.setType("string");
@@ -33,11 +37,7 @@ public class StringSchema extends BaseSchema<StringSchema> {
    * @throws NullPointerException if any of the parameters are null.
    */
   public StringSchema(String name, String label) {
-    this();
-    Objects.requireNonNull(name, "name cannot be null");
-    Objects.requireNonNull(label, "label cannot be null");
-    this.setLabel(label);
-    this.setName(name);
+    this(name, label, StringVariant.TEXT);
   }
 
   /**

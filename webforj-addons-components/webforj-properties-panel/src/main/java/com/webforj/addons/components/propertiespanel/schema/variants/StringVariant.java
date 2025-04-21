@@ -39,7 +39,7 @@ public enum StringVariant {
    * Finds the {@code StringVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding {@code StringVariant}, or null if no match is found.
+   * @return The corresponding {@code StringVariant}, or {@code TEXT} if no match is found.
    */
   public static StringVariant fromValue(String value) {
     if (value != null) {
@@ -49,6 +49,6 @@ public enum StringVariant {
         }
       }
     }
-    return StringVariant.TEXT;
+    return TEXT;
   }
 }

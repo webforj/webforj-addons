@@ -35,7 +35,7 @@ public enum EnumVariant {
    * Finds the {@code EnumVariant} enum constant corresponding to the given string value.
    *
    * @param value The string value to match (case-insensitive).
-   * @return The corresponding {@code EnumVariant}, or null if no match is found.
+   * @return The corresponding {@code EnumVariant}, or {@code LISTBOX} if no match is found.
    */
   public static EnumVariant fromValue(String value) {
     if (value != null) {

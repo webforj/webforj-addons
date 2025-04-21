@@ -23,6 +23,15 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
   private NumberVariant variant;
 
   /**
+   * Default constructor for {@code NumberSchema}. Initializes the variant to {@link
+   * NumberVariant#NUMBER}
+   */
+  private NumberSchema() {
+    this.variant = NumberVariant.NUMBER;
+    this.setType("number");
+  }
+
+  /**
    * Constructs a new {@code NumberSchema} with a name and label, defaulting the variant to {@link
    * NumberVariant#NUMBER}.
    *
@@ -31,12 +40,7 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
    * @throws NullPointerException if name or label is null.
    */
   public NumberSchema(String name, String label) {
-    Objects.requireNonNull(name, "name cannot be null");
-    Objects.requireNonNull(label, "label cannot be null");
-    this.setType("number");
-    this.setLabel(label);
-    this.setName(name);
-    this.variant = NumberVariant.NUMBER;
+    this(name, label, NumberVariant.NUMBER);
   }
 
   /**
@@ -48,10 +52,10 @@ public class NumberSchema extends BaseSchema<NumberSchema> {
    * @throws NullPointerException if name, label, or variant is null.
    */
   public NumberSchema(String name, String label, NumberVariant variant) {
+    this();
     Objects.requireNonNull(name, "name cannot be null");
     Objects.requireNonNull(label, "label cannot be null");
     Objects.requireNonNull(variant, "variant cannot be null");
-    this.setType("number");
     this.setLabel(label);
     this.setName(name);
     this.variant = variant;
