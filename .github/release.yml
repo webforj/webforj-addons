@@ -1,0 +1,31 @@
+changelog:
+  exclude:
+    labels:
+      - 'skip-changelog'
+      - 'type: dependencies'
+
+    authors:
+      - 'dependabot[bot]'
+
+  categories:
+    - title: '💥 Breaking Changes'
+      labels:
+        - 'type: breaking'
+
+    - title: '🚀 New Features and Enhancements'
+      labels:
+        - 'type: feature request'
+        - 'type: enhancement'
+
+    - title: '🐛 Bug Fixes'
+      labels:
+        - 'type: bug'
+        - 'type: fix'
+
+    - title: '⚙️ Other Changes'
+      labels:
+        - 'type: chore'
+        - 'type: refactor'
+        - 'type: test'
+        - 'area: build'
+        - 'type: documentation'
