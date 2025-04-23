@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons-components</artifactId>
-    <version>25.00</version>
+    <version>25.01-SNAPSHOT</version>
   </parent>
 
   <artifactId>webforj-side-menu</artifactId>
