@@ -20,9 +20,16 @@ import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 /**
  * A Side Menu component designed for webforj. The {@code SideMenu} facilitates navigation through
@@ -38,8 +45,8 @@ import java.util.Set;
  * different pages or sections is essential. It provides a flexible and intuitive means of
  * organizing and accessing application features, contributing to a seamless user experience.
  *
- * @since 1.00
  * @author ElyasSalar
+ * @since 1.00
  */
 @NodeName("dwc-side-menu")
 @JavaScript(
@@ -111,7 +118,7 @@ public class SideMenu extends ElementComposite
       PropertyDescriptor.property("selected", "");
 
   /** Property for the list of items to be displayed in the side menu. */
-  private final PropertyDescriptor<List<Item>> itemsProp =
+  private final PropertyDescriptor<List<SideMenuItem>> itemsProp =
       PropertyDescriptor.property("items", new ArrayList<>());
 
   /**
@@ -145,6 +152,278 @@ public class SideMenu extends ElementComposite
   public ListenerRegistration<SearchedEvent> addSearchedListener(
       EventListener<SearchedEvent> listener) {
     return this.addEventListener(SearchedEvent.class, listener);
+  }
+
+  /**
+   * Adds a single item to the top level of the side menu.
+   *
+   * @param item The {@link SideMenuItem} to add. Cannot be null.
+   * @return This {@code SideMenu} instance for method chaining.
+   * @throws NullPointerException if item is null.
+   */
+  public SideMenu addItem(SideMenuItem item) {
+    Objects.requireNonNull(item, "Item cannot be null");
+    final var updatedItems = getMutableItemsList();
+    updatedItems.add(item);
+    return setItems(updatedItems);
+  }
+
+  /**
+   * Adds a {@link SideMenuItem} as a child to an existing item identified by its unique ID. The
+   * search for the parent item is performed recursively throughout the menu structure. If the
+   * parent item is found, it is replaced with a new instance containing the added child in its
+   * children list. The entire menu item list is updated accordingly.
+   *
+   * @param parentId The unique ID of the parent item to which the child should be added. Cannot be
+   *     null.
+   * @param childItem The {@link SideMenuItem} to add as a child. Cannot be null.
+   * @return This {@code SideMenu} instance for method chaining.
+   * @throws NullPointerException if {@code parentId} or {@code childItem} is null.
+   * @throws IllegalArgumentException if no item with the specified {@code parentId} is found within
+   *     the current menu items.
+   */
+  public SideMenu addItem(String parentId, SideMenuItem childItem) {
+    Objects.requireNonNull(parentId, "Parent ID cannot be null");
+    Objects.requireNonNull(childItem, "Child item cannot be null");
+
+    final var changed = new AtomicBoolean(false);
+    BiFunction<SideMenuItem, List<SideMenuItem>, List<SideMenuItem>> addModifier =
+        (parent, siblings) -> {
+          final var newChildren = new ArrayList<>(parent.getChildren());
+          newChildren.add(childItem);
+          final var updatedParent = new SideMenuItem(parent).setChildren(newChildren);
+
+          return siblings.stream()
+              .map(sibling -> sibling.getId().equals(parentId) ? updatedParent : sibling)
+              .toList();
+        };
+
+    final var currentItems = getMutableItemsList();
+    final var updatedItems =
+        traverseAndModify(
+            currentItems, item -> parentId.equals(item.getId()), addModifier, changed);
+
+    if (!changed.get()) {
+      throw new IllegalArgumentException("Parent item with ID '" + parentId + "' not found.");
+    }
+    if (updatedItems != currentItems) {
+      return setItems(updatedItems);
+    }
+    return this;
+  }
+
+  /**
+   * Adds multiple items to the top level of the side menu.
+   *
+   * @param items The {@link SideMenuItem}s to add. Cannot be null.
+   * @return This {@code SideMenu} instance for method chaining.
+   * @throws NullPointerException if items array is null or contains null elements.
+   */
+  public SideMenu addItems(SideMenuItem... items) {
+    Objects.requireNonNull(items, "Items array cannot be null");
+    if (Arrays.stream(items).anyMatch(Objects::isNull)) {
+      throw new NullPointerException("Items array cannot contain null elements");
+    }
+    if (items.length == 0) {
+      return this;
+    }
+    final var updatedItems = getMutableItemsList();
+    updatedItems.addAll(Arrays.asList(items));
+    setItems(updatedItems);
+    return this;
+  }
+
+  /**
+   * Adds a collection of items to the top level of the side menu.
+   *
+   * @param items A collection of {@link SideMenuItem}s to add. Cannot be null.
+   * @return This {@code SideMenu} instance for method chaining.
+   * @throws NullPointerException if the collection is null or contains null elements.
+   */
+  public SideMenu addItems(Collection<SideMenuItem> items) {
+    Objects.requireNonNull(items, "Items collection cannot be null");
+    if (items.stream().anyMatch(Objects::isNull)) {
+      throw new NullPointerException("Items collection cannot contain null elements");
+    }
+    if (items.isEmpty()) {
+      return this;
+    }
+    final var updatedItems = getMutableItemsList();
+    updatedItems.addAll(items);
+    setItems(updatedItems);
+    return this;
+  }
+
+  /**
+   * Removes an item from the menu, searching recursively by the item's ID.
+   *
+   * @param item The {@link SideMenuItem} to remove. Its ID will be used for removal. Returns
+   *     immediately if the item is null.
+   * @return This {@code SideMenu} instance for method chaining.
+   */
+  public SideMenu removeItem(SideMenuItem item) {
+    if (item == null) {
+      return this;
+    }
+    return removeItemById(item.getId());
+  }
+
+  /**
+   * Removes an item from the side menu, searching recursively by its unique ID. If an item with the
+   * specified ID is found, it and its entire subtree are removed from the menu structure.
+   *
+   * @param itemId The unique ID of the item to remove. If null, the method returns immediately
+   *     without making changes.
+   * @return This {@code SideMenu} instance for method chaining.
+   */
+  public SideMenu removeItemById(String itemId) {
+    if (itemId == null) {
+      return this;
+    }
+    final var changed = new AtomicBoolean(false);
+
+    BiFunction<SideMenuItem, List<SideMenuItem>, List<SideMenuItem>> removeModifier =
+        (target, siblings) ->
+            siblings.stream().filter(sibling -> !sibling.getId().equals(itemId)).toList();
+
+    final var currentItems = getMutableItemsList();
+    final var updatedItems =
+        traverseAndModify(
+            currentItems, item -> itemId.equals(item.getId()), removeModifier, changed);
+
+    if (changed.get()) {
+      return setItems(updatedItems);
+    }
+    return this;
+  }
+
+  /**
+   * Removes all items from the side menu.
+   *
+   * @return This {@code SideMenu} instance for method chaining.
+   */
+  public SideMenu clearItems() {
+    return setItems(Collections.emptyList());
+  }
+
+  /**
+   * Recursively traverses the item tree, applying modifications based on a predicate and a modifier
+   * function. Handles immutable-style updates by creating new lists and item instances where
+   * necessary.
+   *
+   * <p>This method first checks if any item at the current level matches the predicate. If a match
+   * is found, the modifier function is applied to the entire list of siblings, the flag is set, and
+   * the resulting list is immediately returned, unwinding the recursion from that point.
+   *
+   * <p>If no item at the current level matches the predicate, the method proceeds to recursively
+   * call itself on the children of each item. If any child list is modified (detected by reference
+   * change), the parent item is reconstructed with the new children, the flag is set, and a new
+   * list for the current level is built lazily. If no modifications occurred directly or in the
+   * children, the original list reference is returned to optimize for unchanged subtrees.
+   *
+   * @param items The list of {@link SideMenuItem}s at the current recursion level. Should be
+   *     treated as immutable within this function's logic, returning new lists on modification.
+   * @param predicate A {@link Predicate} to identify the target item(s) for modification based on
+   *     their properties (e.g., matching an ID).
+   * @param modifier A {@link BiFunction} that takes the matched item and its original sibling list,
+   *     and returns a potentially new list reflecting the modification (e.g., item removed, item
+   *     replaced/updated).
+   * @param flag An {@link AtomicBoolean} flag shared across the recursive calls. It will be set to
+   *     {@code true} if any modification occurs, either because the predicate matched an item
+   *     directly or because a child list was modified during recursion.
+   * @return A new list instance containing the modified items if changes occurred at this level or
+   *     below; otherwise, returns the original {@code items} list reference if no changes were
+   *     made.
+   */
+  private List<SideMenuItem> traverseAndModify(
+      List<SideMenuItem> items,
+      Predicate<SideMenuItem> predicate,
+      BiFunction<SideMenuItem, List<SideMenuItem>, List<SideMenuItem>> modifier,
+      AtomicBoolean flag) {
+    if (items == null || items.isEmpty()) {
+      return items;
+    }
+    for (final var item : items) {
+      if (predicate.test(item)) {
+        final var modifiedList = modifier.apply(item, items);
+        if (modifiedList != items) {
+          flag.set(true);
+        }
+        return modifiedList;
+      }
+    }
+    List<SideMenuItem> newItems = null;
+
+    for (int i = 0; i < items.size(); i++) {
+      final var currentItem = items.get(i);
+      final var originalChildren = currentItem.getChildren();
+      final var modifiedChildren = traverseAndModify(originalChildren, predicate, modifier, flag);
+      final boolean childrenChanged = (modifiedChildren != originalChildren);
+
+      if (newItems == null && childrenChanged) {
+        newItems = new ArrayList<>(items.size());
+        for (int j = 0; j < i; j++) {
+          newItems.add(items.get(j));
+        }
+        flag.set(true);
+      }
+      if (newItems != null) {
+        if (childrenChanged) {
+          final var updatedItem = new SideMenuItem(currentItem).setChildren(modifiedChildren);
+          newItems.add(updatedItem);
+        } else {
+          newItems.add(currentItem);
+        }
+      }
+    }
+    return newItems != null ? newItems : items;
+  }
+
+  /**
+   * Finds an item by its ID recursively.
+   *
+   * @param itemId The ID of the item to find.
+   * @return An Optional containing the found {@link SideMenuItem}, or empty if not found.
+   */
+  public Optional<SideMenuItem> findItemById(String itemId) {
+    if (itemId == null) {
+      return Optional.empty();
+    }
+    return recursiveFindById(getItems(), itemId);
+  }
+
+  /**
+   * Recursive helper to find an item by ID.
+   *
+   * @param items The list of items to search within at the current level.
+   * @param itemId The ID to search for.
+   * @return An Optional containing the found item, or empty.
+   */
+  private Optional<SideMenuItem> recursiveFindById(List<SideMenuItem> items, String itemId) {
+    if (items == null || items.isEmpty()) {
+      return Optional.empty();
+    }
+
+    for (SideMenuItem item : items) {
+      if (itemId.equals(item.getId())) {
+        return Optional.of(item);
+      }
+      final var foundInChildren = recursiveFindById(item.getChildren(), itemId);
+      if (foundInChildren.isPresent()) {
+        return foundInChildren;
+      }
+    }
+    return Optional.empty();
+  }
+
+  /**
+   * Retrieves a mutable copy of the current top-level item list.
+   *
+   * @return A new mutable ArrayList containing the current items.
+   */
+  private List<SideMenuItem> getMutableItemsList() {
+    final var currentItems = super.get(itemsProp);
+    return currentItems == null ? new ArrayList<>() : new ArrayList<>(currentItems);
   }
 
   /**
@@ -349,8 +628,9 @@ public class SideMenu extends ElementComposite
    *
    * @return The list of items to be displayed in the side menu.
    */
-  public List<Item> getItems() {
-    return super.get(itemsProp);
+  public List<SideMenuItem> getItems() {
+    final var items = super.get(itemsProp);
+    return items == null ? Collections.emptyList() : Collections.unmodifiableList(items);
   }
 
   /**
@@ -359,7 +639,8 @@ public class SideMenu extends ElementComposite
    * @param items The list of items to be displayed in the side menu.
    * @return The updated instance of the side menu.
    */
-  public SideMenu setItems(List<Item> items) {
+  public SideMenu setItems(List<SideMenuItem> items) {
+    Objects.requireNonNull(items, "Items cannot be null");
     super.set(itemsProp, items);
     return this;
   }
