@@ -29,7 +29,11 @@ import com.webforj.data.selection.SelectionRange;
 import com.webforj.dispatcher.EventListener;
 import com.webforj.dispatcher.ListenerRegistration;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A multi-select combo component designed for webforj. The {@code MultiSelectCombo} enables users
@@ -138,7 +142,7 @@ public class MultiSelectCombo extends ElementComposite
       PropertyDescriptor.property("renderer", null);
 
   /** Property for the list of items displayed by the component. */
-  private final PropertyDescriptor<List<Item>> itemsProp =
+  private final PropertyDescriptor<List<MultiSelectComboItem>> itemsProp =
       PropertyDescriptor.property("items", null);
 
   /** Property for the list of selected items in the component. */
@@ -406,6 +410,132 @@ public class MultiSelectCombo extends ElementComposite
   }
 
   /**
+   * Adds a single item to the combo box list.
+   *
+   * @param item The {@link MultiSelectComboItem} to add. Cannot be null.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   * @throws NullPointerException if item is null.
+   */
+  public MultiSelectCombo addItem(MultiSelectComboItem item) {
+    Objects.requireNonNull(item, "Item cannot be null");
+    final var updatedItems = getMutableItemsList();
+    updatedItems.add(item);
+    return setItems(updatedItems);
+  }
+
+  /**
+   * Convenience method to create and add a simple item with only a label and value.
+   *
+   * @param label The text displayed to the user. Cannot be null.
+   * @param value The internal value associated with the item. Cannot be null.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo addItem(String label, String value) {
+    final var item = MultiSelectComboItem.builder().label(label).value(value).build();
+    return addItem(item);
+  }
+
+  /**
+   * Adds multiple items to the combo box list.
+   *
+   * @param items The {@link MultiSelectComboItem}s to add. Cannot be null.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   * @throws NullPointerException if items array is null or contains null elements.
+   */
+  public MultiSelectCombo addItems(MultiSelectComboItem... items) {
+    Objects.requireNonNull(items, "Items array cannot be null");
+    if (Arrays.stream(items).anyMatch(Objects::isNull)) {
+      throw new NullPointerException("Items array cannot contain null elements");
+    }
+    final var updatedItems = getMutableItemsList();
+    updatedItems.addAll(Arrays.asList(items));
+    if (!updatedItems.isEmpty()) {
+      return setItems(updatedItems);
+    }
+    return this;
+  }
+
+  /**
+   * Adds a collection of items to the combo box list.
+   *
+   * @param items A collection of {@link MultiSelectComboItem}s to add. Cannot be null.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   * @throws NullPointerException if the collection is null or contains null elements.
+   */
+  public MultiSelectCombo addItems(Collection<MultiSelectComboItem> items) {
+    Objects.requireNonNull(items, "Items collection cannot be null");
+    if (items.stream().anyMatch(Objects::isNull)) {
+      throw new NullPointerException("Items collection cannot contain null elements");
+    }
+
+    final var updatedItems = getMutableItemsList();
+    updatedItems.addAll(items);
+    if (!updatedItems.isEmpty()) {
+      return setItems(updatedItems);
+    }
+    return this;
+  }
+
+  /**
+   * Removes a specific item from the combo box list based on the item's value.
+   *
+   * @param item The {@link MultiSelectComboItem} to remove. Comparison is based on the item's
+   *     value.
+   * @return This {@code MultiSelectCombo} instance for method chaining. Returns immediately if the
+   *     item is null or the current list is empty/null.
+   */
+  public MultiSelectCombo removeItem(MultiSelectComboItem item) {
+    if (item == null) {
+      return this;
+    }
+    return removeItemByValue(item.getValue());
+  }
+
+  /**
+   * Removes an item from the combo box list based on its value.
+   *
+   * @param value The value of the item to remove.
+   * @return This {@code MultiSelectCombo} instance for method chaining. Returns immediately if the
+   *     value is null or the current list is empty/null.
+   */
+  public MultiSelectCombo removeItemByValue(String value) {
+    if (value == null) {
+      return this;
+    }
+    final var currentItems = getItems();
+    if (currentItems == null || currentItems.isEmpty()) {
+      return this;
+    }
+
+    final var updatedItems = new ArrayList<>(currentItems);
+    boolean removed = updatedItems.removeIf(currentItem -> value.equals(currentItem.getValue()));
+
+    if (removed) {
+      return setItems(updatedItems);
+    }
+    return this;
+  }
+
+  /**
+   * Removes all items from the combo box list.
+   *
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo clearItems() {
+    setItems(Collections.emptyList());
+    return this;
+  }
+
+  private List<MultiSelectComboItem> getMutableItemsList() {
+    final var currentItems = getItems();
+    if (currentItems == null) {
+      return new ArrayList<>();
+    } else {
+      return new ArrayList<>(currentItems);
+    }
+  }
+
+  /**
    * Retrieves the current caret position within the component's input field.
    *
    * <p>This method returns the index of the caret's position, which can be used to determine where
@@ -578,18 +708,18 @@ public class MultiSelectCombo extends ElementComposite
    *
    * @return The items value.
    */
-  public List<Item> getItems() {
+  public List<MultiSelectComboItem> getItems() {
     return get(this.itemsProp);
   }
 
   /**
    * Sets the list of items of the control.
    *
-   * @param items The items value.
+   * @param multiSelectComboItems The items value.
    * @return This {@code MultiSelectCombo} instance for method chaining.
    */
-  public MultiSelectCombo setItems(List<Item> items) {
-    set(this.itemsProp, items);
+  public MultiSelectCombo setItems(List<MultiSelectComboItem> multiSelectComboItems) {
+    set(this.itemsProp, multiSelectComboItems);
     return this;
   }
 
