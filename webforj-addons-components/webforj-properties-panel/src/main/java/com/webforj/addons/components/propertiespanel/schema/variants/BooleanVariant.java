@@ -14,7 +14,11 @@ public enum BooleanVariant {
 
   /** Represents a standard checkbox input field. */
   @SerializedName("checkbox")
-  CHECKBOX("checkbox");
+  CHECKBOX("checkbox"),
+
+  /** Represents a toggle switch input field. */
+  @SerializedName("switch")
+  SWITCH("switch");
 
   private final String value;
 
