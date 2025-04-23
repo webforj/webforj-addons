@@ -2,8 +2,8 @@ package com.webforj.addons.components.multiselectcombo.events;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.webforj.addons.components.multiselectcombo.Item;
 import com.webforj.addons.components.multiselectcombo.MultiSelectCombo;
+import com.webforj.addons.components.multiselectcombo.MultiSelectComboItem;
 import com.webforj.component.element.annotation.EventName;
 import com.webforj.component.element.annotation.EventOptions;
 import com.webforj.component.event.ComponentEvent;
@@ -31,9 +31,9 @@ public class SelectedChangedEvent extends ComponentEvent<MultiSelectCombo> {
   }
 
   /** Retrieves a list of selected items from the component's event map. */
-  public List<Item> getSelectedItems() {
+  public List<MultiSelectComboItem> getSelectedItems() {
     final var gson = new Gson();
-    final var type = new TypeToken<List<Item>>() {}.getType();
+    final var type = new TypeToken<List<MultiSelectComboItem>>() {}.getType();
     final var json = gson.toJson(this.getEventMap().get("selected"), List.class);
     return gson.fromJson(json, type);
   }
