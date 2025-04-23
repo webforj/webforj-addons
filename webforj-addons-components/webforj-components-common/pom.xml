@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons-components</artifactId>
-    <version>25.00-SNAPSHOT</version>
+    <version>25.00</version>
   </parent>
 
   <artifactId>webforj-components-common</artifactId>
