@@ -11,7 +11,10 @@ import java.util.List;
  *
  * @since 1.00
  * @author ElyasSalar
+ * @deprecated Use {@link SideMenuItem} and its builder pattern instead. This class is scheduled for
+ *     removal.
  */
+@Deprecated(since = "24.22", forRemoval = true)
 public class Item {
   /** A unique identifier for the item. */
   private String id;
@@ -61,7 +64,12 @@ public class Item {
    */
   private List<Item> children;
 
-  /** Constructs a new {@code SideMenu} instance with the specified properties. */
+  /**
+   * Constructs a new {@code Item} instance with the specified properties.
+   *
+   * @deprecated Use {@link SideMenuItem#builder()} instead.
+   */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item(
       String id, String icon, String caption, String link, boolean favorite, List<Item> children) {
     this.id = id;
@@ -72,7 +80,12 @@ public class Item {
     this.children = children;
   }
 
-  /** Constructs a new {@code SideMenu} instance with the specified properties. */
+  /**
+   * Constructs a new {@code Item} instance with the specified properties.
+   *
+   * @deprecated Use {@link SideMenuItem#builder()} instead.
+   */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item(String id, String icon, String caption, String link, boolean favorite) {
     this(id, icon, caption, link, favorite, List.of());
   }
@@ -81,7 +94,9 @@ public class Item {
    * Gets the unique identifier for the item.
    *
    * @return The unique identifier for the item.
+   * @deprecated Use {@link SideMenuItem#getId()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public String getId() {
     return id;
   }
@@ -91,7 +106,9 @@ public class Item {
    *
    * @param id The unique identifier to set for the item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setId(String)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setId(String id) {
     this.id = id;
     return this;
@@ -101,7 +118,9 @@ public class Item {
    * Gets the icon associated with the item.
    *
    * @return The icon associated with the item.
+   * @deprecated Use {@link SideMenuItem#getIcon()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public String getIcon() {
     return icon;
   }
@@ -111,7 +130,9 @@ public class Item {
    *
    * @param icon The icon to set for the item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setIcon(String)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setIcon(String icon) {
     this.icon = icon;
     return this;
@@ -121,7 +142,9 @@ public class Item {
    * Gets the display text or caption for the item.
    *
    * @return The display text or caption for the item.
+   * @deprecated Use {@link SideMenuItem#getLabel()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public String getCaption() {
     return caption;
   }
@@ -131,7 +154,9 @@ public class Item {
    *
    * @param caption The display text or caption to set for the item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setLabel(String)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setCaption(String caption) {
     this.caption = caption;
     return this;
@@ -141,7 +166,9 @@ public class Item {
    * Gets the URL or link associated with the item.
    *
    * @return The URL or link associated with the item.
+   * @deprecated Use {@link SideMenuItem#getLink()} instead. The link can be a URL.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public String getLink() {
     return link;
   }
@@ -151,7 +178,9 @@ public class Item {
    *
    * @param link The URL or link to set for the item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setLink(String)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setLink(String link) {
     this.link = link;
     return this;
@@ -161,7 +190,9 @@ public class Item {
    * Checks if the link should be opened in a new tab.
    *
    * @return True if the link should be opened in a new tab, otherwise false.
+   * @deprecated Use {@link SideMenuItem#isNewTab()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public boolean isNewTab() {
     return newTab;
   }
@@ -171,7 +202,9 @@ public class Item {
    *
    * @param newTab True if the link should be opened in a new tab, otherwise false.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setNewTab(boolean)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setNewTab(boolean newTab) {
     this.newTab = newTab;
     return this;
@@ -181,7 +214,9 @@ public class Item {
    * Gets the shortcut key associated with the item.
    *
    * @return The shortcut key associated with the item.
+   * @deprecated Use {@link SideMenuItem#getShortcut()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public String getShortcut() {
     return shortcut;
   }
@@ -191,7 +226,9 @@ public class Item {
    *
    * @param shortcut The shortcut key to set for the item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setShortcut(String)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setShortcut(String shortcut) {
     this.shortcut = shortcut;
     return this;
@@ -201,7 +238,9 @@ public class Item {
    * Checks if the item is marked as a favorite.
    *
    * @return True if the item is marked as a favorite, otherwise false.
+   * @deprecated Use {@link SideMenuItem#isFavorite()} instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public boolean isFavorite() {
     return favorite;
   }
@@ -211,7 +250,9 @@ public class Item {
    *
    * @param favorite True if the item is marked as a favorite, otherwise false.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setFavorite(boolean)} or the builder instead.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setFavorite(boolean favorite) {
     this.favorite = favorite;
     return this;
@@ -221,7 +262,10 @@ public class Item {
    * Gets the children items of the current item.
    *
    * @return The children items of the current item.
+   * @deprecated Use {@link SideMenuItem#getChildren()} instead. The returned list will contain
+   *     {@code SideMenuItem} objects.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public List<Item> getChildren() {
     return children;
   }
@@ -231,7 +275,10 @@ public class Item {
    *
    * @param children The children items to set for the current item.
    * @return The updated instance of the item.
+   * @deprecated Use {@link SideMenuItem#setChildren(List)} or the builder instead. The list should
+   *     contain {@code SideMenuItem} objects.
    */
+  @Deprecated(since = "24.22", forRemoval = true)
   public Item setChildren(List<Item> children) {
     this.children = children;
     return this;
