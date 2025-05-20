@@ -7,7 +7,7 @@
 
   <groupId>com.webforj.addons</groupId>
   <artifactId>webforj-addons</artifactId>
-  <version>25.01</version>
+  <version>25.02-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>webforj-addons</name>
