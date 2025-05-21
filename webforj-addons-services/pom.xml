@@ -33,12 +33,6 @@
   <dependencies>
     <dependency>
       <groupId>com.webforj</groupId>
-      <artifactId>webforj</artifactId>
-      <version>${webforj.version}</version>
-      <type>pom</type>
-    </dependency>
-    <dependency>
-      <groupId>com.webforj</groupId>
       <artifactId>webforj-foundation</artifactId>
     </dependency>
   </dependencies>

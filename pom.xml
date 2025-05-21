@@ -45,7 +45,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <webforj.version>25.00</webforj.version>
+    <webforj.version>25.01</webforj.version>
   </properties>
 
   <dependencyManagement>
@@ -53,6 +53,12 @@
       <dependency>
         <groupId>com.webforj</groupId>
         <artifactId>webforj-foundation</artifactId>
+        <version>${webforj.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.webforj</groupId>
+        <artifactId>webforj-html-elements</artifactId>
         <version>${webforj.version}</version>
       </dependency>
 

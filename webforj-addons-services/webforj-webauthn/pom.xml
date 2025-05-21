@@ -25,7 +25,6 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj-html-elements</artifactId>
-      <version>${webforj.version}</version>
     </dependency>
   </dependencies>
 
