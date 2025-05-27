@@ -1,5 +1,6 @@
 package com.webforj.addons.components.sidemenu;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +36,9 @@ public class SideMenuItem {
    */
   private String icon;
 
+  // FIXME: The serialized name of the label should be here until client side code is updated.
   /** The display text or label for the item shown to the user. */
+  @SerializedName("caption")
   private String label;
 
   /**
