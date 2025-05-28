@@ -1,8 +1,8 @@
 package com.webforj.addons.components.sidemenu.events;
 
 import com.google.gson.Gson;
-import com.webforj.addons.components.sidemenu.Item;
 import com.webforj.addons.components.sidemenu.SideMenu;
+import com.webforj.addons.components.sidemenu.SideMenuItem;
 import com.webforj.component.element.annotation.EventName;
 import com.webforj.component.element.annotation.EventOptions;
 import com.webforj.component.event.ComponentEvent;
@@ -38,10 +38,10 @@ public class ChangedEvent extends ComponentEvent<SideMenu> {
    *
    * @return The new selected item.
    */
-  public Item getSelectedItem() {
+  public SideMenuItem getSelectedItem() {
     final var gson = new Gson();
     final var itemJson = gson.toJson(this.getEventMap().get("selected"));
-    return gson.fromJson(itemJson, Item.class);
+    return gson.fromJson(itemJson, SideMenuItem.class);
   }
 
   /**
@@ -49,21 +49,21 @@ public class ChangedEvent extends ComponentEvent<SideMenu> {
    *
    * <p>In the context of this application, a "deselected item" may not always exist. For example,
    * during the first selection, there is no prior item to deselect. To accommodate this, the method
-   * returns an {@code Optional<Item>} instead of {@code null}. This makes it explicit to the caller
-   * that the absence of a value is a normal, expected state and encourages proper handling of such
-   * cases.
+   * returns an {@code Optional<SideMenuItem>} instead of {@code null}. This makes it explicit to
+   * the caller that the absence of a value is a normal, expected state and encourages proper
+   * handling of such cases.
    *
    * @return An {@code Optional} containing the deselected item if one exists, or an empty {@code
    *     Optional} otherwise.
    */
-  public Optional<Item> getDeselectedItem() {
+  public Optional<SideMenuItem> getDeselectedItem() {
     final var item = this.getEventMap().get("deselected");
     if (item == null) {
       return Optional.empty();
     }
     final var gson = new Gson();
     final var itemJson = gson.toJson(item);
-    final var deselectedItem = gson.fromJson(itemJson, Item.class);
+    final var deselectedItem = gson.fromJson(itemJson, SideMenuItem.class);
     return Optional.of(deselectedItem);
   }
 }
