@@ -9,29 +9,29 @@ import com.webforj.component.event.ComponentEvent;
 import java.util.Map;
 
 /**
- * Event fired when an item is clicked.
+ * Emitted when an item's favorite status is changed.
  *
- * @since 24.20
- * @author @ElyasSalar
+ * @author ElyasSalar
+ * @since 25.02
  */
-@EventName("dwc-item-clicked")
+@EventName("dwc-favorite-changed")
 @EventOptions(data = {@EventOptions.EventData(key = "item", exp = "event.detail")})
-public class ItemClickedEvent extends ComponentEvent<SideMenu> {
+public class FavoriteChangedEvent extends ComponentEvent<SideMenu> {
 
   /**
-   * Creates a new event {@code dwc-item-clicked} event.
+   * Creates a new favorite changed event.
    *
-   * @param component the component that fired the event
+   * @param component the SideMenu component
    * @param payload the event map
    */
-  public ItemClickedEvent(SideMenu component, Map<String, Object> payload) {
+  public FavoriteChangedEvent(SideMenu component, Map<String, Object> payload) {
     super(component, payload);
   }
 
   /**
-   * Gets the clicked item from the side menu.
+   * Gets the item whose favorite status was changed.
    *
-   * @return The clicked item.
+   * @return the item
    */
   public SideMenuItem getItem() {
     final var gson = new Gson();

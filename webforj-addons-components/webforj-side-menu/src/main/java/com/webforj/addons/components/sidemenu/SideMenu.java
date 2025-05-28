@@ -3,6 +3,7 @@ package com.webforj.addons.components.sidemenu;
 import com.google.gson.annotations.SerializedName;
 import com.webforj.PendingResult;
 import com.webforj.addons.components.sidemenu.events.ChangedEvent;
+import com.webforj.addons.components.sidemenu.events.FavoriteChangedEvent;
 import com.webforj.addons.components.sidemenu.events.ItemClickedEvent;
 import com.webforj.addons.components.sidemenu.events.SearchedEvent;
 import com.webforj.addons.constant.GlobalConstants;
@@ -152,6 +153,18 @@ public class SideMenu extends ElementComposite
   public ListenerRegistration<SearchedEvent> addSearchedListener(
       EventListener<SearchedEvent> listener) {
     return this.addEventListener(SearchedEvent.class, listener);
+  }
+
+  /**
+   * Adds a listener for the favorite changed event, which is triggered when an item's favorite
+   * status is changed.
+   *
+   * @param listener The event listener to add.
+   * @return A registration object that can be used to unregister the listener if needed.
+   */
+  public ListenerRegistration<FavoriteChangedEvent> addFavoriteChangedListener(
+      EventListener<FavoriteChangedEvent> listener) {
+    return this.addEventListener(FavoriteChangedEvent.class, listener);
   }
 
   /**
