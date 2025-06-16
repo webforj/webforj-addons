@@ -337,21 +337,21 @@ class SideMenuTest {
   class RemoveItemObjectTests {
 
     @Test
-    @DisplayName("should call removeItemById with correct ID")
+    @DisplayName("should call removeItemById with correct ID and return true when successful")
     void removeItemDelegatesCorrectly() {
       final var returned = sideMenu.removeItem(item1);
 
       verify(sideMenu).removeItemById(item1.getId());
-      assertSame(sideMenu, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
-    @DisplayName("should do nothing if item is null")
+    @DisplayName("should return false if item is null")
     void removeNullItemObject() {
       final var returned = sideMenu.removeItem(null);
       verify(sideMenu, never()).removeItemById(any());
       verify(sideMenu, never()).setItems(any());
-      assertSame(sideMenu, returned);
+      assertFalse(returned, "Should return false when item is null");
     }
   }
 
@@ -360,7 +360,7 @@ class SideMenuTest {
   class RemoveItemIdTests {
 
     @Test
-    @DisplayName("should remove top-level item")
+    @DisplayName("should return true when removing top-level item")
     void removeTopLevelItem() {
       final var returned = sideMenu.removeItemById("item-2");
 
@@ -369,11 +369,11 @@ class SideMenuTest {
       assertEquals(1, capturedList.size());
       assertEquals("item-1", capturedList.get(0).getId());
       assertSame(item1, capturedList.get(0), "Item 1 should be original instance");
-      assertSame(sideMenu, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
-    @DisplayName("should remove nested item")
+    @DisplayName("should return true when removing nested item")
     void removeNestedItem() {
       final var returned = sideMenu.removeItemById("child-1-1");
 
@@ -393,11 +393,11 @@ class SideMenuTest {
       assertTrue(otherItemOpt.isPresent());
       assertSame(item2, otherItemOpt.get(), "Item 2 should be original instance");
 
-      assertSame(sideMenu, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
-    @DisplayName("should remove deeply nested item")
+    @DisplayName("should return true when removing deeply nested item")
     void removeDeeplyNestedItem() {
       final var returned = sideMenu.removeItemById("grandchild-1-1-1");
 
@@ -419,23 +419,23 @@ class SideMenuTest {
       assertEquals(
           0, nestedParent.getChildren().size(), "Nested parent should have no children now");
 
-      assertSame(sideMenu, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
-    @DisplayName("should do nothing if item ID not found")
+    @DisplayName("should return false if item ID not found")
     void removeNonExistentItem() {
       final var returned = sideMenu.removeItemById("non-existent-id");
       verify(sideMenu, never()).setItems(any());
-      assertSame(sideMenu, returned);
+      assertFalse(returned, "Should return false when item was not found");
     }
 
     @Test
-    @DisplayName("should do nothing if item ID is null")
+    @DisplayName("should return false if item ID is null")
     void removeNullItemId() {
       final var returned = sideMenu.removeItemById(null);
       verify(sideMenu, never()).setItems(any());
-      assertSame(sideMenu, returned);
+      assertFalse(returned, "Should return false when item ID is null");
     }
   }
 
@@ -496,7 +496,7 @@ class SideMenuTest {
   class ClearItemsTests {
 
     @Test
-    @DisplayName("should set items to an empty list when clearing non-empty list")
+    @DisplayName("should return true when clearing non-empty list")
     void clearNonEmptyList() {
       final var returned = sideMenu.clearItems();
 
@@ -504,11 +504,11 @@ class SideMenuTest {
       final var capturedList = itemsListCaptor.getValue();
       assertNotNull(capturedList);
       assertTrue(capturedList.isEmpty());
-      assertSame(sideMenu, returned);
+      assertTrue(returned, "Should return true when items were present and cleared");
     }
 
     @Test
-    @DisplayName("should set items to an empty list when clearing an empty list")
+    @DisplayName("should return false when clearing an empty list")
     void clearEmptyList() {
       sideMenu.setItems(new ArrayList<>());
       clearInvocations(sideMenu);
@@ -519,7 +519,7 @@ class SideMenuTest {
       final var capturedList = itemsListCaptor.getValue();
       assertNotNull(capturedList);
       assertTrue(capturedList.isEmpty());
-      assertSame(sideMenu, returned);
+      assertFalse(returned, "Should return false when no items were present to clear");
     }
   }
 }

@@ -481,12 +481,12 @@ public class MultiSelectCombo extends ElementComposite
    *
    * @param item The {@link MultiSelectComboItem} to remove. Comparison is based on the item's
    *     value.
-   * @return This {@code MultiSelectCombo} instance for method chaining. Returns immediately if the
-   *     item is null or the current list is empty/null.
+   * @return {@code true} if the item was found and removed; {@code false} if the item was not found
+   *     or if the item is null.
    */
-  public MultiSelectCombo removeItem(MultiSelectComboItem item) {
+  public boolean removeItem(MultiSelectComboItem item) {
     if (item == null) {
-      return this;
+      return false;
     }
     return removeItemByValue(item.getValue());
   }
@@ -495,35 +495,38 @@ public class MultiSelectCombo extends ElementComposite
    * Removes an item from the combo box list based on its value.
    *
    * @param value The value of the item to remove.
-   * @return This {@code MultiSelectCombo} instance for method chaining. Returns immediately if the
-   *     value is null or the current list is empty/null.
+   * @return {@code true} if the item was found and removed; {@code false} if the value is null or
+   *     the item was not found.
    */
-  public MultiSelectCombo removeItemByValue(String value) {
+  public boolean removeItemByValue(String value) {
     if (value == null) {
-      return this;
+      return false;
     }
     final var currentItems = getItems();
     if (currentItems == null || currentItems.isEmpty()) {
-      return this;
+      return false;
     }
 
     final var updatedItems = new ArrayList<>(currentItems);
     boolean removed = updatedItems.removeIf(currentItem -> value.equals(currentItem.getValue()));
 
     if (removed) {
-      return setItems(updatedItems);
+      setItems(updatedItems);
     }
-    return this;
+    return removed;
   }
 
   /**
    * Removes all items from the combo box list.
    *
-   * @return This {@code MultiSelectCombo} instance for method chaining.
+   * @return {@code true} if items were cleared successfully; {@code false} if there were no items
+   *     to clear.
    */
-  public MultiSelectCombo clearItems() {
+  public boolean clearItems() {
+    final var currentItems = getItems();
+    boolean hadItems = currentItems != null && !currentItems.isEmpty();
     setItems(Collections.emptyList());
-    return this;
+    return hadItems;
   }
 
   private List<MultiSelectComboItem> getMutableItemsList() {

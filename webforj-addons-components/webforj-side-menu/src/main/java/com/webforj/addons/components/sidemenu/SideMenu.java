@@ -272,11 +272,12 @@ public class SideMenu extends ElementComposite
    *
    * @param item The {@link SideMenuItem} to remove. Its ID will be used for removal. Returns
    *     immediately if the item is null.
-   * @return This {@code SideMenu} instance for method chaining.
+   * @return {@code true} if the item was found and removed; {@code false} if the item was not found
+   *     or item was null.
    */
-  public SideMenu removeItem(SideMenuItem item) {
+  public boolean removeItem(SideMenuItem item) {
     if (item == null) {
-      return this;
+      return false;
     }
     return removeItemById(item.getId());
   }
@@ -287,11 +288,12 @@ public class SideMenu extends ElementComposite
    *
    * @param itemId The unique ID of the item to remove. If null, the method returns immediately
    *     without making changes.
-   * @return This {@code SideMenu} instance for method chaining.
+   * @return {@code true} if the item was found and removed; {@code false} if the item was not found
+   *     or itemId was null.
    */
-  public SideMenu removeItemById(String itemId) {
+  public boolean removeItemById(String itemId) {
     if (itemId == null) {
-      return this;
+      return false;
     }
     final var changed = new AtomicBoolean(false);
 
@@ -305,18 +307,23 @@ public class SideMenu extends ElementComposite
             currentItems, item -> itemId.equals(item.getId()), removeModifier, changed);
 
     if (changed.get()) {
-      return setItems(updatedItems);
+      setItems(updatedItems);
+      return true;
     }
-    return this;
+    return false;
   }
 
   /**
    * Removes all items from the side menu.
    *
-   * @return This {@code SideMenu} instance for method chaining.
+   * @return {@code true} if items were cleared successfully; {@code false} if there were no items
+   *     to clear.
    */
-  public SideMenu clearItems() {
-    return setItems(Collections.emptyList());
+  public boolean clearItems() {
+    final var currentItems = getItems();
+    boolean hadItems = currentItems != null && !currentItems.isEmpty();
+    setItems(Collections.emptyList());
+    return hadItems;
   }
 
   /**
