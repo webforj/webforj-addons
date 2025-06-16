@@ -21,7 +21,7 @@ class MultiSelectComboItemTest {
     @DisplayName("should build item with only mandatory fields")
     void buildWithMandatoryFields() {
       final var item =
-        MultiSelectComboItem.builder().label(DEFAULT_LABEL).value(DEFAULT_VALUE).build();
+          MultiSelectComboItem.builder().label(DEFAULT_LABEL).value(DEFAULT_VALUE).build();
 
       assertNotNull(item);
       assertEquals(DEFAULT_LABEL, item.getLabel());
@@ -38,13 +38,14 @@ class MultiSelectComboItemTest {
       final var suffix = ":Suf";
       final boolean disabled = true;
 
-      final var item = MultiSelectComboItem.builder()
-          .label(DEFAULT_LABEL)
-          .value(DEFAULT_VALUE)
-          .prefix(prefix)
-          .suffix(suffix)
-          .disabled(disabled)
-          .build();
+      final var item =
+          MultiSelectComboItem.builder()
+              .label(DEFAULT_LABEL)
+              .value(DEFAULT_VALUE)
+              .prefix(prefix)
+              .suffix(suffix)
+              .disabled(disabled)
+              .build();
 
       assertNotNull(item);
       assertEquals(DEFAULT_LABEL, item.getLabel());
@@ -58,9 +59,12 @@ class MultiSelectComboItemTest {
     @DisplayName("should throw NullPointerException when mandatory label is null")
     void buildWithNullLabel() {
       final var builderStep1 = MultiSelectComboItem.builder();
-      final var exception = assertThrows(NullPointerException.class, () -> {
-        builderStep1.label(null);
-      });
+      final var exception =
+          assertThrows(
+              NullPointerException.class,
+              () -> {
+                builderStep1.label(null);
+              });
       assertEquals("Label cannot be null", exception.getMessage());
     }
 
@@ -68,9 +72,12 @@ class MultiSelectComboItemTest {
     @DisplayName("should throw NullPointerException when mandatory value is null")
     void buildWithNullValue() {
       final var builderStep2 = MultiSelectComboItem.builder().label(DEFAULT_LABEL);
-      final var exception = assertThrows(NullPointerException.class, () -> {
-        builderStep2.value(null);
-      });
+      final var exception =
+          assertThrows(
+              NullPointerException.class,
+              () -> {
+                builderStep2.value(null);
+              });
       assertEquals("Value cannot be null", exception.getMessage());
     }
 
@@ -78,7 +85,7 @@ class MultiSelectComboItemTest {
     @DisplayName("should have default value for disabled field when not set")
     void buildWithDefaultDisabled() {
       final var item =
-        MultiSelectComboItem.builder().label(DEFAULT_LABEL).value(DEFAULT_VALUE).build();
+          MultiSelectComboItem.builder().label(DEFAULT_LABEL).value(DEFAULT_VALUE).build();
       assertFalse(item.isDisabled());
     }
   }
@@ -94,13 +101,13 @@ class MultiSelectComboItemTest {
     @BeforeEach
     void setUp() {
       item =
-        MultiSelectComboItem.builder()
-          .label(DEFAULT_LABEL)
-          .value(DEFAULT_VALUE)
-          .prefix(prefix)
-          .suffix(suffix)
-          .disabled(true)
-          .build();
+          MultiSelectComboItem.builder()
+              .label(DEFAULT_LABEL)
+              .value(DEFAULT_VALUE)
+              .prefix(prefix)
+              .suffix(suffix)
+              .disabled(true)
+              .build();
     }
 
     @Test
@@ -215,11 +222,11 @@ class MultiSelectComboItemTest {
     @DisplayName("setLabel() should throw NullPointerException for null label")
     void setLabelNull() {
       final var exception =
-        assertThrows(
-          NullPointerException.class,
-          () -> {
-            item.setLabel(null);
-          });
+          assertThrows(
+              NullPointerException.class,
+              () -> {
+                item.setLabel(null);
+              });
       assertEquals("Label cannot be null", exception.getMessage());
     }
 
@@ -227,11 +234,11 @@ class MultiSelectComboItemTest {
     @DisplayName("setValue() should throw NullPointerException for null value")
     void setValueNull() {
       final var exception =
-        assertThrows(
-          NullPointerException.class,
-          () -> {
-            item.setValue(null);
-          });
+          assertThrows(
+              NullPointerException.class,
+              () -> {
+                item.setValue(null);
+              });
       assertEquals("Value cannot be null", exception.getMessage());
     }
   }

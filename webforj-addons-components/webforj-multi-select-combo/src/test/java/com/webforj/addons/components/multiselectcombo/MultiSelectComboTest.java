@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 @DisplayName("MultiSelectCombo Item Manipulation Tests")
 @ExtendWith(MockitoExtension.class)
 class MultiSelectComboTest {
@@ -72,8 +71,8 @@ class MultiSelectComboTest {
     @Test
     @DisplayName("should throw NullPointerException when adding null item")
     void addNullItem() {
-      assertThrows(NullPointerException.class, () -> multiSelectCombo.addItem(null),
-        "Item cannot be null");
+      assertThrows(
+          NullPointerException.class, () -> multiSelectCombo.addItem(null), "Item cannot be null");
       verify(multiSelectCombo, never()).setItems(any());
     }
   }
@@ -116,18 +115,20 @@ class MultiSelectComboTest {
     @Test
     @DisplayName("should throw NullPointerException if label is null")
     void addNullLabel() {
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItem(null, "value"),
-        "Label cannot be null (from builder)");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItem(null, "value"),
+          "Label cannot be null (from builder)");
       verify(multiSelectCombo, never()).setItems(any());
     }
 
     @Test
     @DisplayName("should throw NullPointerException if value is null")
     void addNullValue() {
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItem("Label", null),
-        "Value cannot be null (from builder)");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItem("Label", null),
+          "Value cannot be null (from builder)");
       verify(multiSelectCombo, never()).setItems(any());
     }
   }
@@ -182,18 +183,20 @@ class MultiSelectComboTest {
     @Test
     @DisplayName("should throw NullPointerException if items array is null")
     void addNullVarArgsArray() {
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItems((MultiSelectComboItem[]) null),
-        "Items array cannot be null");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItems((MultiSelectComboItem[]) null),
+          "Items array cannot be null");
       verify(multiSelectCombo, never()).setItems(any());
     }
 
     @Test
     @DisplayName("should throw NullPointerException if items array contains null")
     void addVarArgsWithNullElement() {
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItems(item1, null, item2),
-        "Items array cannot contain null elements");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItems(item1, null, item2),
+          "Items array cannot contain null elements");
       verify(multiSelectCombo, never()).setItems(any());
     }
   }
@@ -223,8 +226,7 @@ class MultiSelectComboTest {
     @DisplayName("should add collection items to an existing list")
     void addCollectionToExistingList() {
       // Initial state: [item1, item2]
-      final var item4 =
-        MultiSelectComboItem.builder().label("Label 4").value("value4").build();
+      final var item4 = MultiSelectComboItem.builder().label("Label 4").value("value4").build();
       final var itemsToAdd = Arrays.asList(item3, item4);
       final var returned = multiSelectCombo.addItems(itemsToAdd);
 
@@ -252,9 +254,10 @@ class MultiSelectComboTest {
     @Test
     @DisplayName("should throw NullPointerException if collection is null")
     void addNullCollection() {
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItems((Collection<MultiSelectComboItem>) null),
-        "Items collection cannot be null");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItems((Collection<MultiSelectComboItem>) null),
+          "Items collection cannot be null");
       verify(multiSelectCombo, never()).setItems(any());
     }
 
@@ -262,9 +265,10 @@ class MultiSelectComboTest {
     @DisplayName("should throw NullPointerException if collection contains null")
     void addCollectionWithNullElement() {
       final var itemsToAdd = Arrays.asList(item1, null, item2);
-      assertThrows(NullPointerException.class,
-        () -> multiSelectCombo.addItems(itemsToAdd),
-        "Items collection cannot contain null elements");
+      assertThrows(
+          NullPointerException.class,
+          () -> multiSelectCombo.addItems(itemsToAdd),
+          "Items collection cannot contain null elements");
       verify(multiSelectCombo, never()).setItems(any());
     }
   }
@@ -274,7 +278,7 @@ class MultiSelectComboTest {
   class RemoveItemObjectTests {
 
     @Test
-    @DisplayName("should call removeItemByValue with correct value")
+    @DisplayName("should return true when removing existing item")
     void removeItemDelegatesCorrectly() {
       final var returned = multiSelectCombo.removeItem(item1);
 
@@ -282,29 +286,27 @@ class MultiSelectComboTest {
       final var capturedList = itemsListCaptor.getValue();
       assertEquals(1, capturedList.size());
       assertEquals("value2", capturedList.get(0).getValue());
-      assertSame(multiSelectCombo, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
-    @DisplayName("should do nothing if item is null")
+    @DisplayName("should return false if item is null")
     void removeNullItemObject() {
       final var returned = multiSelectCombo.removeItem(null);
       verify(multiSelectCombo, never()).removeItemByValue(any());
       verify(multiSelectCombo, never()).setItems(any());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when item is null");
     }
 
     @Test
-    @DisplayName("should do nothing if item to remove is not in the list")
+    @DisplayName("should return false if item to remove is not in the list")
     void removeNonExistentItemObject() {
-      final var nonExistentItem = MultiSelectComboItem.builder()
-        .label("Non Existent")
-        .value("non_existent_value")
-        .build();
+      final var nonExistentItem =
+          MultiSelectComboItem.builder().label("Non Existent").value("non_existent_value").build();
       final var returned = multiSelectCombo.removeItem(nonExistentItem);
       verify(multiSelectCombo).removeItemByValue("non_existent_value");
       verify(multiSelectCombo, never()).setItems(any());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when item was not found");
     }
   }
 
@@ -313,7 +315,7 @@ class MultiSelectComboTest {
   class RemoveItemByValueTests {
 
     @Test
-    @DisplayName("should remove item by value")
+    @DisplayName("should return true when removing item by value")
     void removeItemValue() {
       final var returned = multiSelectCombo.removeItemByValue("value1");
 
@@ -321,7 +323,7 @@ class MultiSelectComboTest {
       final var capturedList = itemsListCaptor.getValue();
       assertEquals(1, capturedList.size());
       assertEquals("value2", capturedList.get(0).getValue());
-      assertSame(multiSelectCombo, returned);
+      assertTrue(returned, "Should return true when item was removed");
     }
 
     @Test
@@ -331,7 +333,7 @@ class MultiSelectComboTest {
       multiSelectCombo.addItems(item1b);
       clearInvocations(multiSelectCombo);
 
-      multiSelectCombo.removeItemByValue("value1");
+      final var returned = multiSelectCombo.removeItemByValue("value1");
 
       verify(multiSelectCombo).setItems(itemsListCaptor.capture());
       final var capturedList = itemsListCaptor.getValue();
@@ -339,37 +341,37 @@ class MultiSelectComboTest {
       assertTrue(capturedList.stream().anyMatch(it -> "value2".equals(it.getValue())));
       assertTrue(capturedList.stream().anyMatch(it -> "value1b".equals(it.getValue())));
       assertFalse(capturedList.stream().anyMatch(it -> "value1".equals(it.getValue())));
+      assertTrue(returned, "Should return true when item was removed");
     }
 
-
     @Test
-    @DisplayName("should do nothing if value not found")
+    @DisplayName("should return false if value not found")
     void removeNonExistentValue() {
       final var returned = multiSelectCombo.removeItemByValue("non_existent_value");
       verify(multiSelectCombo, never()).setItems(any());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when value was not found");
     }
 
     @Test
-    @DisplayName("should do nothing if value is null")
+    @DisplayName("should return false if value is null")
     void removeNullValue() {
       final var returned = multiSelectCombo.removeItemByValue(null);
       verify(multiSelectCombo, never()).setItems(any());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when value is null");
     }
 
     @Test
-    @DisplayName("should do nothing if list is empty")
+    @DisplayName("should return false if list is empty")
     void removeFromEmptyList() {
       multiSelectCombo.setItems(new ArrayList<>());
       clearInvocations(multiSelectCombo);
       final var returned = multiSelectCombo.removeItemByValue("value1");
       verify(multiSelectCombo, never()).setItems(any());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when list is empty");
     }
 
     @Test
-    @DisplayName("should do nothing if list is null initially (handled by getItems)")
+    @DisplayName("should return false if list is null initially (handled by getItems)")
     void removeFromNullList() {
       final var comboWithNull = spy(new MultiSelectCombo());
       doReturn(null).when(comboWithNull).getItems();
@@ -377,9 +379,8 @@ class MultiSelectComboTest {
       final var returned = comboWithNull.removeItemByValue("value1");
 
       verify(comboWithNull, never()).setItems(any());
-      assertSame(comboWithNull, returned);
+      assertFalse(returned, "Should return false when list is null");
     }
-
   }
 
   @Nested
@@ -387,7 +388,7 @@ class MultiSelectComboTest {
   class ClearItemsTests {
 
     @Test
-    @DisplayName("should set items to an empty list when clearing non-empty list")
+    @DisplayName("should return true when clearing non-empty list")
     void clearNonEmptyList() {
       final var returned = multiSelectCombo.clearItems();
 
@@ -395,11 +396,11 @@ class MultiSelectComboTest {
       final var capturedList = itemsListCaptor.getValue();
       assertNotNull(capturedList);
       assertTrue(capturedList.isEmpty());
-      assertSame(multiSelectCombo, returned);
+      assertTrue(returned, "Should return true when items were present and cleared");
     }
 
     @Test
-    @DisplayName("should set items to an empty list when clearing an empty list")
+    @DisplayName("should return false when clearing an empty list")
     void clearEmptyList() {
       multiSelectCombo.setItems(new ArrayList<>());
       clearInvocations(multiSelectCombo);
@@ -410,7 +411,7 @@ class MultiSelectComboTest {
       final var capturedList = itemsListCaptor.getValue();
       assertNotNull(capturedList);
       assertTrue(capturedList.isEmpty());
-      assertSame(multiSelectCombo, returned);
+      assertFalse(returned, "Should return false when no items were present to clear");
     }
   }
 }
