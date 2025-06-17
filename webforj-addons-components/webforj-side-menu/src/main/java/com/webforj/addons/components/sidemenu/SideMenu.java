@@ -1,6 +1,8 @@
 package com.webforj.addons.components.sidemenu;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.webforj.PendingResult;
 import com.webforj.addons.components.sidemenu.events.ChangedEvent;
 import com.webforj.addons.components.sidemenu.events.FavoriteChangedEvent;
@@ -102,6 +104,10 @@ public class SideMenu extends ElementComposite
   /** Property for the search term in the search input. */
   private final PropertyDescriptor<String> searchTermProp =
       PropertyDescriptor.property("searchTerm", "");
+
+  /** Controls the visibility of the search field. */
+  private final PropertyDescriptor<Boolean> searchVisibleProp =
+      PropertyDescriptor.property("searchVisible", true);
 
   /**
    * Translation object for the static texts to enable passing translations keys for multilingual
@@ -324,6 +330,57 @@ public class SideMenu extends ElementComposite
     boolean hadItems = currentItems != null && !currentItems.isEmpty();
     setItems(Collections.emptyList());
     return hadItems;
+  }
+
+  /**
+   * Gets the list of favorite items from the side menu asynchronously.
+   *
+   * @return A {@link PendingResult} that will resolve to the list of favorite items.
+   */
+  public PendingResult<List<SideMenuItem>> getFavoriteItems() {
+    return this.getBoundComponent()
+        .callJsFunctionAsync("getFavoriteItems")
+        .thenApply(
+            result -> {
+              if (result == null) {
+                return Collections.emptyList();
+              }
+
+              final var gson = new Gson();
+              final var listType = new TypeToken<List<SideMenuItem>>() {}.getType();
+
+              try {
+                final List<SideMenuItem> favoriteItems = gson.fromJson((String) result, listType);
+                return favoriteItems != null ? favoriteItems : Collections.emptyList();
+              } catch (Exception e) {
+                return Collections.emptyList();
+              }
+            });
+  }
+
+  /**
+   * Gets the currently selected item from the side menu asynchronously.
+   *
+   * @return A {@link PendingResult} that will resolve to the selected item, or null if no item is
+   *     selected.
+   */
+  public PendingResult<SideMenuItem> getSelectedItem() {
+    return this.getBoundComponent()
+        .callJsFunctionAsync("getSelectedItem")
+        .thenApply(
+            result -> {
+              if (result == null || "null".equals(result.toString())) {
+                return null;
+              }
+
+              final var gson = new Gson();
+
+              try {
+                return gson.fromJson((String) result, SideMenuItem.class);
+              } catch (Exception e) {
+                return null;
+              }
+            });
   }
 
   /**
@@ -565,6 +622,27 @@ public class SideMenu extends ElementComposite
    */
   public SideMenu setSearchTerm(String searchTerm) {
     super.set(searchTermProp, searchTerm);
+    return this;
+  }
+
+  /**
+   * Gets the visibility state of the search field.
+   *
+   * @return {@code true} if the search field is visible; {@code false} otherwise.
+   */
+  public boolean isSearchVisible() {
+    return super.get(searchVisibleProp);
+  }
+
+  /**
+   * Sets the visibility state of the search field.
+   *
+   * @param searchVisible {@code true} to display the search field; {@code false} to hide it and
+   *     disable search functionality.
+   * @return The updated instance of the side menu.
+   */
+  public SideMenu setSearchVisible(boolean searchVisible) {
+    super.set(searchVisibleProp, searchVisible);
     return this;
   }
 
