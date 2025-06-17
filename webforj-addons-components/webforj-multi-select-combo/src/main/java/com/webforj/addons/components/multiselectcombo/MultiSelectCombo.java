@@ -9,6 +9,7 @@ import com.webforj.addons.components.multiselectcombo.events.InputEvent;
 import com.webforj.addons.components.multiselectcombo.events.KeydownEvent;
 import com.webforj.addons.components.multiselectcombo.events.OpenedChangedEvent;
 import com.webforj.addons.components.multiselectcombo.events.SelectedChangedEvent;
+import com.webforj.addons.components.multiselectcombo.events.ValidatedEvent;
 import com.webforj.addons.constant.GlobalConstants;
 import com.webforj.annotation.Attribute;
 import com.webforj.annotation.JavaScript;
@@ -127,6 +128,45 @@ public class MultiSelectCombo extends ElementComposite
     KEY,
     MOUSE,
     REQUEST
+  }
+
+  /** The placement of validation popover. */
+  public enum ValidationPopoverPlacement {
+    @SerializedName("bottom")
+    BOTTOM,
+
+    @SerializedName("bottom-end")
+    BOTTOM_END,
+
+    @SerializedName("bottom-start")
+    BOTTOM_START,
+
+    @SerializedName("left")
+    LEFT,
+
+    @SerializedName("left-end")
+    LEFT_END,
+
+    @SerializedName("left-start")
+    LEFT_START,
+
+    @SerializedName("right")
+    RIGHT,
+
+    @SerializedName("right-end")
+    RIGHT_END,
+
+    @SerializedName("right-start")
+    RIGHT_START,
+
+    @SerializedName("top")
+    TOP,
+
+    @SerializedName("top-end")
+    TOP_END,
+
+    @SerializedName("top-start")
+    TOP_START
   }
 
   /** Property for specifying the placement of the list. */
@@ -280,6 +320,26 @@ public class MultiSelectCombo extends ElementComposite
   private final PropertyDescriptor<ValidationStyle> validationStyleProp =
       PropertyDescriptor.property("validationStyle", null);
 
+  /** Property for automatically switching on the valid property after validation. */
+  private final PropertyDescriptor<Boolean> autoWasValidatedProp =
+      PropertyDescriptor.property("autoWasValidated", false);
+
+  /** Property for specifying the validation icon. */
+  private final PropertyDescriptor<String> validationIconProp =
+      PropertyDescriptor.property("validationIcon", "");
+
+  /** Property for specifying the distance of the validation popover from the control. */
+  private final PropertyDescriptor<Integer> validationPopoverDistanceProp =
+      PropertyDescriptor.property("validationPopoverDistance", 6);
+
+  /** Property for specifying the placement of the validation popover. */
+  private final PropertyDescriptor<ValidationPopoverPlacement> validationPopoverPlacementProp =
+      PropertyDescriptor.property("validationPopoverPlacement", ValidationPopoverPlacement.BOTTOM);
+
+  /** Property for specifying the skidding of the validation popover along the control. */
+  private final PropertyDescriptor<Integer> validationPopoverSkiddingProp =
+      PropertyDescriptor.property("validationPopoverSkidding", 0);
+
   /**
    * Add a listener for the opened event.
    *
@@ -343,6 +403,17 @@ public class MultiSelectCombo extends ElementComposite
   public ListenerRegistration<KeydownEvent> addKeydownListener(
       EventListener<KeydownEvent> listener) {
     return super.addEventListener(KeydownEvent.class, listener);
+  }
+
+  /**
+   * Add a listener for the validation status change event.
+   *
+   * @param listener the listener
+   * @return the control
+   */
+  public ListenerRegistration<ValidatedEvent> addValidatedListener(
+      EventListener<ValidatedEvent> listener) {
+    return super.addEventListener(ValidatedEvent.class, listener);
   }
 
   /**
@@ -1315,6 +1386,112 @@ public class MultiSelectCombo extends ElementComposite
   @Override
   public MultiSelectCombo setValidationStyle(ValidationStyle validationStyle) {
     set(this.validationStyleProp, validationStyle);
+    return this;
+  }
+
+  /**
+   * Retrieves the auto-was-validated property value.
+   *
+   * @return The value indicating whether the component automatically switches to valid state after
+   *     validation.
+   */
+  public boolean isAutoWasValidated() {
+    return get(this.autoWasValidatedProp);
+  }
+
+  /**
+   * Sets the auto-was-validated property value.
+   *
+   * @param autoWasValidated The value indicating whether the component automatically switches to
+   *     valid state after validation.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setAutoWasValidated(boolean autoWasValidated) {
+    set(this.autoWasValidatedProp, autoWasValidated);
+    return this;
+  }
+
+  /**
+   * Retrieves the validation icon property value.
+   *
+   * @return The validation icon value.
+   */
+  public String getValidationIcon() {
+    return get(this.validationIconProp);
+  }
+
+  /**
+   * Sets the validation icon property value.
+   *
+   * @param validationIcon The validation icon value.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidationIcon(String validationIcon) {
+    set(this.validationIconProp, validationIcon);
+    return this;
+  }
+
+  /**
+   * Retrieves the validation popover distance property value.
+   *
+   * @return The distance in pixels from which to offset the validation message away from the
+   *     control.
+   */
+  public int getValidationPopoverDistance() {
+    return get(this.validationPopoverDistanceProp);
+  }
+
+  /**
+   * Sets the validation popover distance property value.
+   *
+   * @param validationPopoverDistance The distance in pixels from which to offset the validation
+   *     message away from the control.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidationPopoverDistance(int validationPopoverDistance) {
+    set(this.validationPopoverDistanceProp, validationPopoverDistance);
+    return this;
+  }
+
+  /**
+   * Retrieves the validation popover placement property value.
+   *
+   * @return The preferred placement of the validation message.
+   */
+  public ValidationPopoverPlacement getValidationPopoverPlacement() {
+    return get(this.validationPopoverPlacementProp);
+  }
+
+  /**
+   * Sets the validation popover placement property value.
+   *
+   * @param validationPopoverPlacement The preferred placement of the validation message.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidationPopoverPlacement(
+      ValidationPopoverPlacement validationPopoverPlacement) {
+    set(this.validationPopoverPlacementProp, validationPopoverPlacement);
+    return this;
+  }
+
+  /**
+   * Retrieves the validation popover skidding property value.
+   *
+   * @return The distance in pixels from which to offset the validation message along the control.
+   */
+  public int getValidationPopoverSkidding() {
+    return get(this.validationPopoverSkiddingProp);
+  }
+
+  /**
+   * Sets the validation popover skidding property value.
+   *
+   * @param validationPopoverSkidding The distance in pixels from which to offset the validation
+   *     message along the control.
+   * @return This {@code MultiSelectCombo} instance for method chaining.
+   */
+  public MultiSelectCombo setValidationPopoverSkidding(int validationPopoverSkidding) {
+    set(this.validationPopoverSkiddingProp, validationPopoverSkidding);
     return this;
   }
 
