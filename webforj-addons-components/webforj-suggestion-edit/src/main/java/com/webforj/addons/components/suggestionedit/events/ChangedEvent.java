@@ -8,6 +8,7 @@ import com.webforj.component.element.annotation.EventOptions;
 import com.webforj.component.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Event representing the change in value of the SuggestionEdit field to a suggestion.
@@ -36,11 +37,23 @@ public class ChangedEvent extends ComponentEvent<SuggestionEdit> {
   /**
    * Gets the selected suggestion of the SuggestionEdit field.
    *
-   * @return The new suggestion.
+   * <p>This method returns an {@link Optional} containing the suggestion if available, or an empty
+   * {@code Optional} if the event detail is not available or if the client component did not
+   * provide a suggestion. This can occur in certain edge cases or when the event is triggered
+   * without a valid suggestion context.
+   *
+   * @return An {@code Optional} containing the new suggestion, or empty if no suggestion is
+   *     available.
    */
-  public Suggestion getSuggestion() {
+  public Optional<Suggestion> getSuggestion() {
+    final Object suggestionData = this.getEventMap().get("suggestion");
+    if (suggestionData == null) {
+      return Optional.empty();
+    }
+
     final var gson = new Gson();
-    final var json = gson.toJson(this.getEventMap().get("suggestion"), HashMap.class);
-    return gson.fromJson(json, Suggestion.class);
+    final var json = gson.toJson(suggestionData, HashMap.class);
+    final Suggestion suggestion = gson.fromJson(json, Suggestion.class);
+    return Optional.ofNullable(suggestion);
   }
 }
