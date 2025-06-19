@@ -1,8 +1,8 @@
 package com.webforj.addons.components.suggestionedit.events;
 
 import com.google.gson.Gson;
-import com.webforj.addons.components.suggestionedit.Suggestion;
 import com.webforj.addons.components.suggestionedit.SuggestionEdit;
+import com.webforj.addons.components.suggestionedit.SuggestionItem;
 import com.webforj.component.element.annotation.EventName;
 import com.webforj.component.element.annotation.EventOptions;
 import com.webforj.component.event.ComponentEvent;
@@ -45,7 +45,7 @@ public class ChangedEvent extends ComponentEvent<SuggestionEdit> {
    * @return An {@code Optional} containing the new suggestion, or empty if no suggestion is
    *     available.
    */
-  public Optional<Suggestion> getSuggestion() {
+  public Optional<SuggestionItem> getSuggestion() {
     final Object suggestionData = this.getEventMap().get("suggestion");
     if (suggestionData == null) {
       return Optional.empty();
@@ -53,7 +53,7 @@ public class ChangedEvent extends ComponentEvent<SuggestionEdit> {
 
     final var gson = new Gson();
     final var json = gson.toJson(suggestionData, HashMap.class);
-    final Suggestion suggestion = gson.fromJson(json, Suggestion.class);
+    final SuggestionItem suggestion = gson.fromJson(json, SuggestionItem.class);
     return Optional.ofNullable(suggestion);
   }
 }
