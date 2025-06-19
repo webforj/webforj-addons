@@ -230,7 +230,7 @@ public class SuggestionEdit extends ElementComposite
       PropertyDescriptor.property("skidding", 0);
 
   /** Property for the list of suggestions for the component. */
-  private final PropertyDescriptor<List<Suggestion>> suggestionsProp =
+  private final PropertyDescriptor<List<SuggestionItem>> suggestionsProp =
       PropertyDescriptor.property("suggestions", new ArrayList<>());
 
   /** Property for indicating the tab traversable behavior of the component. */
@@ -1061,7 +1061,7 @@ public class SuggestionEdit extends ElementComposite
    *
    * @return The list of suggestions.
    */
-  public List<Suggestion> getSuggestions() {
+  public List<SuggestionItem> getSuggestions() {
     return super.get(this.suggestionsProp);
   }
 
@@ -1071,7 +1071,7 @@ public class SuggestionEdit extends ElementComposite
    * @param suggestions The list of suggestions.
    * @return This {@code SuggestionEdit} instance for method chaining.
    */
-  public SuggestionEdit setSuggestions(List<Suggestion> suggestions) {
+  public SuggestionEdit setSuggestions(List<SuggestionItem> suggestions) {
     super.set(this.suggestionsProp, suggestions);
     return this;
   }
