@@ -18,13 +18,13 @@
   <name>${project.artifactId}</name>
   <description>addons for webforJ enhances the user interface of the main webforJ framework with a diverse
     range of supplementary UI components.</description>
-
+    
   <modules>
+    <module>webforj-components-common</module>
     <module>webforj-side-menu</module>
     <module>webforj-suggestion-edit</module>
     <module>webforj-multi-select-combo</module>
     <module>webforj-properties-panel</module>
-    <module>webforj-components-common</module>
   </modules>
 
   <properties>

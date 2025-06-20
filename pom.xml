@@ -40,12 +40,13 @@
       <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
+  
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <webforj.version>25.01</webforj.version>
+    <dwc.cdn.version>1.2.2-0</dwc.cdn.version>
   </properties>
 
   <dependencyManagement>
