@@ -280,12 +280,11 @@ public class MultiSelectCombo extends ElementComposite
       PropertyDescriptor.property("autoValidateOnLoad", false);
 
   /** Attribute determining whether the component is valid. */
-  private final PropertyDescriptor<Boolean> validProp =
-      PropertyDescriptor.attribute("valid", false);
+  private final PropertyDescriptor<Boolean> validProp = PropertyDescriptor.property("valid", false);
 
   /** Attribute determining whether the component is invalid. */
   private final PropertyDescriptor<Boolean> invalidProp =
-      PropertyDescriptor.attribute("invalid", false);
+      PropertyDescriptor.property("invalid", false);
 
   /** Property for error message to display to the user when the component is invalid. */
   private final PropertyDescriptor<String> invalidMessageProp =
