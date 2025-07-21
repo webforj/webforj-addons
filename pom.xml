@@ -41,7 +41,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <webforj.version>25.01</webforj.version>
+    <webforj.version>25.02</webforj.version>
     <dwc.cdn.version>1.2.2-0</dwc.cdn.version>
   </properties>
 
