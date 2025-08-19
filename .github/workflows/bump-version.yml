@@ -89,7 +89,7 @@ jobs:
         if: ${{ github.event.inputs.trigger_client_release == 'true' }}
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: release.yml
+          workflow: version.yml
           repo: webforj/dwc-addons
           token: ${{ secrets.GH_PAT }}
           inputs: '{"release-type": "${{ github.event.inputs.client_release_type }}"}'
