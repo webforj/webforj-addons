@@ -53,32 +53,50 @@ jobs:
 
       - name: Calculate new client version  
         id: new_client_version
-        uses: WyriHaximus/github-action-next-semvers@v1
+        uses: madhead/semver-utils@latest
         with:
           version: ${{ steps.current_client_version.outputs.current_client_version }}
 
       - name: Set new client version
         id: client_version
         run: |
+          CURRENT_VERSION="${{ steps.current_client_version.outputs.current_client_version }}"
+          PRERELEASE="${{ steps.new_client_version.outputs.prerelease }}"
+          
           # Set client version based on client release type
           case "${{ github.event.inputs.client_release_type }}" in
             "major")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.major }}"
+              CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-major }}"
               ;;
             "minor")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.minor }}"
+              CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-minor }}"
               ;;
             "patch")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.patch }}"
+              CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-patch }}"
               ;;
             "premajor")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.v_major }}"
+              # If already a prerelease, increment prerelease; otherwise create new premajor
+              if [ -n "$PRERELEASE" ]; then
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-prerelease }}"
+              else
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-premajor }}"
+              fi
               ;;
             "preminor")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.v_minor }}"
+              # If already a prerelease, increment prerelease; otherwise create new preminor
+              if [ -n "$PRERELEASE" ]; then
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-prerelease }}"
+              else
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-preminor }}"
+              fi
               ;;
             "prepatch")
-              CLIENT_VERSION="${{ steps.new_client_version.outputs.v_patch }}"
+              # If already a prerelease, increment prerelease; otherwise create new prepatch
+              if [ -n "$PRERELEASE" ]; then
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-prerelease }}"
+              else
+                CLIENT_VERSION="${{ steps.new_client_version.outputs.inc-prepatch }}"
+              fi
               ;;
             esac
           
