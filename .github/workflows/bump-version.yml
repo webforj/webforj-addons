@@ -64,25 +64,32 @@ jobs:
           case "${{ github.event.inputs.client_release_type }}" in
             "major")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.major }}"
+              PRERELEASE=false
               ;;
             "minor")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.minor }}"
+              PRERELEASE=false
               ;;
             "patch")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.patch }}"
+              PRERELEASE=false
               ;;
             "premajor")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.v_major }}"
+              PRERELEASE=true
               ;;
             "preminor")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.v_minor }}"
+              PRERELEASE=true
               ;;
             "prepatch")
               CLIENT_VERSION="${{ steps.new_client_version.outputs.v_patch }}"
+              PRERELEASE=true
               ;;
             esac
           
           echo "client_version=${CLIENT_VERSION}" >> $GITHUB_OUTPUT
+          echo "prerelease=${PRERELEASE}" >> $GITHUB_OUTPUT
           echo "New client version: ${CLIENT_VERSION}"
 
       - name: Trigger client release
@@ -92,7 +99,7 @@ jobs:
           workflow: release.yml
           repo: webforj/dwc-addons
           token: ${{ secrets.GH_PAT }}
-          inputs: '{"release-type": "${{ github.event.inputs.client_release_type }}"}'
+          inputs: '{"version": "${{ steps.client_version.outputs.client_version }}", "pre-release": "${{ steps.client_version.outputs.prerelease }}"}'
           ref: main
 
       - name: Update pom.xml with new client version
