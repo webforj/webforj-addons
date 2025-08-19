@@ -7,7 +7,7 @@
 
   <groupId>com.webforj.addons</groupId>
   <artifactId>webforj-addons</artifactId>
-  <version>25.02</version>
+  <version>25.03-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>webforj-addons</name>
@@ -42,7 +42,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <webforj.version>25.01</webforj.version>
-    <dwc.cdn.version>1.2.2</dwc.cdn.version>
+    <dwc.cdn.version>1.2.3-0</dwc.cdn.version>
   </properties>
 
   <dependencyManagement>
