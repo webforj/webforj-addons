@@ -1,0 +1,86 @@
+/* OpenLayers control positioning */
+.ol-control {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  padding: 2px;
+}
+
+/* Zoom controls - bottom right */
+.ol-zoom {
+  bottom: 0.5em;
+  right: 0.5em;
+  top: auto;
+  left: auto;
+}
+
+/* Attribution - bottom right, next to zoom controls */
+.ol-attribution {
+  bottom: 0.5em;
+  right: 3.5em;
+  top: auto;
+  left: auto;
+  text-align: right;
+  max-width: calc(100% - 4em);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.ol-attribution ul {
+  font-size: 0.7rem;
+  line-height: 1.375em;
+  color: #000;
+  text-shadow: 0 0 2px #fff;
+  margin: 0;
+  padding: 1px 0.5em;
+}
+
+.ol-attribution li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ol-attribution li:not(:last-child):after {
+  content: " ";
+}
+
+/* Hide attribution toggle button completely */
+.ol-attribution button {
+  display: none !important;
+}
+
+/* Map container fills parent */
+.ol-viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* Zoom button styling */
+.ol-zoom button {
+  display: block;
+  margin: 1px;
+  padding: 0;
+  color: #fff;
+  font-size: 1.14em;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  height: 1.375em;
+  width: 1.375em;
+  line-height: 0.4em;
+  background-color: rgba(0, 60, 136, 0.5);
+  border: none;
+  border-radius: 2px;
+}
+
+.ol-zoom button:hover {
+  background-color: rgba(0, 60, 136, 0.7);
+}
+
+.ol-zoom button:focus {
+  background-color: rgba(0, 60, 136, 0.7);
+  outline: none;
+}

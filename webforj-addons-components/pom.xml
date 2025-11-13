@@ -18,13 +18,14 @@
   <name>${project.artifactId}</name>
   <description>addons for webforJ enhances the user interface of the main webforJ framework with a diverse
     range of supplementary UI components.</description>
-    
+
   <modules>
     <module>webforj-components-common</module>
     <module>webforj-side-menu</module>
     <module>webforj-suggestion-edit</module>
     <module>webforj-multi-select-combo</module>
     <module>webforj-properties-panel</module>
+    <module>webforj-map</module>
   </modules>
 
   <properties>
@@ -39,6 +40,19 @@
       <artifactId>webforj-foundation</artifactId>
     </dependency>
   </dependencies>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>ossrh-snapshots</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <build>
     <pluginManagement>
@@ -101,17 +115,4 @@
       </plugins>
     </pluginManagement>
   </build>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>ossrh-snapshots</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </pluginRepository>
-  </pluginRepositories>
 </project>

@@ -41,7 +41,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <webforj.version>25.03</webforj.version>
+    <webforj.version>25.10-SNAPSHOT</webforj.version>
     <dwc.cdn.version>1.2.4-0</dwc.cdn.version>
   </properties>
 
@@ -84,15 +84,15 @@
 
   <repositories>
     <repository>
-      <name>Central Portal Snapshots</name>
-      <id>central-portal-snapshots</id>
-      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+      <id>central-portal-snapshots</id>
+      <name>Central Portal Snapshots</name>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
     </repository>
   </repositories>
 
@@ -164,11 +164,6 @@
       </plugins>
     </pluginManagement>
     <plugins>
-      <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
-        <extensions>true</extensions>
-      </plugin>
 
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
@@ -248,6 +243,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <extensions>true</extensions>
       </plugin>
     </plugins>
   </build>
