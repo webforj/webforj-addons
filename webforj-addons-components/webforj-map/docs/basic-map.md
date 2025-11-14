@@ -179,8 +179,8 @@ Button statusBtn = new Button("Get Status");
 statusBtn.onClick(e -> {
   MapView currentView = map.getView();
   if (currentView != null) {
-    System.out.println("Center: " + currentView.getCenter().longitude() + 
-                      ", " + currentView.getCenter().latitude());
+    System.out.println("Center: " + currentView.getCenter().getLongitude() + 
+                      ", " + currentView.getCenter().getLatitude());
     System.out.println("Zoom: " + currentView.getZoom());
     System.out.println("Rotation: " + currentView.getRotation() + " radians");
   }
@@ -265,8 +265,8 @@ public class CompleteMapView extends Composite<Div> {
     statusBtn.onClick(e -> {
       MapView currentView = map.getView();
       if (currentView != null) {
-        System.out.println("Center: " + currentView.getCenter().longitude() + 
-                          ", " + currentView.getCenter().latitude());
+        System.out.println("Center: " + currentView.getCenter().getLongitude() + 
+                          ", " + currentView.getCenter().getLatitude());
         System.out.println("Zoom: " + currentView.getZoom());
         System.out.println("Rotation: " + currentView.getRotation());
       }

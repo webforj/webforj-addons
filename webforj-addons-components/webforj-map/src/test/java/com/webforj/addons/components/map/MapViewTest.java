@@ -59,8 +59,8 @@ class MapViewTest {
       MapView view = MapView.builder().center(-74.006, 40.7128).build();
 
       assertNotNull(view.getCenter());
-      assertEquals(-74.006, view.getCenter().longitude(), DELTA);
-      assertEquals(40.7128, view.getCenter().latitude(), DELTA);
+      assertEquals(-74.006, view.getCenter().getLongitude(), DELTA);
+      assertEquals(40.7128, view.getCenter().getLatitude(), DELTA);
     }
 
     @Test

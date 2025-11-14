@@ -4,20 +4,43 @@ package com.webforj.addons.components.map;
  * Geographic coordinate in EPSG:4326 (WGS84) format with [longitude, latitude] ordering. Longitude
  * ranges from -180 to 180 degrees, latitude from -90 to 90 degrees.
  *
- * @param longitude the longitude in degrees (-180 to 180)
- * @param latitude the latitude in degrees (-90 to 90)
  * @since 25.03
  */
-public record Coordinate(double longitude, double latitude) {
+public final class Coordinate {
+
+  private final double longitude;
+  private final double latitude;
 
   /**
-   * Compact constructor that validates longitude and latitude values.
+   * Creates a new coordinate with the specified longitude and latitude.
    *
+   * @param longitude the longitude in degrees (-180 to 180)
+   * @param latitude the latitude in degrees (-90 to 90)
    * @throws IllegalArgumentException if longitude or latitude are outside valid ranges
    */
-  public Coordinate {
+  public Coordinate(double longitude, double latitude) {
     validateLongitude(longitude);
     validateLatitude(latitude);
+    this.longitude = longitude;
+    this.latitude = latitude;
+  }
+
+  /**
+   * Gets the longitude value.
+   *
+   * @return the longitude in degrees
+   */
+  public double getLongitude() {
+    return longitude;
+  }
+
+  /**
+   * Gets the latitude value.
+   *
+   * @return the latitude in degrees
+   */
+  public double getLatitude() {
+    return latitude;
   }
 
   /**
@@ -35,7 +58,7 @@ public record Coordinate(double longitude, double latitude) {
    * @param longitude the longitude to validate
    * @throws IllegalArgumentException if longitude is outside valid range
    */
-  private static void validateLongitude(double longitude) {
+  private void validateLongitude(double longitude) {
     if (Double.isNaN(longitude) || Double.isInfinite(longitude)) {
       throw new IllegalArgumentException("Longitude must be a finite number");
     }
@@ -51,7 +74,7 @@ public record Coordinate(double longitude, double latitude) {
    * @param latitude the latitude to validate
    * @throws IllegalArgumentException if latitude is outside valid range
    */
-  private static void validateLatitude(double latitude) {
+  private void validateLatitude(double latitude) {
     if (Double.isNaN(latitude) || Double.isInfinite(latitude)) {
       throw new IllegalArgumentException("Latitude must be a finite number");
     }

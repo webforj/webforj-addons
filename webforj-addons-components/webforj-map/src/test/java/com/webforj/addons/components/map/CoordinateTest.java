@@ -22,8 +22,8 @@ class CoordinateTest {
     void createValidCoordinate() {
       Coordinate coordinate = new Coordinate(VALID_LONGITUDE, VALID_LATITUDE);
 
-      assertEquals(VALID_LONGITUDE, coordinate.longitude(), DELTA);
-      assertEquals(VALID_LATITUDE, coordinate.latitude(), DELTA);
+      assertEquals(VALID_LONGITUDE, coordinate.getLongitude(), DELTA);
+      assertEquals(VALID_LATITUDE, coordinate.getLatitude(), DELTA);
     }
 
     @Test
@@ -32,10 +32,10 @@ class CoordinateTest {
       Coordinate minBounds = new Coordinate(-180.0, -90.0);
       Coordinate maxBounds = new Coordinate(180.0, 90.0);
 
-      assertEquals(-180.0, minBounds.longitude(), DELTA);
-      assertEquals(-90.0, minBounds.latitude(), DELTA);
-      assertEquals(180.0, maxBounds.longitude(), DELTA);
-      assertEquals(90.0, maxBounds.latitude(), DELTA);
+      assertEquals(-180.0, minBounds.getLongitude(), DELTA);
+      assertEquals(-90.0, minBounds.getLatitude(), DELTA);
+      assertEquals(180.0, maxBounds.getLongitude(), DELTA);
+      assertEquals(90.0, maxBounds.getLatitude(), DELTA);
     }
 
     @Test

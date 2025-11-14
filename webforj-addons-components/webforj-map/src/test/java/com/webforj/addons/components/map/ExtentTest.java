@@ -20,10 +20,10 @@ class ExtentTest {
     void createValidExtent() {
       Extent extent = new Extent(-74.1, 40.6, -73.9, 40.8);
 
-      assertEquals(-74.1, extent.minLongitude(), DELTA);
-      assertEquals(40.6, extent.minLatitude(), DELTA);
-      assertEquals(-73.9, extent.maxLongitude(), DELTA);
-      assertEquals(40.8, extent.maxLatitude(), DELTA);
+      assertEquals(-74.1, extent.getMinLongitude(), DELTA);
+      assertEquals(40.6, extent.getMinLatitude(), DELTA);
+      assertEquals(-73.9, extent.getMaxLongitude(), DELTA);
+      assertEquals(40.8, extent.getMaxLatitude(), DELTA);
     }
 
     @Test
@@ -60,10 +60,10 @@ class ExtentTest {
 
       Extent extent = Extent.fromCorners(bottomLeft, topRight);
 
-      assertEquals(-74.1, extent.minLongitude(), DELTA);
-      assertEquals(40.6, extent.minLatitude(), DELTA);
-      assertEquals(-73.9, extent.maxLongitude(), DELTA);
-      assertEquals(40.8, extent.maxLatitude(), DELTA);
+      assertEquals(-74.1, extent.getMinLongitude(), DELTA);
+      assertEquals(40.6, extent.getMinLatitude(), DELTA);
+      assertEquals(-73.9, extent.getMaxLongitude(), DELTA);
+      assertEquals(40.8, extent.getMaxLatitude(), DELTA);
     }
 
     @Test
@@ -85,10 +85,10 @@ class ExtentTest {
 
       Extent extent = Extent.fromCenter(center, width, height);
 
-      assertEquals(-74.1, extent.minLongitude(), DELTA);
-      assertEquals(40.6, extent.minLatitude(), DELTA);
-      assertEquals(-73.9, extent.maxLongitude(), DELTA);
-      assertEquals(40.8, extent.maxLatitude(), DELTA);
+      assertEquals(-74.1, extent.getMinLongitude(), DELTA);
+      assertEquals(40.6, extent.getMinLatitude(), DELTA);
+      assertEquals(-73.9, extent.getMaxLongitude(), DELTA);
+      assertEquals(40.8, extent.getMaxLatitude(), DELTA);
     }
 
     @Test
@@ -112,8 +112,8 @@ class ExtentTest {
     void getBottomLeft() {
       Coordinate bottomLeft = extent.getBottomLeft();
 
-      assertEquals(-74.1, bottomLeft.longitude(), DELTA);
-      assertEquals(40.6, bottomLeft.latitude(), DELTA);
+      assertEquals(-74.1, bottomLeft.getLongitude(), DELTA);
+      assertEquals(40.6, bottomLeft.getLatitude(), DELTA);
     }
 
     @Test
@@ -121,8 +121,8 @@ class ExtentTest {
     void getTopRight() {
       Coordinate topRight = extent.getTopRight();
 
-      assertEquals(-73.9, topRight.longitude(), DELTA);
-      assertEquals(40.8, topRight.latitude(), DELTA);
+      assertEquals(-73.9, topRight.getLongitude(), DELTA);
+      assertEquals(40.8, topRight.getLatitude(), DELTA);
     }
 
     @Test
@@ -130,8 +130,8 @@ class ExtentTest {
     void getCenter() {
       Coordinate center = extent.getCenter();
 
-      assertEquals(-74.0, center.longitude(), DELTA);
-      assertEquals(40.7, center.latitude(), DELTA);
+      assertEquals(-74.0, center.getLongitude(), DELTA);
+      assertEquals(40.7, center.getLatitude(), DELTA);
     }
 
     @Test

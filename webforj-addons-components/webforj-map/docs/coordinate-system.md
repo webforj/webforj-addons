@@ -19,9 +19,9 @@ import com.webforj.addons.components.map.Coordinate;
 // Create coordinate: longitude first, latitude second
 Coordinate nyc = new Coordinate(-74.006, 40.7128);
 
-// Access values (record accessors)
-double lon = nyc.longitude(); // -74.006
-double lat = nyc.latitude();  // 40.7128
+// Access values
+double lon = nyc.getLongitude(); // -74.006
+double lat = nyc.getLatitude();  // 40.7128
 
 // Convert to array [lon, lat]
 double[] coords = nyc.toArray(); // [-74.006, 40.7128]
@@ -151,12 +151,12 @@ Extent europe = Extent.fromCorners(bottomLeft, topRight);
 Coordinate center = new Coordinate(15.0, 53.5);
 Extent europeFromCenter = Extent.fromCenter(center, 50.0, 35.0);
 
-// Get extent properties (record accessors)
-double[] bounds = europe.toArray();        // [-10.0, 36.0, 40.0, 71.0]
-double minLon = europe.minLongitude();     // -10.0
-double maxLat = europe.maxLatitude();      // 71.0
-double width = europe.getWidth();          // 50.0 degrees
-double height = europe.getHeight();        // 35.0 degrees
+// Get extent properties
+double[] bounds = europe.toArray();           // [-10.0, 36.0, 40.0, 71.0]
+double minLon = europe.getMinLongitude();     // -10.0
+double maxLat = europe.getMaxLatitude();      // 71.0
+double width = europe.getWidth();             // 50.0 degrees
+double height = europe.getHeight();           // 35.0 degrees
 Coordinate centerCoord = europe.getCenter();
 ```
 

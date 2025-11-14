@@ -7,22 +7,26 @@ import java.util.Objects;
  * ordering. Defines a rectangular area with validated bounds ensuring min values are less than max
  * values.
  *
- * @param minLongitude the minimum longitude (-180 to 180)
- * @param minLatitude the minimum latitude (-90 to 90)
- * @param maxLongitude the maximum longitude (-180 to 180)
- * @param maxLatitude the maximum latitude (-90 to 90)
  * @since 25.03
  */
-public record Extent(
-    double minLongitude, double minLatitude, double maxLongitude, double maxLatitude) {
+public final class Extent {
+
+  private final double minLongitude;
+  private final double minLatitude;
+  private final double maxLongitude;
+  private final double maxLatitude;
 
   /**
-   * Compact constructor that validates extent bounds.
+   * Creates a new extent with the specified bounds.
    *
+   * @param minLongitude the minimum longitude (-180 to 180)
+   * @param minLatitude the minimum latitude (-90 to 90)
+   * @param maxLongitude the maximum longitude (-180 to 180)
+   * @param maxLatitude the maximum latitude (-90 to 90)
    * @throws IllegalArgumentException if any coordinate is outside valid ranges or if min values are
    *     not less than max values
    */
-  public Extent {
+  public Extent(double minLongitude, double minLatitude, double maxLongitude, double maxLatitude) {
     // Validate using Coordinate constructor which will throw if invalid
     new Coordinate(minLongitude, minLatitude);
     new Coordinate(maxLongitude, maxLatitude);
@@ -40,6 +44,11 @@ public record Extent(
               "Invalid extent: minLatitude (%.6f) must be less than maxLatitude (%.6f)",
               minLatitude, maxLatitude));
     }
+
+    this.minLongitude = minLongitude;
+    this.minLatitude = minLatitude;
+    this.maxLongitude = maxLongitude;
+    this.maxLatitude = maxLatitude;
   }
 
   /**
@@ -55,8 +64,8 @@ public record Extent(
     Objects.requireNonNull(topRight, "Top-right coordinate cannot be null");
 
     return new Extent(
-        bottomLeft.longitude(), bottomLeft.latitude(),
-        topRight.longitude(), topRight.latitude());
+        bottomLeft.getLongitude(), bottomLeft.getLatitude(),
+        topRight.getLongitude(), topRight.getLatitude());
   }
 
   /**
@@ -82,10 +91,46 @@ public record Extent(
     double halfHeight = heightDegrees / 2.0;
 
     return new Extent(
-        center.longitude() - halfWidth,
-        center.latitude() - halfHeight,
-        center.longitude() + halfWidth,
-        center.latitude() + halfHeight);
+        center.getLongitude() - halfWidth,
+        center.getLatitude() - halfHeight,
+        center.getLongitude() + halfWidth,
+        center.getLatitude() + halfHeight);
+  }
+
+  /**
+   * Gets the minimum longitude (west bound).
+   *
+   * @return the minimum longitude
+   */
+  public double getMinLongitude() {
+    return minLongitude;
+  }
+
+  /**
+   * Gets the minimum latitude (south bound).
+   *
+   * @return the minimum latitude
+   */
+  public double getMinLatitude() {
+    return minLatitude;
+  }
+
+  /**
+   * Gets the maximum longitude (east bound).
+   *
+   * @return the maximum longitude
+   */
+  public double getMaxLongitude() {
+    return maxLongitude;
+  }
+
+  /**
+   * Gets the maximum latitude (north bound).
+   *
+   * @return the maximum latitude
+   */
+  public double getMaxLatitude() {
+    return maxLatitude;
   }
 
   /**
