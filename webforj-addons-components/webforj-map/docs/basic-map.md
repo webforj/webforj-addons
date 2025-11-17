@@ -157,6 +157,7 @@ public class ExtentMapView extends Composite<Div> {
       MapView europeView = map.getView().toBuilder()
           .center(15.0, 52.5)  // Center of Europe
           .zoom(4.0)
+          .extent(europe)
           .build();
       map.setView(europeView);
     });
