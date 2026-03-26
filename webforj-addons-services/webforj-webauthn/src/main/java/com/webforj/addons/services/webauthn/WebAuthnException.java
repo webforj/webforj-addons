@@ -6,9 +6,9 @@ package com.webforj.addons.services.webauthn;
  * Authentication API, including a {@link WebAuthnErrorCode} that identifies the specific failure
  * reason.
  *
- * <p>
- * Consumers can use {@link #getCode()} to programmatically distinguish between different failure
- * scenarios such as user cancellation, missing authenticator capabilities, or invalid configuration.
+ * <p>Consumers can use {@link #getCode()} to programmatically distinguish between different failure
+ * scenarios such as user cancellation, missing authenticator capabilities, or invalid
+ * configuration.
  *
  * @see WebAuthnErrorCode
  * @see <a href="https://www.w3.org/TR/webauthn-3/#sctn-api">Web Authentication API</a>
@@ -23,8 +23,8 @@ public class WebAuthnException extends RuntimeException {
    *
    * @param message the error message from the client
    * @param code the {@link WebAuthnErrorCode} identifying the failure reason
-   * @param errorName the original DOM exception name (e.g. {@code "NotAllowedError"},
-   *     {@code "AbortError"})
+   * @param errorName the original DOM exception name (e.g. {@code "NotAllowedError"}, {@code
+   *     "AbortError"})
    */
   public WebAuthnException(String message, WebAuthnErrorCode code, String errorName) {
     super(message);

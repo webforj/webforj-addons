@@ -6,7 +6,6 @@ package com.webforj.addons.services.webauthn;
  * implementation and provide detailed context about the cause of a failure.
  *
  * @see <a href="https://www.w3.org/TR/webauthn-3/#sctn-api">Web Authentication API</a>
- * 
  */
 public enum WebAuthnErrorCode {
 
@@ -48,8 +47,8 @@ public enum WebAuthnErrorCode {
   PASSTHROUGH_SEE_CAUSE_PROPERTY;
 
   /**
-   * Returns the {@code WebAuthnErrorCode} matching the given string, or
-   * {@link #AUTHENTICATOR_GENERAL_ERROR} if no match is found.
+   * Returns the {@code WebAuthnErrorCode} matching the given string, or {@link
+   * #AUTHENTICATOR_GENERAL_ERROR} if no match is found.
    *
    * @param code the string code from the client error payload
    * @return the matching enum constant

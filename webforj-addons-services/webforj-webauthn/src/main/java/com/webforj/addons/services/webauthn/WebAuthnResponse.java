@@ -26,9 +26,7 @@ class WebAuthnResponse {
     return error;
   }
 
-  /**
-   * The structured error details included in a failed response envelope.
-   */
+  /** The structured error details included in a failed response envelope. */
   static class ErrorPayload {
     private String code;
     private String message;

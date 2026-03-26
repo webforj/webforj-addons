@@ -1,5 +1,7 @@
 package com.webforj.addons.services.webauthn;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.webforj.Page;
 import com.webforj.PendingResult;
 import com.webforj.addons.services.webauthn.data.AuthenticationResponse;
@@ -12,8 +14,6 @@ import com.webforj.addons.services.webauthn.data.RegistrationResponse;
 import com.webforj.addons.services.webauthn.data.RelyingPartyIdentity;
 import com.webforj.component.html.HtmlComponent;
 import com.webforj.component.html.elements.Div;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
@@ -57,8 +57,8 @@ public class RelyingParty {
    *
    * <p>The origin is used to validate WebAuthn responses per the W3C specification. It must match
    * the origin that the browser will report in {@code clientDataJSON}. For production deployments
-   * this is typically {@code "https://" + rpId}. For local development, use
-   * {@code "http://localhost:<port>"}.
+   * this is typically {@code "https://" + rpId}. For local development, use {@code
+   * "http://localhost:<port>"}.
    *
    * @param relyingPartyIdentity the relying party identity
    * @param origin the expected origin (e.g. "https://example.com")
@@ -104,8 +104,7 @@ public class RelyingParty {
     authenticateOptions.setRpId(relyingPartyIdentity.getId());
     String options = authenticateOptions.toJson();
     return Page.getCurrent()
-        .executeJsAsync(
-            "window.dwcWebAuthn.authenticate(%s, %b)".formatted(options, autofill))
+        .executeJsAsync("window.dwcWebAuthn.authenticate(%s, %b)".formatted(options, autofill))
         .thenApply(response -> parseResponse(response, "Authentication"))
         .thenApply(json -> AuthenticationResponse.fromJson(json))
         .thenApply(this::validateAuthenticationResponse);
@@ -175,10 +174,10 @@ public class RelyingParty {
 
   /**
    * Parses the raw response envelope from {@code executeJsAsync}. The TypeScript client always
-   * returns a JSON envelope: {@code {success: true, data: ...}} on success, or
-   * {@code {success: false, error: {code, message, name}}} on failure. If the response is
-   * {@code null} or the literal string {@code "null"} (which happens when
-   * {@code executeJsAsync} cannot propagate a rejection), this is treated as an unknown failure.
+   * returns a JSON envelope: {@code {success: true, data: ...}} on success, or {@code {success:
+   * false, error: {code, message, name}}} on failure. If the response is {@code null} or the
+   * literal string {@code "null"} (which happens when {@code executeJsAsync} cannot propagate a
+   * rejection), this is treated as an unknown failure.
    *
    * @param response the raw response object from {@code executeJsAsync}
    * @param ceremony a label for the ceremony type used in fallback messages
@@ -205,9 +204,7 @@ public class RelyingParty {
     if (!envelope.isSuccess()) {
       WebAuthnResponse.ErrorPayload error = envelope.getError();
       throw new WebAuthnException(
-          error.getMessage(),
-          WebAuthnErrorCode.fromString(error.getCode()),
-          error.getName());
+          error.getMessage(), WebAuthnErrorCode.fromString(error.getCode()), error.getName());
     }
 
     return envelope.getData() != null ? envelope.getData().toString() : json;
