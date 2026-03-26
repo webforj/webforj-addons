@@ -17,17 +17,21 @@ describe('authenticate', () => {
     jest.resetAllMocks();
   });
 
-  it('throws an error if WebAuthn is not supported in the browser', async () => {
+  it('returns error response if WebAuthn is not supported in the browser', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(false);
 
     const requestOptionsJSON: PublicKeyCredentialRequestOptionsJSON = {
       challenge: 'challenge',
     };
 
-    await expect(authenticate(requestOptionsJSON)).rejects.toThrow('WebAuthn is not supported in this browser');
+    const result = await authenticate(requestOptionsJSON);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({ message: 'WebAuthn is not supported in this browser' }),
+    });
   });
 
-  it('throws an error if WebAuthn autofill is not supported in the browser', async () => {
+  it('returns error response if WebAuthn autofill is not supported in the browser', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(true);
     (browserSupportsWebAuthnAutofill as jest.Mock).mockResolvedValue(false);
 
@@ -35,10 +39,14 @@ describe('authenticate', () => {
       challenge: 'challenge',
     };
 
-    await expect(authenticate(requestOptionsJSON, true)).rejects.toThrow('Browser does not support WebAuthn autofill');
+    const result = await authenticate(requestOptionsJSON, true);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({ message: 'Browser does not support WebAuthn autofill' }),
+    });
   });
 
-  it('throws an error if no eligible input for WebAuthn autofill is found', async () => {
+  it('returns error response if no eligible input for WebAuthn autofill is found', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(true);
     (browserSupportsWebAuthnAutofill as jest.Mock).mockResolvedValue(true);
     document.querySelectorAll = jest.fn().mockReturnValue([]);
@@ -47,9 +55,13 @@ describe('authenticate', () => {
       challenge: 'challenge',
     };
 
-    await expect(authenticate(requestOptionsJSON, true)).rejects.toThrow(
-      'No <input> with "webauthn" as the only or last value in its `autocomplete` attribute was detected'
-    );
+    const result = await authenticate(requestOptionsJSON, true);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({
+        message: expect.stringContaining('No <input>'),
+      }),
+    });
   });
 
   it('successfully completes authentication', async () => {
@@ -85,7 +97,7 @@ describe('authenticate', () => {
       rawId: 'AAECAw',
       response: {
         authenticatorData: 'BAUGBw',
-        clientDataJSON: 'CAkKCw',
+        clientDataJson: 'CAkKCw',
         signature: 'DA0ODw',
         userHandle: '\u0010\u0011\u0012\u0013',
       },
@@ -95,10 +107,13 @@ describe('authenticate', () => {
     };
 
     const result = await authenticate(requestOptionsJSON);
-    expect(result).toEqual(expectedResponse);
+    expect(result).toEqual({
+      success: true,
+      data: expectedResponse,
+    });
   });
 
-  it('handles authentication error', async () => {
+  it('returns error response on authentication error', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(true);
     (base64URLStringToBuffer as jest.Mock).mockImplementation(value => Buffer.from(value, 'base64'));
     (bufferToBase64URLString as jest.Mock).mockImplementation(buffer => Buffer.from(buffer).toString('base64url'));
@@ -109,9 +124,14 @@ describe('authenticate', () => {
     };
 
     const mockError = new Error('Test error');
+    Object.assign(mockError, { code: 'AUTHENTICATOR_GENERAL_ERROR' });
     (navigator.credentials.get as jest.Mock).mockRejectedValue(mockError);
     (identifyAuthenticationError as jest.Mock).mockReturnValue(mockError);
 
-    await expect(authenticate(requestOptionsJSON)).rejects.toThrow('Test error');
+    const result = await authenticate(requestOptionsJSON);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({ message: 'Test error' }),
+    });
   });
 });

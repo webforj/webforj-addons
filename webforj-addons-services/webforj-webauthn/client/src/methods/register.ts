@@ -3,13 +3,15 @@ import type {
   PublicKeyCredentialCreationOptionsJSON,
   RegistrationCredential,
   RegistrationResponseJSON,
+  WebAuthnResponse,
 } from '../types';
 
 import { bufferToBase64URLString, base64URLStringToBuffer, utf8StringToBuffer } from '../utils/communications';
 import { browserSupportsWebAuthn, safeBrowserApiCall } from '../utils/browser-supports';
-import { identifyRegistrationError } from '../utils/error';
+import { identifyRegistrationError, WebAuthnError } from '../utils/error';
 import { webAuthnAbort } from '../utils/webauthn-abort';
 import { toAuthenticatorAttachment, toPublicKeyCredentialDescriptor } from '../utils/transformers';
+import { ErrorNames, WebAuthnErrorCode } from 'constants/error';
 
 /**
  * Begin authenticator "registration" via WebAuthn attestation
@@ -18,9 +20,16 @@ import { toAuthenticatorAttachment, toPublicKeyCredentialDescriptor } from '../u
  */
 export async function register(
   creationOptionsJSON: PublicKeyCredentialCreationOptionsJSON,
-): Promise<RegistrationResponseJSON> {
+): Promise<WebAuthnResponse<RegistrationResponseJSON>> {
   if (!browserSupportsWebAuthn()) {
-    throw new Error('WebAuthn is not supported in this browser');
+    return {
+      success: false,
+      error: {
+        code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+        message: 'WebAuthn is not supported in this browser',
+        name: ErrorNames.NotSupportedError,
+      },
+    };
   }
 
   // Preparing the public key by converting some of the values
@@ -44,11 +53,36 @@ export async function register(
   try {
     credential = (await navigator.credentials.create(options)) as RegistrationCredential;
   } catch (err) {
-    throw identifyRegistrationError({ error: err as Error, options });
+    const identified = identifyRegistrationError({ error: err as Error, options });
+    if (identified instanceof WebAuthnError) {
+      return {
+        success: false,
+        error: {
+          code: identified.code,
+          message: identified.message,
+          name: identified.name,
+        },
+      };
+    }
+    return {
+      success: false,
+      error: {
+        code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+        message: (identified as Error).message || 'Unknown error',
+        name: (identified as Error).name || ErrorNames.UnknownError,
+      },
+    };
   }
 
   if (!credential) {
-    throw new Error('Registration was not completed');
+    return {
+      success: false,
+      error: {
+        code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+        message: 'Registration was not completed',
+        name: ErrorNames.UnknownError,
+      },
+    };
   }
 
   const { id, rawId, response, type } = credential;
@@ -88,20 +122,23 @@ export async function register(
   }
 
   return {
-    id,
-    rawId: bufferToBase64URLString(rawId),
-    response: {
-      attestationObject: bufferToBase64URLString(response.attestationObject),
-      clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
-      transports,
-      publicKeyAlgorithm: responsePublicKeyAlgorithm,
-      publicKey: responsePublicKey,
-      authenticatorData: responseAuthenticatorData,
+    success: true,
+    data: {
+      id,
+      rawId: bufferToBase64URLString(rawId),
+      response: {
+        attestationObject: bufferToBase64URLString(response.attestationObject),
+        clientDataJson: bufferToBase64URLString(response.clientDataJSON),
+        transports,
+        publicKeyAlgorithm: responsePublicKeyAlgorithm,
+        publicKey: responsePublicKey,
+        authenticatorData: responseAuthenticatorData,
+      },
+      type,
+      clientExtensionResults: credential.getClientExtensionResults(),
+      authenticatorAttachment: toAuthenticatorAttachment(
+        credential.authenticatorAttachment,
+      ),
     },
-    type,
-    clientExtensionResults: credential.getClientExtensionResults(),
-    authenticatorAttachment: toAuthenticatorAttachment(
-      credential.authenticatorAttachment,
-    ),
   };
 }

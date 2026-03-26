@@ -105,7 +105,7 @@ export interface AuthenticationResponseJSON {
  * https://w3c.github.io/webauthn/#dictdef-authenticatorattestationresponsejson
  */
 export interface AuthenticatorAttestationResponseJSON {
-  clientDataJSON: Base64URLString;
+  clientDataJson: Base64URLString;
   attestationObject: Base64URLString;
   /**
    * Optional in L2, but becomes required in L3. Play it safe until L3 becomes Recommendation
@@ -129,7 +129,7 @@ export interface AuthenticatorAttestationResponseJSON {
  * https://w3c.github.io/webauthn/#dictdef-authenticatorassertionresponsejson
  */
 export interface AuthenticatorAssertionResponseJSON {
-  clientDataJSON: Base64URLString;
+  clientDataJson: Base64URLString;
   authenticatorData: Base64URLString;
   signature: Base64URLString;
   userHandle?: string;
@@ -165,3 +165,27 @@ export type AuthenticatorTransportFuture =
   | 'nfc'
   | 'smart-card'
   | 'usb';
+
+/**
+ * A response envelope returned by the register() and authenticate() functions.
+ * Always resolves so the server-side bridge can reliably receive structured error
+ * information.
+ *
+ * On success, `success` is `true` and `data` contains the credential response.
+ * On failure, `success` is `false` and `error` contains the structured error details.
+ */
+export type WebAuthnResponse<T> =
+  | { success: true; data: T }
+  | { success: false; error: WebAuthnErrorResponse };
+
+/**
+ * Structured error details included in a failed {@link WebAuthnResponse}.
+ */
+export interface WebAuthnErrorResponse {
+  /** The error code identifying the failure reason. */
+  code: string;
+  /** A human-readable error message. */
+  message: string;
+  /** The original DOM exception name (e.g. "NotAllowedError"). */
+  name: string;
+}
