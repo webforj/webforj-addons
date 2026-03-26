@@ -126,7 +126,7 @@
             <goals>
               <goal>copy-resources</goal>
             </goals>
-            <phase>package</phase>
+            <phase>generate-resources</phase>
             <configuration>
               <outputDirectory>${project.basedir}/src/main/resources/services</outputDirectory>
               <resources>

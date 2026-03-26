@@ -2,6 +2,7 @@ import type {
   AuthenticationCredential,
   AuthenticationResponseJSON,
   PublicKeyCredentialRequestOptionsJSON,
+  WebAuthnResponse,
 } from '../types';
 
 import { bufferToBase64URLString, base64URLStringToBuffer, bufferToUTF8String } from '../utils/communications';
@@ -9,6 +10,7 @@ import { browserSupportsWebAuthn, browserSupportsWebAuthnAutofill } from '../uti
 import { identifyAuthenticationError } from '../utils/error';
 import { webAuthnAbort } from '../utils/webauthn-abort';
 import { toAuthenticatorAttachment, toPublicKeyCredentialDescriptor } from '../utils/transformers';
+import { ErrorNames, WebAuthnErrorCode } from 'constants/error';
 
 /**
  * Begin authenticator "login" via WebAuthn assertion
@@ -20,9 +22,16 @@ import { toAuthenticatorAttachment, toPublicKeyCredentialDescriptor } from '../u
 export async function authenticate(
   requestOptionsJSON: PublicKeyCredentialRequestOptionsJSON,
   useBrowserAutofill = false,
-): Promise<AuthenticationResponseJSON> {
+): Promise<WebAuthnResponse<AuthenticationResponseJSON>> {
   if (!browserSupportsWebAuthn()) {
-    throw new Error('WebAuthn is not supported in this browser');
+    return {
+      success: false,
+      error: {
+        code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+        message: 'WebAuthn is not supported in this browser',
+        name: ErrorNames.NotSupportedError,
+      },
+    };
   }
 
   // We need to avoid passing empty array to avoid blocking retrieval
@@ -53,18 +62,29 @@ export async function authenticate(
    */
   if (useBrowserAutofill) {
     if (!(await browserSupportsWebAuthnAutofill())) {
-      throw Error('Browser does not support WebAuthn autofill');
+      return {
+        success: false,
+        error: {
+          code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+          message: 'Browser does not support WebAuthn autofill',
+          name: ErrorNames.NotSupportedError,
+        },
+      };
     }
 
     const eligibleInputs = document.querySelectorAll(
       'input[autocomplete$=\'webauthn\']',
     );
 
-    // WebAuthn autofill requires at least one valid input
     if (eligibleInputs.length < 1) {
-      throw Error(
-        'No <input> with "webauthn" as the only or last value in its `autocomplete` attribute was detected',
-      );
+      return {
+        success: false,
+        error: {
+          code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+          message: 'No <input> with "webauthn" as the only or last value in its `autocomplete` attribute was detected',
+          name: ErrorNames.NotSupportedError,
+        },
+      };
     }
 
     options.mediation = 'conditional';
@@ -79,11 +99,26 @@ export async function authenticate(
   try {
     credential = (await navigator.credentials.get(options)) as AuthenticationCredential;
   } catch (err) {
-    throw identifyAuthenticationError({ error: err as Error, options });
+    const identified = identifyAuthenticationError({ error: err as Error, options });
+    return {
+      success: false,
+      error: {
+        code: identified.code,
+        message: identified.message,
+        name: identified.name,
+      },
+    };
   }
 
   if (!credential) {
-    throw new Error('Authentication was not completed');
+    return {
+      success: false,
+      error: {
+        code: WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+        message: 'Authentication was not completed',
+        name: ErrorNames.UnknownError,
+      },
+    };
   }
 
   const { id, rawId, response, type } = credential;
@@ -93,20 +128,22 @@ export async function authenticate(
     userHandle = bufferToUTF8String(response.userHandle);
   }
 
-  // Convert values to base64 to make it easier to send back to the server
   return {
-    id,
-    rawId: bufferToBase64URLString(rawId),
-    response: {
-      authenticatorData: bufferToBase64URLString(response.authenticatorData),
-      clientDataJSON: bufferToBase64URLString(response.clientDataJSON),
-      signature: bufferToBase64URLString(response.signature),
-      userHandle,
+    success: true,
+    data: {
+      id,
+      rawId: bufferToBase64URLString(rawId),
+      response: {
+        authenticatorData: bufferToBase64URLString(response.authenticatorData),
+        clientDataJson: bufferToBase64URLString(response.clientDataJSON),
+        signature: bufferToBase64URLString(response.signature),
+        userHandle,
+      },
+      type,
+      clientExtensionResults: credential.getClientExtensionResults(),
+      authenticatorAttachment: toAuthenticatorAttachment(
+        credential.authenticatorAttachment,
+      ),
     },
-    type,
-    clientExtensionResults: credential.getClientExtensionResults(),
-    authenticatorAttachment: toAuthenticatorAttachment(
-      credential.authenticatorAttachment,
-    ),
   };
 }

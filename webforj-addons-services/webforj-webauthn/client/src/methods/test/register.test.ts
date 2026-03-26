@@ -15,7 +15,7 @@ describe('register', () => {
     jest.resetAllMocks();
   });
 
-  it('throws an error if WebAuthn is not supported in the browser', async () => {
+  it('returns error response if WebAuthn is not supported in the browser', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(false);
 
     const creationOptions: PublicKeyCredentialCreationOptionsJSON = {
@@ -25,7 +25,11 @@ describe('register', () => {
       pubKeyCredParams: [{ alg: -7, type: 'public-key' }],
     };
 
-    await expect(register(creationOptions)).rejects.toThrow('WebAuthn is not supported in this browser');
+    const result = await register(creationOptions);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({ message: 'WebAuthn is not supported in this browser' }),
+    });
   });
 
   it('successfully completes registration', async () => {
@@ -66,7 +70,7 @@ describe('register', () => {
       rawId: 'AAECAw',
       response: {
         attestationObject: 'BAUGBw',
-        clientDataJSON: 'CAkKCw',
+        clientDataJson: 'CAkKCw',
         transports: ['usb'],
         publicKey: 'DA0ODw',
         authenticatorData: 'EBESEw',
@@ -78,10 +82,13 @@ describe('register', () => {
     };
 
     const result = await register(creationOptions);
-    expect(result).toEqual(expectedResponse);
+    expect(result).toEqual({
+      success: true,
+      data: expectedResponse,
+    });
   });
 
-  it('handles registration error', async () => {
+  it('returns error response on registration error', async () => {
     (browserSupportsWebAuthn as jest.Mock).mockReturnValue(true);
     (base64URLStringToBuffer as jest.Mock).mockImplementation(value => Buffer.from(value, 'base64'));
     (utf8StringToBuffer as jest.Mock).mockImplementation(value => Buffer.from(value, 'utf-8'));
@@ -98,6 +105,10 @@ describe('register', () => {
     (navigator.credentials.create as jest.Mock).mockRejectedValue(mockError);
     (identifyRegistrationError as jest.Mock).mockReturnValue(mockError);
 
-    await expect(register(creationOptions)).rejects.toThrow('Test error');
+    const result = await register(creationOptions);
+    expect(result).toEqual({
+      success: false,
+      error: expect.objectContaining({ message: 'Test error' }),
+    });
   });
 });

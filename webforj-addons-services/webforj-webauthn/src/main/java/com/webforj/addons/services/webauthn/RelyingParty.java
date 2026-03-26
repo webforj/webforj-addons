@@ -12,6 +12,8 @@ import com.webforj.addons.services.webauthn.data.RegistrationResponse;
 import com.webforj.addons.services.webauthn.data.RelyingPartyIdentity;
 import com.webforj.component.html.HtmlComponent;
 import com.webforj.component.html.elements.Div;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
@@ -29,6 +31,8 @@ import java.util.List;
  */
 public class RelyingParty {
 
+  private static final Gson gson = new Gson();
+
   /**
    * The identity of the relying party associated with this instance. This field represents the
    * identity information of the relying party (RP) with which this instance is associated. The
@@ -40,15 +44,28 @@ public class RelyingParty {
   private final RelyingPartyIdentity relyingPartyIdentity;
 
   /**
-   * Constructs a new RelyingParty instance with the specified relying party identity.
+   * The expected origin for validating WebAuthn responses. This must be configured server-side.
    *
-   * <p>This constructor initializes a new instance of the RelyingParty class with the provided
-   * relying party identity. The relying party identity contains information about the relying party
-   * (RP) associated with this RelyingParty instance, such as the RP's name, ID, and potentially
-   * other identifying information.
+   * @see <a href="https://www.w3.org/TR/webauthn-3/#sctn-validating-origin">§13.4.9 Validating the
+   *     Origin</a>
    */
-  public RelyingParty(RelyingPartyIdentity relyingPartyIdentity) {
+  private final String origin;
+
+  /**
+   * Constructs a new RelyingParty instance with the specified relying party identity and expected
+   * origin.
+   *
+   * <p>The origin is used to validate WebAuthn responses per the W3C specification. It must match
+   * the origin that the browser will report in {@code clientDataJSON}. For production deployments
+   * this is typically {@code "https://" + rpId}. For local development, use
+   * {@code "http://localhost:<port>"}.
+   *
+   * @param relyingPartyIdentity the relying party identity
+   * @param origin the expected origin (e.g. "https://example.com")
+   */
+  public RelyingParty(RelyingPartyIdentity relyingPartyIdentity, String origin) {
     this.relyingPartyIdentity = relyingPartyIdentity;
+    this.origin = origin;
     Page.getCurrent().addInlineJavaScript("context://services/webauthn.js");
   }
 
@@ -67,8 +84,9 @@ public class RelyingParty {
         .setPubKeyCredParams(this.filterAvailableAlgorithms(registerOptions.getPubKeyCredParams()));
     String options = registerOptions.toJson();
     return Page.getCurrent()
-        .executeJsAsync("window.dwcWebAuthn.register(%s);".formatted(options))
-        .thenApply(response -> RegistrationResponse.fromJson(response.toString()))
+        .executeJsAsync("window.dwcWebAuthn.register(%s)".formatted(options))
+        .thenApply(response -> parseResponse(response, "Registration"))
+        .thenApply(json -> RegistrationResponse.fromJson(json))
         .thenApply(this::validateRegistrationResponse);
   }
 
@@ -86,8 +104,10 @@ public class RelyingParty {
     authenticateOptions.setRpId(relyingPartyIdentity.getId());
     String options = authenticateOptions.toJson();
     return Page.getCurrent()
-        .executeJsAsync("window.dwcWebAuthn.authenticate(%s, %b)".formatted(options, autofill))
-        .thenApply(response -> AuthenticationResponse.fromJson(response.toString()))
+        .executeJsAsync(
+            "window.dwcWebAuthn.authenticate(%s, %b)".formatted(options, autofill))
+        .thenApply(response -> parseResponse(response, "Authentication"))
+        .thenApply(json -> AuthenticationResponse.fromJson(json))
         .thenApply(this::validateAuthenticationResponse);
   }
 
@@ -151,6 +171,46 @@ public class RelyingParty {
         .executeJsAsync("window.dwcWebAuthn.platformAuthenticatorIsAvailable()")
         .thenApply(String::valueOf)
         .thenApply(Boolean::parseBoolean);
+  }
+
+  /**
+   * Parses the raw response envelope from {@code executeJsAsync}. The TypeScript client always
+   * returns a JSON envelope: {@code {success: true, data: ...}} on success, or
+   * {@code {success: false, error: {code, message, name}}} on failure. If the response is
+   * {@code null} or the literal string {@code "null"} (which happens when
+   * {@code executeJsAsync} cannot propagate a rejection), this is treated as an unknown failure.
+   *
+   * @param response the raw response object from {@code executeJsAsync}
+   * @param ceremony a label for the ceremony type used in fallback messages
+   * @return the JSON string of the {@code data} payload on success
+   * @throws WebAuthnException if the client reported an error or the ceremony was cancelled
+   */
+  private String parseResponse(Object response, String ceremony) {
+    if (response == null || "null".equals(response.toString())) {
+      throw new WebAuthnException(
+          ceremony + " ceremony was cancelled or failed.",
+          WebAuthnErrorCode.AUTHENTICATOR_GENERAL_ERROR,
+          null);
+    }
+
+    String json = response.toString();
+    WebAuthnResponse envelope;
+
+    try {
+      envelope = gson.fromJson(json, WebAuthnResponse.class);
+    } catch (JsonSyntaxException e) {
+      return json;
+    }
+
+    if (!envelope.isSuccess()) {
+      WebAuthnResponse.ErrorPayload error = envelope.getError();
+      throw new WebAuthnException(
+          error.getMessage(),
+          WebAuthnErrorCode.fromString(error.getCode()),
+          error.getName());
+    }
+
+    return envelope.getData() != null ? envelope.getData().toString() : json;
   }
 
   /**
@@ -245,7 +305,7 @@ public class RelyingParty {
    */
   private void validateOrigin(ClientDataJson clientDataJSON, String origin)
       throws IllegalArgumentException {
-    if (clientDataJSON.getOrigin().equals(origin)) {
+    if (!clientDataJSON.getOrigin().equals(origin)) {
       throw new IllegalArgumentException(
           "Unexpected response origin \"%s\", expected \"%s\""
               .formatted(clientDataJSON.getOrigin(), origin));
@@ -269,7 +329,7 @@ public class RelyingParty {
         response.getRawId(),
         response.getType(),
         "webauthn.create",
-        this.relyingPartyIdentity.getId());
+        this.origin);
 
     if (response.getResponse().getAttestationObject() == null) {
       throw new IllegalArgumentException("attestationObject cannot be null");
@@ -296,7 +356,7 @@ public class RelyingParty {
         response.getRawId(),
         response.getType(),
         "webauthn.get",
-        this.relyingPartyIdentity.getId());
+        this.origin);
 
     return response;
   }
