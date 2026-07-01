@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.webforj.addons</groupId>
     <artifactId>webforj-addons-services</artifactId>
-    <version>26.01</version>
+    <version>26.02-SNAPSHOT</version>
   </parent>
 
   <artifactId>webforj-webauthn</artifactId>
