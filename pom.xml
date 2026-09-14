@@ -38,8 +38,7 @@
   </distributionManagement>
 
   <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <webforj.version>26.02</webforj.version>
     <dwc.cdn.version>1.2.6-0</dwc.cdn.version>
@@ -218,6 +217,13 @@
             <phase>validate</phase>
           </execution>
         </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>14.1.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>

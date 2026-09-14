@@ -26,7 +26,7 @@ public enum TokenBindingStatus {
   @SerializedName("supported")
   SUPPORTED,
 
-  /** denotes that token binding is not supported. */
+  /** Denotes that token binding is not supported. */
   @SerializedName("not-supported")
   NOT_SUPPORTED
 }
