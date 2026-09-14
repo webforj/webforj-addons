@@ -5,4 +5,5 @@
 <suppressions>
   <suppress checks="JavadocParagraph" files=".*"/>
   <suppress checks="AbbreviationAsWordInName" files=".*"/>
+  <suppress checks="GoogleMethodName" files="[\\/]ByteArray\.java$"/>
 </suppressions>
