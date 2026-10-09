@@ -25,6 +25,7 @@
     <module>webforj-suggestion-edit</module>
     <module>webforj-multi-select-combo</module>
     <module>webforj-properties-panel</module>
+    <module>webforj-icon-picker</module>
   </modules>
 
   <properties>
@@ -58,11 +59,16 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.16.0</version>
-          <configuration>
-            <compileSourceRoots>
-              <compileSourceRoot>${project.build.directory}/generated-sources/java</compileSourceRoot>
-            </compileSourceRoots>
-          </configuration>
+          <executions>
+            <execution>
+              <id>default-compile</id>
+              <configuration>
+                <compileSourceRoots>
+                  <compileSourceRoot>${project.build.directory}/generated-sources/java</compileSourceRoot>
+                </compileSourceRoots>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
