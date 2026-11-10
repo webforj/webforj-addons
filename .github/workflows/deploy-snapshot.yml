@@ -32,16 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Write maven settings
-        uses: whelk-io/maven-settings-xml-action@v22
-        with:
-          servers: |
-            [{
-              "id": "central",
-              "username": "${{ secrets.CENTRAL_USERNAME }}",
-              "password": "${{ secrets.CENTRAL_TOKEN }}"
-            }]
-
       - name: Extract version and check if snapshot
         id: extract_and_check_version
         run: |
@@ -57,4 +47,7 @@ jobs:
 
       - name: Deploy Snapshot to Central
         if: ${{ steps.extract_and_check_version.outputs.is_snapshot == 'true' }}
-        run: mvn -B -U clean deploy -DskipTests
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
+        run: mvn -B -U --settings .github/maven-settings.xml clean deploy -DskipTests
