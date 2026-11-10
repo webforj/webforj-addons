@@ -24,7 +24,6 @@
     <module>webforj-side-menu</module>
     <module>webforj-suggestion-edit</module>
     <module>webforj-multi-select-combo</module>
-    <module>webforj-properties-panel</module>
     <module>webforj-icon-picker</module>
   </modules>
 
